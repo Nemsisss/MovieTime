@@ -1,0 +1,14 @@
+Meeting Participants: Daniel, Roza, Angela, Nemisiss, Sohee
+
+Initial frontend for log in page, sign up page, movie search page, and a saved list page.
+Create acceptance tests for the basic html.
+Have basic API search feature on the movie search page (don't need to save information yet to backend).
+
+We chose these items for the initial sprint backlog because we believe it is important to get the initial
+HTML working first before worrying about backend. Without a way to interact with some sort of basic
+website, it will be hard in the future to test our backend and connect it with an API. We also
+want to focus on ensuring we can learn and use basic API features from the movieDB API we plan to
+use, as it will help us progress smoothly in the future if we learn it now.
+
+We also want to have basic acceptance testing done for the pages to make sure we follow the TDD approach to coding
+and this will help us make sure our pages work as we create them.
