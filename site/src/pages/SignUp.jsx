@@ -50,7 +50,6 @@ function SignUp() {
 
     // Showing success message
     const successMessage = () => {
-        console.log("wow");
         return (
             <div
                 className="success"
@@ -90,19 +89,19 @@ function SignUp() {
             <form className="formStyle">
                 {/* Labels and inputs for form data */}
 
-                <label className="label">Email</label>
+                <label className="label" for="email">Email</label>
                 <input onChange={handleEmail} className="input"
-                       value={email} type="email" />
+                       value={email} type="email" id="email"/>
 
-                <label className="label">Password</label>
+                <label className="label" for="password">Password</label>
                 <input onChange={handlePassword} className="input"
-                       value={password} type="password" />
+                       value={password} type="password" id="password"/>
 
-                <label className="label">Confirm Password</label>
+                <label className="label" for="passwordCheck">Confirm Password</label>
                 <input onChange={handlePasswordCheck} className="input"
-                       value={passwordCheck} type="password" />
+                       value={passwordCheck} type="password" id="passwordCheck"/>
 
-                <button onClick={handleSubmit} className="btn" type="submit">
+                <button onClick={handleSubmit} className="btn" type="submit" data-testid="submit-button">
                     Submit
                 </button>
             </form>
