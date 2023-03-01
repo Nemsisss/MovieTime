@@ -1,0 +1,16 @@
+.movie-body {
+    text-align: center;
+    font-size: 20px;
+    font-family: "Al Tarikh";
+    background-color: antiquewhite;
+}
+
+.header {
+    font-size: 40px;
+    margin-top: 50px;
+}
+
+.table-movie {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}

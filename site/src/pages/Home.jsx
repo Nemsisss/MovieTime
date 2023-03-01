@@ -14,13 +14,21 @@ function Home() {
   return (
     <div>
       <div>Home Page</div>
-      <button
-        onClick={() => {
-          navigate("/other");
-        }}
-      >
         Click to go to Other page
-      </button>
+        <button
+            onClick={() => {
+                navigate("/other");
+            }}
+        >
+            Click to go to Other page
+        </button>
+        <button
+            onClick={() => {
+                navigate("/movie");
+            }}
+        >
+            Click to go to movie page
+        </button>
       <button
         onClick={() => {
           fetch("/api/ping", {
