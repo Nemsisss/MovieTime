@@ -1,11 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap');
+
 button {
   border-radius: 1rem;
 }
 
 button:hover {
   background-color: lightgray;
+  cursor: pointer;
 }
 
 button:active {
   background-color: darkgray;
+}
+
+.App {
+  text-align: center;
+  background-color:green;
+}
+
+.label{
+  display: block;
+  font-size: larger;
+  color: black;
+  padding: 5px;
+  font-family: 'Comfortaa', cursive;
+}
+
+.input{
+  font-size: larger;
+  padding: 5px;
+  margin: 2px;
+
+}
+.btn{
+  color: white;
+  background-color: dodgerblue;
+  border-radius: 5px;
+  font-size: larger;
+  display: block;
+  padding: 5px;
+  margin: 10px auto;
+}
+
+.messages{
+  display: flex;
+  justify-content: center;
+}
+
+.error{
+  display: block;
+  background-color: red;
+  color: white;
+  width: fit-content;
+  height: 50px;
+  padding: 5px;
+}
+
+.success{
+  display: block;
+  background-color: lightblue;
+  color: black;
+  width: fit-content;
+  height: 50px;
+  padding: 5px;
+}
+
+.formStyle{
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 500px;
+}
+
+.centerAlign{
+  text-align: center;
+  font-family: 'Comfortaa', cursive;
 }
