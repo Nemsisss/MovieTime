@@ -2,6 +2,7 @@ import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Other from "./pages/Other";
+import Login from "./pages/login";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         {/* Root pages, located in /pages/ */}
         <Route path="/" element={<Home />} />
         <Route path="/other" element={<Other />} />
+        <Route path="/login" element={<Login />} />
         {/* 404 page not found redirect */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
