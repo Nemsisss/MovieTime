@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import 'bootstrap/dist/css/bootstrap.css';
 const Navbar = () => {
     const navigate = useNavigate();
     return (
@@ -26,7 +26,7 @@ const Navbar = () => {
                         <a className="nav-link"  onClick={() => {
                             navigate("/home")
                         }}>
-                            Home <span className="sr-only">(current)</span>
+                            Home
                         </a>
                     </li>
                     <li className="nav-item">
@@ -41,6 +41,13 @@ const Navbar = () => {
                             navigate("/movie")
                         }}>
                             Movies
+                        </a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link"  onClick={() => {
+                            navigate("/search")
+                        }}>
+                             Search Movies <span className="sr-only">(current)</span>
                         </a>
                     </li>
                     <li className="nav-item dropdown">
