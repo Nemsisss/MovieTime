@@ -35,11 +35,14 @@ function SignUp() {
     const handleSubmit = (e) => {
         e.preventDefault();
         let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let testPass = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{4,}$/;
         if(!re.test(email)){
             setError(true);
         } else if (passwordCheck === '' || email === '' || password === '') {
             setError(true);
         } else if(password !== passwordCheck){
+            setError(true);
+        } else if (!testPass.test(password)){
             setError(true);
         }
         else {
@@ -62,7 +65,7 @@ function SignUp() {
     };
 
 // Showing error message if error is true
-    const errorMessage = () => {
+    const errorMessageEmpty = () => {
         return (
             <div
                 className="error"
@@ -82,22 +85,22 @@ function SignUp() {
 
             {/* Calling to the methods */}
             <div className="messages">
-                {errorMessage()}
+                {errorMessageEmpty()}
                 {successMessage()}
             </div>
 
             <form className="formStyle">
                 {/* Labels and inputs for form data */}
 
-                <label className="label" for="email">Email</label>
+                <label className="label" htmlFor="email">Email</label>
                 <input onChange={handleEmail} className="input"
                        value={email} type="email" id="email"/>
 
-                <label className="label" for="password">Password</label>
+                <label className="label" htmlFor="password">Password</label>
                 <input onChange={handlePassword} className="input"
                        value={password} type="password" id="password"/>
 
-                <label className="label" for="passwordCheck">Confirm Password</label>
+                <label className="label" htmlFor="passwordCheck">Confirm Password</label>
                 <input onChange={handlePasswordCheck} className="input"
                        value={passwordCheck} type="password" id="passwordCheck"/>
 

@@ -74,6 +74,22 @@ describe('SignUp component', () => {
         expect(errorMessage).toBeInTheDocument();
     });
 
+    it('displays an error message when form is submitted with weak passwords', () => {
+        const { getByText, getByLabelText, getByTestId } = render(<SignUp />);
+        const emailInput = getByLabelText('Email');
+        const passwordInput = getByLabelText('Password');
+        const confirmPasswordInput = getByLabelText('Confirm Password');
+        const submitButton = getByTestId('submit-button');
+
+        fireEvent.change(emailInput, { target: { value: 'email@email.com' } });
+        fireEvent.change(passwordInput, { target: { value: 'password' } });
+        fireEvent.change(confirmPasswordInput, { target: { value: 'password' } });
+        fireEvent.click(submitButton);
+
+        const errorMessage = getByText(/Please enter all the fields/);
+        expect(errorMessage).toBeInTheDocument();
+    });
+
     it('displays a success message when form is submitted with valid data', () => {
         const { getByText, getByLabelText, getByTestId } = render(<SignUp />);
         const emailInput = getByLabelText('Email');
@@ -82,8 +98,8 @@ describe('SignUp component', () => {
         const submitButton = getByTestId('submit-button');
 
         fireEvent.change(emailInput, { target: { value: 'valid-email@example.com' } });
-        fireEvent.change(passwordInput, { target: { value: 'password' } });
-        fireEvent.change(confirmPasswordInput, { target: { value: 'password' } });
+        fireEvent.change(passwordInput, { target: { value: 'password1!D' } });
+        fireEvent.change(confirmPasswordInput, { target: { value: 'password1!D' } });
         fireEvent.click(submitButton);
 
         const successMessage = getByText(/successfully registered/);
