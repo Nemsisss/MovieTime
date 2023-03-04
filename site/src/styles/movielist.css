@@ -1,16 +1,36 @@
-.movie-body {
-    text-align: center;
-    font-size: 20px;
-    font-family: "Al Tarikh";
-    background-color: antiquewhite;
-}
+/*.movie-body {*/
+/*    text-align: center;*/
+/*    font-size: 20px;*/
+/*    font-family: "Al Tarikh";*/
+/*    background-color: antiquewhite;*/
+/*}*/
 
 .header {
     font-size: 40px;
     margin-top: 50px;
+    text-align: center;
 }
 
-.table-movie {
-    margin-top: 50px;
-    margin-bottom: 50px;
+.movie-image:hover{
+    opacity: .5;
 }
+
+.movie-image {
+    height: 100%;
+    width: 100%;
+}
+
+.movie-name {
+    text-align: center;
+    margin-top: 10%;
+    font-size: 30px;
+}
+
+
+
+
+
+/*.table-movie {*/
+/*    margin-top: 50px;*/
+/*    margin-bottom: 50px;*/
+/*}*/
