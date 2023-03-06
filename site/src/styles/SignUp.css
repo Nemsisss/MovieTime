@@ -13,12 +13,7 @@ button:active {
     background-color: darkgray;
 }
 
-.App {
-    text-align: center;
-    background-color:green;
-}
-
-.label{
+.label-signup{
     display: block;
     font-size: 16px;
     color: black;
@@ -26,12 +21,12 @@ button:active {
     font-family: 'Comfortaa', cursive;
 }
 
-.input{
+.input-signup{
     font-size: larger;
     padding: 5px;
     margin: 2px;
 }
-.btn{
+.btn-signup{
     color: white;
     background-color: dodgerblue;
     border-radius: 5px;
@@ -41,30 +36,12 @@ button:active {
     margin: 10px auto;
 }
 
-.messages{
+.messages-signup{
     display: flex;
     justify-content: center;
 }
 
-/*.error{*/
-/*    display: block;*/
-/*    background-color: red;*/
-/*    color: white;*/
-/*    width: fit-content;*/
-/*    height: 50px;*/
-/*    padding: 5px;*/
-/*}*/
-
-.success{
-    display: block;
-    background-color: lightblue;
-    color: black;
-    width: fit-content;
-    height: 50px;
-    padding: 5px;
-}
-
-.formStyle{
+.formStyle-signup{
     margin: auto;
     /*display: flex;*/
     flex-direction: column;
@@ -86,8 +63,7 @@ button:active {
     cursor: pointer;
 }
 
-.app {
-    /*font-family: sans-serif;*/
+.app-signup {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -99,12 +75,7 @@ button:active {
     background-color: #f8f9fd;
 }
 
-.button-container {
-    display: flex;
-    justify-content: center;
-}
-
-.login-form {
+.login-form-signup {
     background-color: white;
     padding: 2rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -120,13 +91,13 @@ button:active {
     font-family: 'Comfortaa', cursive;
 }
 
-.title {
+.title-signup {
     font-size: 22px;
     margin-bottom: 20px;
     font-family: 'Comfortaa', cursive;
 }
 
-.input-container {
+.input-container-signup {
     display: flex;
     flex-direction: column;
     gap: 8px;

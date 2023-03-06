@@ -81,14 +81,6 @@ function SignUp() {
                 setSubmitted(true);
             }
         }
-
-        // } else if (passwordCheck === '') {
-        //     setErrorPassCheck(true);
-        // } else if (email === ''){
-        //     setError(true);
-        // } else if (password === ''){
-        //     setErrorPassEmpt(true)
-        // }
     };
 
     // Showing success message
@@ -178,40 +170,40 @@ function SignUp() {
     };
 
     return (
-        <div className="app">
-            <div className="login-form">
-                <div className="title">User Registration Page</div>
-                <div className="messages">
+        <div className="app-signup">
+            <div className="login-form-signup">
+                <div className="title-signup">User Registration Page</div>
+                <div className="messages-signup">
                     {successMessage()}
                 </div>
                 <div className="form">
-                    <form className="formStyle">
+                    <form className="formStyle-signup">
                         {/* Labels and inputs for form data */}
-                        <div className="input-container">
-                            <label className="label" htmlFor="email">Email</label>
-                            <input onChange={handleEmail} className="input"
+                        <div className="input-container-signup">
+                            <label className="label-signup" htmlFor="email">Email</label>
+                            <input onChange={handleEmail} className="input-signup"
                                    value={email} type="email" id="email"/>
                             {errorMessageEmptyEmail()}
                             {errorMessageInvalidEmail()}
                         </div>
 
-                        <div className="input-container">
-                            <label className="label" htmlFor="password">Password</label>
-                            <input onChange={handlePassword} className="input"
+                        <div className="input-container-signup">
+                            <label className="label-signup" htmlFor="password">Password</label>
+                            <input onChange={handlePassword} className="input-signup"
                                    value={password} type="password" id="password"/>
                             {errorMessagePassVal()}
                             {errorMessagePassEmp()}
                         </div>
 
-                        <div className="input-container">
-                            <label className="label" htmlFor="passwordCheck">Confirm Password</label>
-                            <input onChange={handlePasswordCheck} className="input"
+                        <div className="input-container-signup">
+                            <label className="label-signup" htmlFor="passwordCheck">Confirm Password</label>
+                            <input onChange={handlePasswordCheck} className="input-signup"
                                    value={passwordCheck} type="password" id="passwordCheck"/>
                             {errorMessagePass()}
                             {errorMessagePassValEmp()}
                         </div>
 
-                        <button onClick={handleSubmit} className="btn" type="submit" data-testid="submit-button">
+                        <button onClick={handleSubmit} className="btn-signup" type="submit" data-testid="submit-button">
                                 Submit
                         </button>
                     </form>
