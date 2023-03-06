@@ -34,7 +34,7 @@ function SignUp() {
         setSubmitted(false);
     };
 
-    const switchPage = (e) => {
+    const switchPage = () => {
         console.log("switched")
     }
 
