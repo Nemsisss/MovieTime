@@ -1,8 +1,10 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.css';
-import "../styles/search.css";
-import Navbar from "../components/Navbar";
+// import 'bootstrap/dist/css/bootstrap.css';
+// import "../styles/search.css";
+// import Navbar from "../components/Navbar";
+import httpRequest from "../utils/httpRequest";
+import "regenerator-runtime/runtime";
 
 function Search(){
     const navigate = useNavigate();
@@ -10,33 +12,30 @@ function Search(){
     const [message, setMessage] = useState(null);
     const [query, setQuery] = useState('');
     const [movies, setMovies] = useState([]);
-    const searchMovies=async(e)=>{
-    e.preventDefault();
-    setSearching(true);
-    const apiKey="00f824df761bd517e281a3753a0a70f1";
-    const url= `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}&page=1&include_adult=false`;
-
-// console.log(url);
-    try{
-        const response=await fetch(url);
-        const data = await response.json();
-        console.log(data);
-        setMessage(null);
-        setMovies([]);
-        setMovies(data.results);
-        setSearching(false);
-        setQuery('');
-    }catch(err){
-        setMessage('An unexpected error occurred.');
-        setSearching(false);
-
-    }
-
+    const searchMovies = async(e)=>{
+        e.preventDefault();
+        setSearching(true);
+        const apiKey="00f824df761bd517e281a3753a0a70f1";
+        const url= `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}&page=1&include_adult=false`;
+        try{
+            const response=await httpRequest(url);
+            const data = await response.data;
+    //         const data = await response;
+            console.log(data);
+            setMessage(null);
+            setMovies([]);
+            setMovies(data.results);
+            setSearching(false);
+            setQuery('');
+        }catch(err){
+            setMessage('An unexpected error occurred.');
+            setSearching(false);
+        }
 }
 
 return(
     <div>
-        <Navbar/>
+{/*         <Navbar/> */}
         <div id="page-wrapper" className="container">
          <div id='search'>
                <form onSubmit={searchMovies} >
@@ -44,7 +43,7 @@ return(
                  value={query} onChange={(e) =>setQuery(e.target.value)}/>
                  <button type="submit" >Search </button>
                </form>
-             </div>
+         </div>
           <div id="movie-container" className="row mx-auto">
             { movies.map((item, idx)=>(
               <div key={idx} className="col-6 col-lg-3 text-center">
