@@ -1,6 +1,6 @@
 Feature: testing out the various parts of the signup page
   Scenario: open the page and enter a valid email and password
-    Given I am on the sigup page
+    Given I am on the signup page
     When I enter "test@email.com"
     And I enter "Password1!" in both fields
     And I press the submit button

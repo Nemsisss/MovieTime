@@ -12,11 +12,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import static org.junit.Assert.assertTrue;
 
 public class SignUpStepDef {
-    private static final String ROOT_URL = "http://localhost:8080/";
+    private static final String ROOT_URL = "http://localhost:3000/";
     private final WebDriver driver = new ChromeDriver();
 
-    @Given("I am on the sigup page")
-    public void iAmOnTheSigupPage() {
+    @Given("I am on the signup page")
+    public void iAmOnTheSignupPage() {
         driver.get(ROOT_URL+"signUp");
     }
 
@@ -51,8 +51,8 @@ public class SignUpStepDef {
         driver.findElement(By.id("passwordCheck")).sendKeys(arg0);
     }
 
-    @After
-    public void after() {
-        driver.quit();
-    }
+//    @After
+//    public void after() {
+//        driver.quit();
+//    }
 }
