@@ -6,7 +6,7 @@
 - Sohee Yoon
 
 Picture:
-![Screenshot 2023-03-08 at 11.31.04 AM.png](..%2F..%2F..%2FDesktop%2FScreenshot%202023-03-08%20at%2011.31.04%20AM.png)
+![Scrum Meeting 4 Attenddance.png](Scrum%20Meeting%204%20Attenddance.png)
 
 Angela:
 1. What have you done since the last meeting?
