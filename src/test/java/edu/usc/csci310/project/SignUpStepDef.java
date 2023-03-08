@@ -51,8 +51,8 @@ public class SignUpStepDef {
         driver.findElement(By.id("passwordCheck")).sendKeys(arg0);
     }
 
-//    @After
-//    public void after() {
-//        driver.quit();
-//    }
+    @After
+    public void after() {
+        driver.quit();
+    }
 }
