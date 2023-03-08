@@ -112,25 +112,14 @@ function Home() {
       Click to go to Log-in page
       </button><span>&nbsp;&nbsp;</span>
 
-        <div className="form">
-        Log-in
-        <span>&nbsp;&nbsp;</span>
-            <form onSubmit={handleSubmit}>
-              <div className="input-container">
-                <label>Username </label>
-                <input type="text" name="uname" required />
-                {renderErrorMessage("uname")}
-              </div>
-              <div className="input-container">
-                <label>Password </label>
-                <input type="password" name="pass" required />
-                {renderErrorMessage("pass")}
-              </div>
-              <div className="button-container">
-                <input type="submit" />
-              </div>
-            </form>
-          </div>
+
+      <button
+       onClick={() => {
+       navigate("/auth");
+       }}
+       >
+      Click to go to Log-in page ver. 2
+      </button><span>&nbsp;&nbsp;</span>
 
     </div>
   );
