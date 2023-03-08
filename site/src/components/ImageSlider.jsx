@@ -4,7 +4,9 @@ import '../styles/movielist.css'
 
 const ImageSlider = ({slides}) => {
     const [currentIndex, setIndex] = useState(0);
-    console.log(currentIndex);
+    const hiddenStyle = {
+        display: "None"
+    }
     const sliderStyles = {
         height: "100%",
         position: "relative"
@@ -61,16 +63,22 @@ const ImageSlider = ({slides}) => {
         setIndex(slideIndex);
     }
     return (
-        <div  className = "main-body" style = {sliderStyles}>
-            <div style = {slideStyles} className = "movie-image-body">
-                <img className = "movie-image" src = {slides[currentIndex].image}/>
+        <div className = "main-body" style = {sliderStyles}>
+            <div style = {slideStyles} className = "movie-image-body" data-testid = "movie-image-body">
+                <img className = "movie-image" alt = "image" src = {slides[currentIndex].image}/>
+                <div className = "movie-hover">
+                    <p className = "movie-plot">{slides[currentIndex].plot}</p>
+                </div>
+                <div className = "hidden-element" style = {hiddenStyle}>{currentIndex}</div>
                 <div className = "movie-name">{slides[currentIndex].name}</div>
             </div>
-            <div style = {leftArrowStyles} onClick = {goToPrevious}>&#8592;</div>
-            <div style = {rightArrowStyles} onClick = {goToNext}>&#8594;</div>
+            <div data-testid = "left-button" style = {leftArrowStyles} onClick = {goToPrevious}>&#8592;</div>
+            <div data-testid = "right-button" style = {rightArrowStyles} onClick = {goToNext}>&#8594;</div>
             <div style = {dotContainerStyles}>
                 {slides.map((slides, slideIndex) => (
-                    <div key = {slideIndex} style = {dotStyles} onClick = {() => goToSlide(slideIndex)}>&#8226;</div>
+                    <div className = {slideIndex} data-testid = "dot" key = {slideIndex} style = {dotStyles} onClick = {() => goToSlide(slideIndex)}>&#8226;</div>
+
+
                 ))}
             </div>
         </div>

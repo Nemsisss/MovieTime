@@ -12,11 +12,10 @@ function MovieList()  {
     //
     //     }
     // }
-    const navigate = useNavigate();
     const slides = [
-        {name: "Titanic", image: "../../public/pogo192.png" , plot: "Jack and Rose have a love story", release: "1997"},
-        {name: "Avatar The Way of Water ", image: "../images/titanic.png", plot: "blue people have fun", release: "2022"},
-        {name: "Avatar", image: "../images/titanic.png", plot: "blue people origin story", release: "2009" }
+        {name: "Titanic", image: "https://m.media-amazon.com/images/M/MV5BMDdmZGU3NDQtY2E5My00ZTliLWIzOTUtMTY4ZGI1YjdiNjk3XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_.jpg" , plot: "Jack and Rose have a love story", release: "1997"},
+        {name: "Avatar The Way of Water ", image: "https://lumiere-a.akamaihd.net/v1/images/p_avatar_thewayofwater_97_v2_01ccadaf.png", plot: "blue people have fun", release: "2022"},
+        {name: "Avatar", image: "https://upload.wikimedia.org/wikipedia/en/d/d6/Avatar_%282009_film%29_poster.jpg", plot: "blue people origin story", release: "2009" }
     ];
 
     const containerStyles = {

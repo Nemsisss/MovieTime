@@ -11,10 +11,6 @@
     text-align: center;
 }
 
-.movie-image:hover{
-    opacity: .5;
-}
-
 .movie-image {
     height: 100%;
     width: 100%;
@@ -25,6 +21,23 @@
     margin-top: 10%;
     font-size: 30px;
 }
+
+.movie-hover {
+    width: 100%;
+    height: 100%;
+    font-size: 30px;
+    position: absolute;
+    top: 30px;
+    color: white;
+    display: block;
+    text-align: center;
+}
+
+.movie-image:hover .movie-hover{
+    display: block;
+}
+
+
 
 
 

@@ -13,7 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class CounterStepDefinitions {
+public class MovieListStepDefinitions {
 
     private static final String ROOT_URL = "http://localhost:8080/";
     private WebDriver driver;
@@ -33,25 +33,29 @@ public class CounterStepDefinitions {
         options.addArguments("--disable-extensions");
         driver = new ChromeDriver(options);
     }
-;
-    @Given("I am on endpoint {string}")
-    public void iAmOnEndpoint(String arg0) {
+
+    @Given("I navigate to the endpoint {string}")
+    public void iNavigateToTheEndpoint(String arg0) {
         driver.get(ROOT_URL + arg0);
     }
 
-    @When("I click on the increment counter button")
-    public void iClickOnTheIncrementCounterButton() {
-        driver.findElement(By.id("incrementcounter")).click();
+    @When("I click on the next button")
+    public void iClickOnTheNextButton() {
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div[3]")).click();
     }
 
-    @Then("I should see the text update to {string}")
-    public void iShouldSeeTheTextUpdateTo(String arg0) {
-        assertEquals(driver.findElement(By.id("counter")).getText(), arg0);
+    @Then("I should see movie {string}")
+    public void iShouldSeeMovie(String arg0) {
+        assertEquals(arg0, driver.findElement(By.className("movie-name")).getText());
     }
 
-    @When("I click on the clear counter button")
-    public void iClickOnTheClearCounterButton() {
-        driver.findElement(By.id("clearcounter")).click();
+    @When("I click on the previous button")
+    public void iClickOnThePreviousButton() {
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div[2]")).click();
     }
 
+    @When("I click on the second carosol button")
+    public void iClickOnTheSecondCarosolButton() {
+        driver.findElement(By.className("1")).click();
+    }
 }
