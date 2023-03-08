@@ -7,7 +7,7 @@ import httpRequest from "../utils/httpRequest";
 import "regenerator-runtime/runtime";
 
 function Search(){
-    const navigate = useNavigate();
+//     const navigate = useNavigate();
     const [searching, setSearching] = useState(false);
     const [message, setMessage] = useState(null);
     const [query, setQuery] = useState('');
@@ -39,7 +39,7 @@ return(
         <div id="page-wrapper" className="container">
          <div id='search'>
                <form onSubmit={searchMovies} >
-                 <input id= "searchField" type="text" name="query" placeholder="Search movies by name..."
+                 <input data-testid="searchField" id= "searchField" type="text" name="query" placeholder="Search movies by name..."
                  value={query} onChange={(e) =>setQuery(e.target.value)}/>
                  <button type="submit" >Search </button>
                </form>
