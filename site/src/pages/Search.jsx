@@ -20,8 +20,6 @@ function Search(){
         try{
             const response=await httpRequest(url);
             const data = await response.data;
-    //         const data = await response;
-            console.log(data);
             setMessage(null);
             setMovies([]);
             setMovies(data.results);
@@ -47,7 +45,8 @@ return(
           <div id="movie-container" className="row mx-auto">
             { movies.map((item, idx)=>(
               <div key={idx} className="col-6 col-lg-3 text-center">
-                <img className="thumbnail" src={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : "https://tube.hk/images/titles_cache/x1000x1375_movienophoto_2014_1000x1375.jpg.pagespeed.ic.F2w7OoRQoB.webp"} alt="Movie image" />
+
+               <img className="thumbnail" src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}alt="Movie image" />
                   <ul className="list-unstyled">
                     <li className="font-weight-bold" id="title"> {item.title}</li>
                     <li id="plot">{item.overview}</li>
