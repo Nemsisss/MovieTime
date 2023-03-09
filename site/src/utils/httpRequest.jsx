@@ -1,6 +1,6 @@
 import axios from "axios";
-import React from "react";
-import { act } from "react-dom/test-utils";
+// import React from "react";
+// import { act } from "react-dom/test-utils";
 import "regenerator-runtime/runtime.js";
 
 

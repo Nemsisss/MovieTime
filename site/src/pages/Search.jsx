@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import "../styles/search.css";
 // import Navbar from "../components/Navbar";
 import httpRequest from "../utils/httpRequest";
