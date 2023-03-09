@@ -22,8 +22,8 @@ button:active {
 }
 
 .input-signup{
-    font-size: larger;
-    padding: 5px;
+    /*font-size: larger;*/
+    /*padding: 5px;*/
     margin: 2px;
 }
 .btn-signup{
@@ -93,7 +93,7 @@ button:active {
 
 .title-signup {
     font-size: 22px;
-    margin-bottom: 20px;
+
     font-family: 'Comfortaa', cursive;
 }
 
@@ -104,11 +104,11 @@ button:active {
     margin: 10px;
 }
 
-input[type="text"],
-input[type="password"] {
-    height: 25px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-}
+/*input[type="text"],*/
+/*input[type="password"] {*/
+/*    height: 25px;*/
+/*    border: 1px solid rgba(0, 0, 0, 0.2);*/
+/*}*/
 
 input[type="submit"] {
     margin-top: 10px;

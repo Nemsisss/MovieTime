@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const validateInput = (str = '') => str.includes('@');
 
@@ -6,6 +7,12 @@ function LoginForm( {handelSubmit} ) {
   const [formData, setFormData] = useState({});
 
   const handleOnChange = ({ target: { name, value } }) => setFormData((prev) => ({ ...prev, [name]: value }));
+
+    const navigate = useNavigate();
+    const switchPage = () => {
+        let path = '/signUp';
+        navigate(path);
+    }
 
   return (
       <div className="Auth-form-container">
@@ -15,7 +22,7 @@ function LoginForm( {handelSubmit} ) {
 
             <div className="text-center">
                 Not registered yet?{" "}
-              <span className="link-primary">
+              <span className="link-primary" onClick={switchPage}>
                Sign Up
                 </span>
             </div>

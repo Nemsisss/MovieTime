@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import "../styles/SignUp.css"
+import {useNavigate} from "react-router-dom";
 function SignUp() {
     // States for registration
     const [email, setEmail] = useState('');
@@ -34,14 +35,11 @@ function SignUp() {
         setSubmitted(false);
     };
 
+    const navigate = useNavigate();
     const switchPage = () => {
-        console.log("switched")
+        let path = '/login';
+        navigate(path);
     }
-
-    // const switchPage = (e) => {
-    //     let path = 'newpath';
-    //     navigate(path);
-    // }
 
     // Handling the form submission
     const handleSubmit = (e) => {
