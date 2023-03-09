@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.css';
+
 const Navbar = () => {
     const navigate = useNavigate();
     return (
@@ -23,32 +23,51 @@ const Navbar = () => {
             <div className="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul className="navbar-nav">
                     <li className="nav-item active">
-                        <a className="nav-link"  onClick={() => {
+                        <a data-testid = "home" className="nav-link"  onClick={() => {
                             navigate("/home")
                         }}>
-                            Home
+                            Home <span className="sr-only">(current)</span>
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link"  onClick={() => {
+                        <a data-testid = "other" className="nav-link"  onClick={() => {
                             navigate("/other")
                         }}>
                             Other
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link"  onClick={() => {
+                        <a data-testid = "movie" className="nav-link"  onClick={() => {
                             navigate("/movie")
                         }}>
                             Movies
                         </a>
                     </li>
-                    <li className="nav-item">
-                        <a className="nav-link"  onClick={() => {
-                            navigate("/search")
-                        }}>
-                             Search Movies <span className="sr-only">(current)</span>
+                    <li className="nav-item dropdown">
+                        <a
+                            className="nav-link dropdown-toggle"
+                            href="#"
+                            id="navbarDropdownMenuLink"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                        >
+                            Dropdown link
                         </a>
+                        <div
+                            className="dropdown-menu"
+                            aria-labelledby="navbarDropdownMenuLink"
+                        >
+                            <a className="dropdown-item" href="#">
+                                Action
+                            </a>
+                            <a className="dropdown-item" href="#">
+                                Another action
+                            </a>
+                            <a className="dropdown-item" href="#">
+                                Something else here
+                            </a>
+                        </div>
                     </li>
                 </ul>
             </div>
