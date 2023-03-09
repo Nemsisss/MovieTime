@@ -7,7 +7,7 @@ import "regenerator-runtime/runtime";
 
 function Search(){
 //     const navigate = useNavigate();
-    const [searching, setSearching] = useState(false);
+//     const [searching, setSearching] = useState(false);
     const [message, setMessage] = useState(null);
     const [query, setQuery] = useState('');
     const [movies, setMovies] = useState([]);
