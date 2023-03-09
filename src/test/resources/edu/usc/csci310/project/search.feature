@@ -1,10 +1,11 @@
-Feature: Search
-
-  Scenario: enter a movie search query and click the submit button
-    When user submits a search query
-    Then the server should handle it and return a success status
-
-  Scenario: Data retrieval from a web service
-    When user wants to see the search result
-    Then movie search result is displayed
-
+Feature: testing out the various parts of the Search page
+  Scenario: open the page and enter enter a movie search query and click the submit button
+    Given I am on the search page
+    When I enter "Shrek"
+    And I press the submit button
+    Then I should see "Shrek" in the page
+  Scenario: open the page and enter enter a movie search query and click the submit button
+    Given I am on the search page
+    When I enter "Titanic"
+    And I press the submit button
+    Then I should see "Titanic" in the page

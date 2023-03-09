@@ -19,6 +19,7 @@ function Search(){
         try{
             const response=await httpRequest(url);
             const data = await response.data;
+//             console.log(data);
             setMessage(null);
             setMovies(data.results);
             setSearching(false);

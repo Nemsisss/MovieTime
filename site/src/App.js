@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Other from "./pages/Other";
 import Search from "./pages/Search";
 
+
 function App() {
   return (
     <div>
