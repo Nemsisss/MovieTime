@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 
 export const validateInput = (str = '') => str.includes('@');
 

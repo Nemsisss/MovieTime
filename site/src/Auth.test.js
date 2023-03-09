@@ -1,9 +1,7 @@
 import React from 'react';
 import Login from './Auth';
 import { fireEvent, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event'
 import * as CommonModule from './common';
-import Enzyme, {shallow} from 'enzyme';
 
 jest.mock('./common');
 
