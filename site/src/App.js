@@ -3,7 +3,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Auth from "./Auth"
 import LoginForm from "./LoginForm"
 import "./styles/login.css"
-import { BrowserRouter } from "react-router-dom"
 import SignUp from "./pages/SignUp"
 import MovieList from "./pages/MovieList"
 
