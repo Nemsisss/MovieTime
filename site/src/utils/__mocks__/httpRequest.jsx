@@ -1,7 +1,7 @@
 const httpRequest = jest.fn(()=>{
     return Promise.resolve({
     status:``,
-    data: []
+    data: {}
     })
 });
 export default httpRequest;
