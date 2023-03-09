@@ -13,7 +13,7 @@ function App() {
     <div>
       <Routes>
         {/* Root pages, located in /pages/ */}
-        <Route path="/" element={<Auth />} />
+        <Route path="/" element={<LoginForm />} />
         <Route path="/other" element={<Other />} />
         <Route path="/auth" element={<Auth />} />
         {/* 404 page not found redirect */}

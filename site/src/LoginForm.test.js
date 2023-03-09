@@ -14,6 +14,12 @@ test("validate function to fail incorrect input", () => {
  });
 
 
+test("validate function to fail incorrect input by blank string", () => {
+ const text = "";
+ expect(validateInput(text)).not.toBe(true);
+ });
+
+
 test("log in form should be in the document", () => {
  const component = render(<LoginForm />);
  const inputNode = component.getByText("Email:");
@@ -28,7 +34,6 @@ test("email field should have label", () => {
  });
 
 
-
 test("email input should accept text", () => {
  const {getByLabelText} = render(<LoginForm />);
  const emailInput = getByLabelText("Email:");
@@ -36,11 +41,10 @@ test("email input should accept text", () => {
  fireEvent.change(emailInput, {target: {value: "testing" } });
  expect(emailInput.value).toMatch("testing");
  });
-//
-//
+
 test ("error", () => {
 const {getByLabelText} = render(<LoginForm />);
-const errorMsg = getById("error message");
+const errorMsg = getByText("Email not valid");
  expect(errorMsg).toBeInTheDocument();
  fireEvent.change(emailInput, {target: {value: "testing@"} })
  expect(errorMsg).not.toBeInTheDocument();
