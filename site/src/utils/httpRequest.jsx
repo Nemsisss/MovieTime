@@ -5,8 +5,7 @@ import "regenerator-runtime/runtime.js";
 
 
 const httpRequest = async (url)=>{
-//     const result= await axios.get(url);
-const result=await act( async () => axios.get(url));
+    const result= await axios.get(url);
     return result;
 }
 
