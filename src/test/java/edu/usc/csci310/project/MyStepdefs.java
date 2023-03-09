@@ -1,3 +1,4 @@
+package edu.usc.csci310.project;
 
 import io.cucumber.java.After;
 import io.cucumber.java.en.And;
@@ -38,10 +39,10 @@ public class MyStepdefs {
         assertTrue(driver.getPageSource().contains(arg0));
     }
 
-    @After
-    public void after() {
-        driver.quit();
-    }
+//    @After
+//    public void after() {
+//        driver.quit();
+//    }
 
 
 }
