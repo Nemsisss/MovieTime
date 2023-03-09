@@ -13,7 +13,7 @@ function Search(){
     const [movies, setMovies] = useState([]);
     const searchMovies = async(e)=>{
         e.preventDefault();
-        setSearching(true);
+        // setSearching(true);
         const apiKey="00f824df761bd517e281a3753a0a70f1";
         const url= `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}&page=1&include_adult=false`;
         try{
@@ -22,7 +22,7 @@ function Search(){
 //             console.log(data);
             setMessage(null);
             setMovies(data.results);
-            setSearching(false);
+            // setSearching(false);
             setQuery('');
         }catch(err){
             setMessage('An unexpected error occurred.');
