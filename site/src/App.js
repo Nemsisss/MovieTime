@@ -9,10 +9,11 @@ function App() {
         <div>
             <Routes>
                 {/* Root pages, located in /pages/ */}
-                <Route path="/login" element={<LoginForm />} />
-                <Route path="/signUp" element={<SignUp />} />
+                <Route path="/login" element={<LoginForm/>}/>
+                <Route path="/signUp" element={<SignUp/>}/>
                 {/* 404 page not found redirect */}
-                <Route path="*" element={<Navigate to="/login" replace />} />
+                <Route path="*" element={<Navigate to="/login" replace/>}/>
             </Routes>
         </div>
     );
+}
