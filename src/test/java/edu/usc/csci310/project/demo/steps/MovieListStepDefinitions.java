@@ -54,8 +54,20 @@ public class MovieListStepDefinitions {
         driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div[2]")).click();
     }
 
-    @When("I click on the second carosol button")
-    public void iClickOnTheSecondCarosolButton() {
-        driver.findElement(By.className("1")).click();
+//    @When("I click on the second carosol button")
+//    public void iClickOnTheSecondCarosolButton() {
+//        driver.findElement(By.className("1")).click();
+//    }
+
+    @When("I click on the previous button twice")
+    public void iClickOnThePreviousButtonTwice() {
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div[2]")).click();
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div[2]")).click();
+    }
+
+    @When("I click on the next button twice")
+    public void iClickOnTheNextButtonTwice() {
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div[3]")).click();
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div[3]")).click();
     }
 }
