@@ -1,5 +1,5 @@
-import ImageSlider from "../ImageSlider.jsx"
-import MovieList from "../../pages/MovieList.jsx"
+import ImageSlider from "./components/ImageSlider.jsx"
+import MovieList from "./pages/MovieList.jsx"
 import {render, screen, cleanup, getByLabelText, fireEvent} from '@testing-library/react'
 import userEvent from "@testing-library/user-event";
 
