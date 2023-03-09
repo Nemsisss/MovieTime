@@ -25,7 +25,7 @@ function LoginForm( {handelSubmit} ) {
         <input id="email" name="email" onChange={handleOnChange}/>
              </div>
 
-      {formData.email && !validateInput(formData.email) ? <error>Email not valid</error> : null}
+      {formData.email && !validateInput(formData.email) ? <label htmlFor= "error">Email not valid</label> : null}
 
 <div className="form-group mt-3">
         <label htmlFor="password">Password: </label>
