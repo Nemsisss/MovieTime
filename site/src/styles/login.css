@@ -1,3 +1,6 @@
+.link-primary:hover{
+  cursor: pointer;
+}
 
 .App {
   background-color: white;
