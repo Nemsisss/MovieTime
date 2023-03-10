@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/SignUp.css"
-import {useNavigate} from "react-router-dom";
-function SignUp() {
+
+function SignUp({switchToLogin}) {
     // States for registration
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -33,12 +33,6 @@ function SignUp() {
         setPasswordCheck(e.target.value);
         setSubmitted(false);
     };
-
-    const navigate = useNavigate();
-    const switchPage = () => {
-        let path = '/login';
-        navigate(path);
-    }
 
     // Handling the form submission
     const handleSubmit = (e) => {
@@ -205,7 +199,7 @@ function SignUp() {
                         </button>
                     </form>
                 </div>
-                <div className="centerAlign redirect" onClick={switchPage}>Have an account? Login Here</div>
+                <div className="centerAlign redirect" onClick={switchToLogin}>Have an account? Login Here</div>
             </div>
         </div>
     );
