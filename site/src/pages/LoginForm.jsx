@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 export const validateInput = (str = '') => str.includes('@');
 
-function LoginForm( {handelSubmit} ) {
+function LoginForm( {switchToSignUp}, {handelSubmit} ) {
   const [formData, setFormData] = useState({});
 
   const handleOnChange = ({ target: { name, value } }) => setFormData((prev) => ({ ...prev, [name]: value }));
@@ -15,7 +15,7 @@ function LoginForm( {handelSubmit} ) {
 
             <div className="text-center">
                 Not registered yet?{" "}
-              <span className="link-primary">
+              <span className="link-primary" onClick={switchToSignUp}>
                Sign Up
                 </span>
             </div>
