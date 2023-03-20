@@ -1,0 +1,15 @@
+﻿Members Present:
+Angela, Daniel, Roza, Sohee, Nemsiss
+
+
+* We need to focus on making sure that we put in our tests first, before doing the implementation. We added cucumber tests later, but in the future we need to ensure that we only commit when we have tests for our implementation
+* We have to ensure we follow gitflow practices in our naming conventions, and be more careful when creating PR requests into develop.
+* For list of movies, make sure to have the format for the movies match the format of the movie search page
+* When you click on movies in the movie list page, the details should be displayed
+* Make sure to complete PR requests and do not try to close it before fixing merge related problems. 
+* Make sure that our docker container works in the future on our end.
+* We need to add a new “movie details” page that will display the movie information for a particular movie.
+* We need to start working on the backend and save information regarding users
+* We will focus on having a complete front-end by the end of sprint 2
+* We will have to make sure we do better in following the gherkin practices so we don’t have issues in the future with extra spaces, lines, or comments.
+* Figure out common theme for the front end so it looks good
