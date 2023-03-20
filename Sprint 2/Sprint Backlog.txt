@@ -1,16 +1,16 @@
 ﻿Meeting Participants: Daniel, Roza, Angela, Nemsiss, Sohee
 
-
 See if there is another API that is better than the one we are using to search for movies.
 Create a Movie Detail page that will display information about a movie.
 Finalize on a theme for the pages so the front-end is coherent is appealing.
 Start learning backend and focus on getting the signup, login backend somewhat working and tested.
 Get the front-end all done by the end of the sprint.
 
-
-
-
-We chose these items for the initial sprint backlog because we believe it is important to get the front-end done by the end of this sprint so we can focus on just the backend and getting the API calls all working. Backend might take longer than frontend so we will need time to learn how to do it and make sure it works properly. We also need to create a movie detail page so that we have a way to display information about the movie, but we need to make sure that other pages (search, list) will correctly navigate to this page.
+We chose these items for the initial sprint backlog because we believe it is important to get the front-end done by
+the end of this sprint so we can focus on just the backend and getting the API calls all working. Backend might take
+longer than frontend so we will need time to learn how to do it and make sure it works properly. We also need to create
+a movie detail page so that we have a way to display information about the movie, but we need to make sure that other
+pages (search, list) will correctly navigate to this page.
 
 
 We need to make sure to also have testing for all these features, and make sure that we follow TDD when doing this.
