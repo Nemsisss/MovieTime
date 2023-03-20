@@ -1,0 +1,10 @@
+Best Practice GitFlow Report
+Owner: Team 5
+Grade: 9.5/12
+Comments: 
+
+	Pull request #7 did not follow gitflow branch merge rules [develop <- feature-movielist] (https://github.com/CSCI310/20231-project-team-5/pull/7)
+	Pull request #6 did not follow gitflow branch merge rules [develop <- feature-movielist] (https://github.com/CSCI310/20231-project-team-5/pull/6)
+	Pull request #2 did not follow gitflow branch merge rules [develop <- feature-signup] (https://github.com/CSCI310/20231-project-team-5/pull/2)
+	Pull request #1 did not follow gitflow branch merge rules [develop <- feature-signup] (https://github.com/CSCI310/20231-project-team-5/pull/1)
+	Incorrect Gitflow branch naming: feature-movieList
