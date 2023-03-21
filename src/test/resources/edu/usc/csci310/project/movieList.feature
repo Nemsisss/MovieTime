@@ -19,10 +19,5 @@ Feature: Movie List
     When I click on the previous button twice
     Then I should see movie "Avatar The Way of Water"
 
-#  Scenario: Press the carosol button
-#    Given I navigate to the endpoint "movie"
-#    When I click on the second carosol button
-#    Then I should see movie "Avatar The Way of Water"
-
 
 
