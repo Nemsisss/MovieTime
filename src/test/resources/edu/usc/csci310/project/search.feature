@@ -4,7 +4,7 @@ Feature: testing out the various parts of the Search page
     When I enter "Shrek"
     And I press the submit button
     Then I should see "Shrek" in the page
-  Scenario: open search page and enter enter movie search query and submit
+  Scenario: open search page and enter enter movie search and submit
     Given I am on the search page
     When I enter "Titanic"
     And I press the submit button
