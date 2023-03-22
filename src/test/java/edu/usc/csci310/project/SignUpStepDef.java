@@ -20,6 +20,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.util.List;
+
 public class SignUpStepDef {
 
     private static final String ROOT_URL = "http://localhost:8080/";
@@ -76,5 +78,20 @@ public class SignUpStepDef {
     @And("I enter {string} in the second field")
     public void iEnterInTheSecondField(String arg0) {
         driver.findElement(By.id("passwordCheck")).sendKeys(arg0);
+    }
+
+    @When("I am on the login page")
+    public void iAmOnTheLoginPage() {
+        driver.get(ROOT_URL + "login");
+    }
+
+    @When("I enter {string} in email field")
+    public void iEnterInEmailField(String arg0) {
+        driver.findElement(By.id("email")).sendKeys(arg0);
+    }
+
+    @And("I enter {string} in password field")
+    public void iEnterInPasswordField(String arg0) {
+        driver.findElement(By.id("password")).sendKeys(arg0);
     }
 }
