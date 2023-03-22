@@ -1,5 +1,5 @@
 import {render, screen, fireEvent} from "@testing-library/react"
-import LoginForm, {validateInput} from "./LoginForm"
+import LoginForm, {validateInput} from "./pages/LoginForm"
 
 describe("login", () => {
 test("validate function to pass correct input", () => {
