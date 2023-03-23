@@ -1,5 +1,5 @@
 Feature: testing out the various parts of the Search page
-  Scenario: open the page and enter enter a movie search query and click the submit button
+  Scenario: open page and enter a movie search and then click the submit button
     Given I am on the search page
     When I enter "Shrek"
     And I press the submit button
