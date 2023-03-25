@@ -4,7 +4,7 @@
 - Nemsiss Shahbazian
 - Roza Babayan
 - Sohee Yoon
-2. Include a Zoom Meeting Recording Link
+2. Include a Zoom Meeting Recording Link: https://usc.zoom.us/rec/share/9o8-VjRkfiukhz_gTG6rbPK9C7fP3UkXwcbQ1tIxD8NR-xPvx8FvneaagJzsIJlN.rvnehJiWPp0qDJL5
 
 Angela:
 1. What have you done since the last meeting?
