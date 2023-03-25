@@ -15,9 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import io.cucumber.java.Before;
 import io.cucumber.java.BeforeAll;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.List;
@@ -94,4 +91,10 @@ public class SignUpStepDef {
     public void iEnterInPasswordField(String arg0) {
         driver.findElement(By.id("password")).sendKeys(arg0);
     }
+
+    @And("I click the submit button")
+    public void iClickTheSubmitButton() {
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div/div[3]/form/button")).click();
+    }
+
 }
