@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../styles/SignUp.css"
-import {  Routes, useNavigate } from "react-router-dom"
 
 function LogIn() {
     // states for email & password field
@@ -29,11 +28,9 @@ function LogIn() {
 
     // handle page redirect
    // const navigate = useNavigate()
-    const handleClick = () => {
-      //  return navigate("/signUp")
-    };
-
-
+//     const handleClick = () => {
+//       //  return navigate("/signUp")
+//     };
 
     // handle user submission
     const handleSubmit = (e) => {

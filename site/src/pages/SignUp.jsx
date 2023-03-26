@@ -34,9 +34,9 @@ function SignUp() {
         setSubmitted(false);
     };
 
-    const switchPage = () => {
-        console.log("switched")
-    }
+//     const switchPage = () => {
+//         console.log("switched")
+//     }
 
     // const switchPage = (e) => {
     //     let path = 'newpath';
@@ -208,7 +208,7 @@ function SignUp() {
                         </button>
                     </form>
                 </div>
-                <div className="centerAlign redirect" onClick={switchPage}>Have an account? Login Here</div>
+                <div className="centerAlign redirect" onClick={event =>  window.location.href='/login'}>Have an account? Login Here</div>
             </div>
         </div>
     );
