@@ -4,7 +4,8 @@ Daniel Zeng
 Nemsiss Shahbazian
 Roza Babayan
 Sohee Yoon
-Include a Zoom Meeting Recording Link: 
+
+Include a Zoom Meeting Recording Link: https://usc.zoom.us/rec/share/zUjZWz1m_pMEMDG8VCQCktWuiqeY_fYgQHWgiOuc2ht4Bl-n7_wN46LvZfwNmD1S._sqTl0HG9FZT9_9u
 
 Angela:
 What have you done since the last meeting? I was able to implement some backend. I used h2 with springboot
