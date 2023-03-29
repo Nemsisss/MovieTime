@@ -33,8 +33,7 @@ function SignUp({switchToLogin}) {
         setPasswordCheck(e.target.value);
         setSubmitted(false);
     };
-
-    // Handling the form submission
+        // Handling the form submission
     const handleSubmit = (e) => {
         e.preventDefault();
         setError(false);
