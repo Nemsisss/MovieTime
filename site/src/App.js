@@ -22,7 +22,7 @@ function App() {
     <div>
       <Routes>
         {/* Root pages, located in /pages/ */}
-        <Route path="/login" element={<LoginForm switchToSignUp={switchToSignUp}/>} />
+        <Route path="/login" element={<LogIn switchToSignUp={switchToSignUp}/>} />
         <Route path="/signUp" element={<SignUp switchToLogin={switchToLogin}/>} />
           <Route path="/movie" element={<MovieList />} />
           <Route path="/search" element={<Search />} />

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/SignUp.css"
 
-function LogIn() {
+function LogIn({switchToSignUp}) {
     // states for email & password field
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

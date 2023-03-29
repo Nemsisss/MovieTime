@@ -33,20 +33,7 @@ function SignUp({switchToLogin}) {
         setPasswordCheck(e.target.value);
         setSubmitted(false);
     };
-
-<<<<<<< HEAD
-//     const switchPage = () => {
-//         console.log("switched")
-//     }
-
-    // const switchPage = (e) => {
-    //     let path = 'newpath';
-    //     navigate(path);
-    // }
-
-=======
->>>>>>> 313150ecd37c13f44d283fda1a2e2f08033322b9
-    // Handling the form submission
+        // Handling the form submission
     const handleSubmit = (e) => {
         e.preventDefault();
         setError(false);
@@ -211,11 +198,7 @@ function SignUp({switchToLogin}) {
                         </button>
                     </form>
                 </div>
-<<<<<<< HEAD
-                <div className="centerAlign redirect" onClick={event =>  window.location.href='/login'}>Have an account? Login Here</div>
-=======
                 <div className="centerAlign redirect" onClick={switchToLogin}>Have an account? Login Here</div>
->>>>>>> 313150ecd37c13f44d283fda1a2e2f08033322b9
             </div>
         </div>
     );
