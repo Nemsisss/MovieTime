@@ -174,7 +174,7 @@ function LogIn({switchToSignUp}) {
                     </form>
                 </div>
                 <div className="App">
-                <div className="centerAlign redirect" onClick={event =>  window.location.href='/signUp'}>Not Registered Yet? <br /> Sign Up Here</div>
+                <div className="centerAlign redirect" onClick={switchToSignUp}>Not Registered Yet? <br /> Sign Up Here</div>
                 </div>
 
 
