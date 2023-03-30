@@ -10,12 +10,36 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+import io.cucumber.java.Before;
+import io.cucumber.java.BeforeAll;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 
 public class MyStepdefs {
     private static final String ROOT_URL = "http://localhost:8080/";
-    private final WebDriver driver = new ChromeDriver();
+    private  WebDriver driver ;
+    //    private WebDriver driver ;
+    @BeforeAll
+    public static void beforeAll() {
+        System.out.println("Setting Up Cucumber Driver");
+        WebDriverManager.chromedriver().setup();
+    }
+
+    @Before
+    public void before() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--whitelisted-ips");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-extensions");
+        options.addArguments("--remote-allow-origins=*");
+        driver = new ChromeDriver(options);
+    }
     //I am on the search page
     @Given("I am on the search page")
     public void iAmOnTheSearchPage() {
@@ -23,26 +47,39 @@ public class MyStepdefs {
 
     }
 
-    @When("I enter {string}")
-    public void iEnter(String arg0) {
+    @When("I enter query {string}")
+    public void iEnterQuery(String arg0) {
         driver.findElement(By.id("searchField")).sendKeys(arg0);
         
     }
 
-    @And("I press the submit button")
-    public void iPressTheSubmitButton() {
+    @And("I hit submit")
+    public void iHitSubmit() {
         driver.findElement(By.xpath("//*[@id=\"search\"]/form/button")).click();
 
     }
-    @Then("I should see {string} in the page")
-    public void iShouldSeeInThePage(String arg0) {
+    @Then("I should see {string} in the search page")
+    public void iShouldSeeInTheSearchPage(String arg0) {
         assertTrue(driver.getPageSource().contains(arg0));
     }
 
-//    @After
-//    public void after() {
-//        driver.quit();
-//    }
+    @Given("I am on the details page")
+    public void iAmOnTheDisplayPage() {
+        driver.get(ROOT_URL + "details");
+    }
 
+    @Then("I should see {string} {string} {string} {string} {string} {string} in the details page")
+    public void iShouldSeeInTheDetailsPage(String arg0, String arg1, String arg2, String arg3, String arg4, String arg5) {
+        assertTrue(driver.getPageSource().contains(arg0));
+        assertTrue(driver.getPageSource().contains(arg1));
+        assertTrue(driver.getPageSource().contains(arg2));
+        assertTrue(driver.getPageSource().contains(arg3));
+        assertTrue(driver.getPageSource().contains(arg4));
+        assertTrue(driver.getPageSource().contains(arg5));
+    }
+    @After
+    public void after() {
+        driver.quit();
+    }
 
 }

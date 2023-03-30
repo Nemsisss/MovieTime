@@ -1,26 +1,25 @@
-import React from "react";
+import React, {useState} from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import LoginForm from "./LoginForm"
-import "./styles/login.css"
-import SignUp from "./pages/SignUp"
-import MovieList from "./pages/MovieList"
+
 import Search from "./pages/Search";
+import Details from "./pages/Details";
+
 
 function App() {
+
+  const [moviesList, setMoviesList] = useState(null);
+
   return (
     <div>
       <Routes>
         {/* Root pages, located in /pages/ */}
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/signUp" element={<SignUp />} />
-          <Route path="/movie" element={<MovieList />} />
-          <Route path="/search" element={<Search />} />
+        <Route path="/search" element={<Search onViewDetails={setMoviesList}/>} />
+        <Route path="/details" element={<Details details={moviesList} />} />
         {/* 404 page not found redirect */}
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>
   );
 }
-
 
 export default App;
