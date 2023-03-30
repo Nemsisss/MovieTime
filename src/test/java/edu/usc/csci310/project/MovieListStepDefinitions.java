@@ -1,4 +1,4 @@
-package edu.usc.csci310.project.demo.steps;
+package edu.usc.csci310.project;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
