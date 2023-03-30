@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/ping")
 public class PingPongController {
-
     @PostMapping
     public ResponseEntity<PingPongResponse> playPingPong(@RequestBody PingPongRequest request) {
         PingPongResponse response = new PingPongResponse();

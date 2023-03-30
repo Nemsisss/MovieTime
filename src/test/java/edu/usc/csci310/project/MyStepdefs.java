@@ -1,14 +1,17 @@
 package edu.usc.csci310.project;
 
 import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 
 import io.cucumber.java.Before;
@@ -22,8 +25,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MyStepdefs {
     private static final String ROOT_URL = "http://localhost:8080/";
+
     private  WebDriver driver ;
-    //    private WebDriver driver ;
+
     @BeforeAll
     public static void beforeAll() {
         System.out.println("Setting Up Cucumber Driver");
@@ -40,32 +44,33 @@ public class MyStepdefs {
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
     }
+
     //I am on the search page
-    @Given("I am on the search page")
+    @Given("I am on the search page now")
     public void iAmOnTheSearchPage() {
         driver.get(ROOT_URL + "search");
 
     }
 
-    @When("I enter query {string}")
-    public void iEnterQuery(String arg0) {
+    @When("I enter {string} now")
+    public void iEnter(String arg0) {
         driver.findElement(By.id("searchField")).sendKeys(arg0);
         
     }
 
-    @And("I hit submit")
-    public void iHitSubmit() {
+    @And("I press the submit button now")
+    public void iPressTheSubmitButton() {
         driver.findElement(By.xpath("//*[@id=\"search\"]/form/button")).click();
 
     }
-    @Then("I should see {string} in the search page")
-    public void iShouldSeeInTheSearchPage(String arg0) {
+    @Then("I should see {string} in the page now")
+    public void iShouldSeeInThePage(String arg0) {
         assertTrue(driver.getPageSource().contains(arg0));
     }
 
-    @Given("I am on the details page")
-    public void iAmOnTheDisplayPage() {
-        driver.get(ROOT_URL + "details");
+    @After
+    public void after() {
+        driver.quit();
     }
 
     @Then("I should see {string} {string} {string} {string} {string} {string} in the details page")
