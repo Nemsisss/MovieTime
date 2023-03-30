@@ -1,22 +1,25 @@
 package edu.usc.csci310.project;
 
 import io.cucumber.java.After;
-import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-
-import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import io.cucumber.java.Before;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 
-public class MyStepdefs {
+public class UserListStepDef {
+
     private static final String ROOT_URL = "http://localhost:8080/";
     private WebDriver driver;
 
@@ -39,33 +42,31 @@ public class MyStepdefs {
         driver = new ChromeDriver(options);
     }
 
-    //I am on the search page
-    @Given("I am on the search page now")
-    public void iAmOnTheSearchPage() {
-        driver.get(ROOT_URL + "search");
 
+    @Given("I on the user list page right now")
+    public void iOnTheUserListPage() {
+        driver.get(ROOT_URL+"user");
+    }
+    @When("I click on the add list button")
+    public void iClickOnTheAddListButton() {
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/button")).click();
     }
 
-    @When("I enter {string} now")
-    public void iEnter(String arg0) {
-        driver.findElement(By.id("searchField")).sendKeys(arg0);
-        
+    @And("I press enter into my text field {string}")
+    public void iPressEnterIntoMyTextField(String arg0) {
+        driver.findElement(By.xpath("/html/body/div[3]/div/div/div[2]/form/label/input")).sendKeys(arg0);
+        driver.findElement(By.xpath("/html/body/div[3]/div/div/div[3]/button[2]")).click();
     }
 
-    @And("I press the submit button now")
-    public void iPressTheSubmitButton() {
-        driver.findElement(By.xpath("//*[@id=\"search\"]/form/button")).click();
-
+    @Then("I should see a pop up that says {string}")
+    public void iShouldSeeAPopUpThatSays(String arg0) {
+        Alert alert = driver.switchTo().alert();
+        String alerttext = alert.getText();
+        assertEquals(alerttext, arg0);
+        System.out.println(alerttext);
     }
-    @Then("I should see {string} in the page now")
-    public void iShouldSeeInThePage(String arg0) {
-        assertTrue(driver.getPageSource().contains(arg0));
-    }
-
     @After
     public void after() {
         driver.quit();
     }
-
-
 }
