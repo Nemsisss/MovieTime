@@ -15,6 +15,7 @@ function SignUp({switchToLogin}) {
     const [errorPassVal, setErrorPassVal] = useState(false);
     const [errorPassValEmp, setErrorPassCheck] = useState(false);
     const [errorPassEmp, setErrorPassEmpt] = useState(false);
+    const [emailUse, setEmailUse] = useState(false);
 
     // Handling the email change
     const handleEmail = (e) => {
@@ -33,8 +34,9 @@ function SignUp({switchToLogin}) {
         setPasswordCheck(e.target.value);
         setSubmitted(false);
     };
-        // Handling the form submission
-    const handleSubmit = (e) => {
+
+    // Handling the form submission
+    const handleSubmit = async(e) => {
         e.preventDefault();
         setError(false);
         setErrorPassVal(false);
@@ -68,9 +70,43 @@ function SignUp({switchToLogin}) {
                 setErrorPassVal(true);
             }
             else{
-                setSubmitted(true);
+                const url = '/user/save';
+                const data = {email: email, password: password};
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }).catch((error) => {
+                    console.log(error);
+                });
+                // console.log(response);
+                if (response.status === 409) {
+                    setSubmitted(false);
+                    setEmailUse(true);
+                    // console.log("email bad");
+                    // throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                else{
+                    setSubmitted(true);
+                    // console.log(response.json);
+                    // console.log("yay!");
+                }
             }
         }
+    };
+
+    const emailUseMessage = () => {
+        return (
+            <div
+                className="success"
+                style={{
+                    display: emailUse ? '' : 'none',
+                }}>
+                This email is already in use.
+            </div>
+        );
     };
 
     // Showing success message
@@ -161,10 +197,11 @@ function SignUp({switchToLogin}) {
 
     return (
         <div className="app-signup">
-            <div className="login-form-signup">
+            <div className="login-form-signup" data-testid="sign-up-form">
                 <div className="title-signup">User Registration Page</div>
                 <div className="messages-signup">
                     {successMessage()}
+                    {emailUseMessage()}
                 </div>
                 <div className="form">
                     <form className="formStyle-signup">
@@ -180,7 +217,7 @@ function SignUp({switchToLogin}) {
                         <div className="input-container-signup">
                             <label className="label-signup" htmlFor="password">Password</label>
                             <input onChange={handlePassword} className="input-signup"
-                                   value={password} type="password" id="password"/>
+                                   value={password} type="password" id="password" data-testid="password"/>
                             {errorMessagePassVal()}
                             {errorMessagePassEmp()}
                         </div>
@@ -188,13 +225,13 @@ function SignUp({switchToLogin}) {
                         <div className="input-container-signup">
                             <label className="label-signup" htmlFor="passwordCheck">Confirm Password</label>
                             <input onChange={handlePasswordCheck} className="input-signup"
-                                   value={passwordCheck} type="password" id="passwordCheck"/>
+                                   value={passwordCheck} type="password" id="passwordCheck" data-testid="passwordCheck"/>
                             {errorMessagePass()}
                             {errorMessagePassValEmp()}
                         </div>
 
                         <button onClick={handleSubmit} className="btn-signup" type="submit" data-testid="submit-button">
-                                Submit
+                            Submit
                         </button>
                     </form>
                 </div>
