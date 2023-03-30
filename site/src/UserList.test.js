@@ -7,6 +7,8 @@ describe('User List', () => {
     });
     it ('Click on pop-up', () => {
         render(<UserList/>);
+        const jsdomAlert = window.alert;  // remember the jsdom alert
+        window.alert = () => {};  // provide an empty implementation for window.alert
         const button = screen.getByTestId("add-button");
         fireEvent.click(button);
         const input = screen.getByTestId("input-list");
@@ -16,6 +18,7 @@ describe('User List', () => {
         fireEvent.click(save);
         const close_button = screen.getByTestId("close-button");
         fireEvent.click(close_button);
+        window.alert = jsdomAlert;  // restore the jsdom alert
     });
 });
 
