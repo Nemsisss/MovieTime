@@ -31,7 +31,7 @@ function App() {
         <Route path="/details" element={<Details details={moviesList} />} />
           <Route path="/user" element={<UserList />} />
         {/* 404 page not found redirect */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </div>
   );
