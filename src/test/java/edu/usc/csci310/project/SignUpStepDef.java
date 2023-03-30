@@ -10,25 +10,21 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import io.cucumber.java.Before;
-import io.cucumber.java.BeforeAll;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.util.List;
 
 public class SignUpStepDef {
 
     private static final String ROOT_URL = "http://localhost:8080/";
     private WebDriver driver;
 
-    @BeforeAll
-    public static void beforeAll() {
-        System.out.println("Setting Up Cucumber Driver");
-        WebDriverManager.chromedriver().setup();
-    }
+//    @BeforeAll
+//    public static void beforeAll() {
+//        System.out.println("Setting Up Cucumber Driver");
+//        WebDriverManager.chromedriver().setup();
+//    }
 
     @Before
     public void before() {
@@ -43,6 +39,7 @@ public class SignUpStepDef {
 
     @Given("I am on the signup page")
     public void iAmOnTheSignupPage() {
+        System.out.println("HELLO");
         driver.get(ROOT_URL+"signUp");
     }
 
@@ -95,6 +92,10 @@ public class SignUpStepDef {
     @And("I click the submit button")
     public void iClickTheSubmitButton() {
         driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div/div[3]/form/button")).click();
+    }
+    @After
+    public void after() {
+        driver.quit();
     }
 
 }

@@ -2,8 +2,8 @@ package edu.usc.csci310.project;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -18,14 +18,16 @@ public class MovieListStepDefinitions {
     private static final String ROOT_URL = "http://localhost:8080/";
     private WebDriver driver;
 
-    @BeforeAll
-    public static void beforeAll() {
-        System.out.println("Setting Up Cucumber Driver");
-        WebDriverManager.chromedriver().setup();
-    }
+//    @BeforeAll
+//    public static void beforeAll() {
+//        System.out.println("Setting Up Cucumber Driver");
+//        WebDriverManager.chromedriver().setup();
+//    }
 
     @Before
     public void before() {
+        System.out.println("Setting Up Cucumber Driver");
+        WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--whitelisted-ips");
@@ -70,5 +72,9 @@ public class MovieListStepDefinitions {
     public void iClickOnTheNextButtonTwice() {
         driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div[3]")).click();
         driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div[3]")).click();
+    }
+    @After
+    public void after() {
+        driver.quit();
     }
 }
