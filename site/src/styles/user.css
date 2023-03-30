@@ -1,0 +1,36 @@
+.Title {
+    text-align: center;
+    margin-top: 5%;
+}
+
+.submit-button {
+    margin-left: 10%;
+}
+
+.movie-user-list {
+    width: 80%;
+}
+
+.movie-col {
+    margin-top: 5%;
+}
+
+.user-movie-list {
+}
+
+.movie-button {
+    margin-bottom: 2%;
+    margin-left: 45%;
+    margin-top: 2%;
+}
+.image {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 80%;
+}
+
+.list-button {
+    margin-top: 5%;
+}
