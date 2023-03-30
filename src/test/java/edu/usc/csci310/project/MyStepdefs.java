@@ -13,23 +13,25 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import static org.junit.jupiter.api.Assertions.*;
+import io.cucumber.java.BeforeAll;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 
 public class MyStepdefs {
     private static final String ROOT_URL = "http://localhost:8080/";
-    private WebDriver driver;
 
-//    @BeforeAll
-//    public static void beforeAll() {
-//        System.out.println("Setting Up Cucumber Driver");
-//        WebDriverManager.chromedriver().setup();
-//    }
+    private  WebDriver driver ;
+
+    @BeforeAll
+    public static void beforeAll() {
+        System.out.println("Setting Up Cucumber Driver");
+        WebDriverManager.chromedriver().setup();
+    }
 
     @Before
     public void before() {
-        System.out.println("Setting Up Cucumber Driver");
-        WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--whitelisted-ips");
@@ -62,10 +64,18 @@ public class MyStepdefs {
         assertTrue(driver.getPageSource().contains(arg0));
     }
 
+    @Then("I should see {string} {string} {string} {string} {string} {string} in the details page")
+    public void iShouldSeeInTheDetailsPage(String arg0, String arg1, String arg2, String arg3, String arg4, String arg5) {
+        assertTrue(driver.getPageSource().contains(arg0));
+        assertTrue(driver.getPageSource().contains(arg1));
+        assertTrue(driver.getPageSource().contains(arg2));
+        assertTrue(driver.getPageSource().contains(arg3));
+        assertTrue(driver.getPageSource().contains(arg4));
+        assertTrue(driver.getPageSource().contains(arg5));
+    }
     @After
     public void after() {
         driver.quit();
     }
-
 
 }

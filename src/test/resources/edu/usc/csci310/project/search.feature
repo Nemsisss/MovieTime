@@ -9,3 +9,4 @@ Feature: testing out the various parts of the Search page
     When I enter "Titanic" now
     And I press the submit button now
     Then I should see "Titanic" in the page now
+
