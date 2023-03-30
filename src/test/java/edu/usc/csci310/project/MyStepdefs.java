@@ -13,11 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-
-import io.cucumber.java.Before;
 import io.cucumber.java.BeforeAll;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -66,11 +62,6 @@ public class MyStepdefs {
     @Then("I should see {string} in the page now")
     public void iShouldSeeInThePage(String arg0) {
         assertTrue(driver.getPageSource().contains(arg0));
-    }
-
-    @After
-    public void after() {
-        driver.quit();
     }
 
     @Then("I should see {string} {string} {string} {string} {string} {string} in the details page")
