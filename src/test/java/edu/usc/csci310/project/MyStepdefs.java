@@ -64,6 +64,10 @@ public class MyStepdefs {
         assertTrue(driver.getPageSource().contains(arg0));
     }
 
+    @Given("I am on the details page")
+    public void iAmOnTheDetailsPage() {
+        driver.get(ROOT_URL + "details");
+    }
     @Then("I should see {string} {string} {string} {string} {string} {string} in the details page")
     public void iShouldSeeInTheDetailsPage(String arg0, String arg1, String arg2, String arg3, String arg4, String arg5) {
         assertTrue(driver.getPageSource().contains(arg0));
