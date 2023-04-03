@@ -1,0 +1,14 @@
+Best Practice Coverage Report
+Owner: Team 5
+Grade: 11.0/12
+Comments: 
+	Using commit: https://github.com/CSCI310/20231-project-team-5/commit/3e0827c513efedf3e4f0aecbccd1cfe0681a03ab
+		jacoco statement coverage: 65.2%
+		jacoco branch coverage: 100.0%
+		jest statement coverage: 
+			Normalized: 100.0%
+			Raw: 95.2%
+		jest branch coverage: 
+			Normalized: 100.0%
+			Raw: 97.3%
+	Average coverage: 91.3%
