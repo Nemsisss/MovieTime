@@ -71,7 +71,7 @@ test("correctly fetches a movie result for Shrek and title option selected ", as
  const searchField = getByTestId("searchField");
  const options = getByTestId("options");
  const query = "Shrek";
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
+ 
    axios.get.mockResolvedValue({
     data:
        {
