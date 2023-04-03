@@ -12,7 +12,6 @@ test("correctly fetches a movie result for Shrek", async () => {
  const { getByTestId } = render(<Search />, {wrapper: BrowserRouter});
  const searchField = getByTestId("searchField");
  const query = "Shrek";
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
    axios.get.mockResolvedValue({
     data:
        {
