@@ -27,19 +27,18 @@ function Search({ onViewDetails }) {
    e.preventDefault();
 
 //    setSearching(true);
-   const apiKey = "00f824df761bd517e281a3753a0a70f1";
    let url = "";
    switch (selectedOption) {
      case "actor":
 //        console.log(query);
-       url = `https://api.themoviedb.org/3/search/person?api_key=${apiKey}&query=${query}`;
+       url = `https://api.themoviedb.org/3/search/person?api_key=00f824df761bd517e281a3753a0a70f1&query=${query}`;
        try {
          const response = await httpRequest(url);
          const data = await response.data;
 //          console.log(data.results);
          setMessage(null);
          const personId = data.results[0].id;
-         url = `https://api.themoviedb.org/3/person/${personId}/movie_credits?api_key=${apiKey}`;
+         url = `https://api.themoviedb.org/3/person/${personId}/movie_credits?api_key=00f824df761bd517e281a3753a0a70f1`;
          const movieResponse = await httpRequest(url);
          const movieData = await movieResponse.data;
          setMessage(null);
@@ -53,7 +52,7 @@ function Search({ onViewDetails }) {
        break;
      case "title":
 //        console.log(query);
-       url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}&page=1&include_adult=false`;
+       url = `https://api.themoviedb.org/3/search/movie?api_key=00f824df761bd517e281a3753a0a70f1&language=en-US&query=${query}&page=1&include_adult=false`;
        try {
          const response = await httpRequest(url);
          const data = await response.data;
@@ -67,7 +66,7 @@ function Search({ onViewDetails }) {
        break;
      default:
 //              console.log(query);
-             url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${query}`;
+             url = `https://api.themoviedb.org/3/discover/movie?api_key=00f824df761bd517e281a3753a0a70f1&with_genres=${query}`;
              try {
                const response = await httpRequest(url);
                const data = await response.data;
