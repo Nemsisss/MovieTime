@@ -175,7 +175,6 @@ test("correctly fetches movies for an actor", async () => {
  const searchField = getByTestId("searchField");
  const options=getByTestId("options");
  const query = "Tom Hanks";
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
  axios.get.mockResolvedValueOnce({
      data: {
        page: 1,
