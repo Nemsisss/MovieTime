@@ -135,7 +135,6 @@ test("correctly fetches a movie result for Shrek with release date filter", asyn
  const query = "Shrek";
  const startYear = getByTestId("startYear");
  const endYear = getByTestId("endYear");
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
    axios.get.mockResolvedValue({
     data:
        {
