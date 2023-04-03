@@ -1,0 +1,88 @@
+Best Practice IssuesPullRequests Report
+Owner: Team 5
+Grade: 12.0/12
+Comments: 
+	Using commit: https://github.com/CSCI310/20231-project-team-5/commit/3e0827c513efedf3e4f0aecbccd1cfe0681a03ab
+		Reviewing issue 22
+			Found refactor/22: +1
+			Found matching PR #29: +1
+			PR created by issue assignee: +1
+			Changes matched: +1
+			Branch merged on time: +1
+			Branch merged by other teammate: +1
+			Issue closed properly: +1
+			Issue score: 7/7
+		Reviewing issue 21
+			Found refactor/21: +1
+			Found matching PR #32: +1
+			PR created by issue assignee: +1
+			Changes matched: +1
+			Branch merged on time: +1
+			Branch merged by other teammate: +1
+			Issue closed properly: +1
+			Issue score: 7/7
+		Reviewing issue 20
+			Found refactor/20: +1
+			Found matching PR #27: +1
+			PR created by issue assignee: +1
+			Changes matched: +1
+			Branch merged on time: +1
+			Branch merged by other teammate: +1
+			Issue closed properly: +1
+			Issue score: 7/7
+		Reviewing issue 19
+			Found refactor/19: +1
+			Found matching PR #25: +1
+			PR created by issue assignee: +1
+			Changes matched: +1
+			Branch merged on time: +1
+			Branch merged by other teammate: +1
+			Issue closed properly: +1
+			Issue score: 7/7
+		Reviewing issue 18
+			Found refactor/18: +1
+			Found matching PR #28: +1
+			PR created by issue assignee: +1
+			Changes matched: +1
+			Branch merged on time: +1
+			Branch merged by other teammate: +1
+			Issue closed properly: +1
+			Issue score: 7/7
+		Reviewing issue 17
+			Found refactor/17: +1
+			Found matching PR #30: +1
+			PR created by issue assignee: +1
+			Changes matched: +1
+			Branch merged on time: +1
+			Branch merged by other teammate: +1
+			Issue closed properly: +1
+			Issue score: 7/7
+		Reviewing issue 16
+			Found refactor/16: +1
+			Found matching PR #31: +1
+			PR created by issue assignee: +1
+			Changes matched: +1
+			Branch merged on time: +1
+			Branch merged by other teammate: +1
+			Issue closed properly: +1
+			Issue score: 7/7
+		Reviewing issue 15
+			Found refactor/15: +1
+			Found matching PR #26: +1
+			PR created by issue assignee: +1
+			Changes matched: +1
+			Branch merged on time: +1
+			Branch merged by other teammate: +1
+			Issue closed properly: +1
+			Issue score: 7/7
+		Reviewing issue 14
+			Found refactor/14: +1
+			Found matching PR #24: +1
+			PR created by issue assignee: +1
+			Changes matched: +1
+			Branch merged on time: +1
+			Branch merged by other teammate: +1
+			Issue closed properly: +1
+			Issue score: 7/7
+		Total issue score count: 63/63
+		Points earned: 12.0
