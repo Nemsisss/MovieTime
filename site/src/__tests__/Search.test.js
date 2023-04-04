@@ -109,7 +109,6 @@ test("fails to fetch a movie result for shrek with title option", async () => {
  const searchField = getByTestId("searchField");
  const query = "Shrek";
  const options = getByTestId("options");
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
    axios.get.mockRejectedValueOnce({
     data:
        {
@@ -133,7 +132,6 @@ test("correctly fetches a movie result for Shrek with release date filter", asyn
  const query = "Shrek";
  const startYear = getByTestId("startYear");
  const endYear = getByTestId("endYear");
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
    axios.get.mockResolvedValue({
     data:
        {
