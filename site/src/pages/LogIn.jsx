@@ -8,7 +8,7 @@ function LogIn(props) {
     const [password, setPassword] = useState('');
 
     // states for submit & input errors
-    const [submitted, setSubmitted] = useState(false);
+    //const [submitted, setSubmitted] = useState(false);
     const [errorEmailEmpty, setErrorEmailEmpty] = useState(false);
     const [errorPassEmpty, setErrorPassEmpty] = useState(false);
 
@@ -19,13 +19,13 @@ function LogIn(props) {
     // handle email input change
     const handleEmail = (e) => {
         setEmail(e.target.value);
-        setSubmitted(false);
+        //setSubmitted(false);
     };
 
     // handle password input change
     const handlePassword = (e) => {
         setPassword(e.target.value);
-        setSubmitted(false);
+        //setSubmitted(false);
     };
 
     // handle page redirect
