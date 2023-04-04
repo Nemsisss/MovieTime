@@ -3,8 +3,13 @@ import { useNavigate } from "react-router-dom";
 import "../styles/search.css";
 import httpRequest from "../utils/httpRequest";
 import "regenerator-runtime/runtime";
+import { useLocation } from 'react-router-dom';
 
 function Search({ onViewDetails }) {
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const userId = searchParams.get('userId'); //access unique userId
+    console.log(userId);
 //  const [searching, setSearching] = useState(false);
  const [message, setMessage] = useState(null);
  const [query, setQuery] = useState("");
