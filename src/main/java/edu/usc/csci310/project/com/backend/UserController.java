@@ -14,26 +14,26 @@ public class UserController
     @Autowired
     UserService userService;
 
-    /*@GetMapping("/check")
-    private ResponseEntity<UserEntity> checkUserExist(@RequestBody UserEntity user)
+    @GetMapping("/check")
+    public ResponseEntity<Integer> checkUserExist(@RequestParam("email") String email,
+                                                   @RequestParam("password") String password)
     {
-        UserEntity existingUser = userService.attemptLogin(user);
+        UserEntity existingUser = userService.attemptLogin(email, password);
 
         if (existingUser == null) { //did not find someone with that email
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);  //looking at response.status === 417
         }
-        userService.saveOrUpdate(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }*/
+        return new ResponseEntity<>(existingUser.getId(), HttpStatus.CREATED);
+    }
 
     @PostMapping("/save")
-    public ResponseEntity<UserEntity> saveUser(@RequestBody UserEntity user) {
+    public ResponseEntity<Integer> saveUser(@RequestBody UserEntity user) {
         UserEntity existingUser = userService.getByEmail(user.getEmail());
 
         if (existingUser != null) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>(existingUser.getId(), HttpStatus.CONFLICT);
         }
         userService.saveOrUpdate(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        return new ResponseEntity<>(user.getId(), HttpStatus.CREATED);
     }
 }

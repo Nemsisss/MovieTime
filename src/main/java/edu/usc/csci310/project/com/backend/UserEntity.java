@@ -1,9 +1,7 @@
 package edu.usc.csci310.project.com.backend;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 //mark class as an Entity
 //defining class name as Table name
 @Entity
@@ -12,7 +10,7 @@ public class UserEntity
 {
     //mark id as primary key
     @Id
-//defining id as column name
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
     //defining name as column name

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "../styles/SignUp.css"
 
-function SignUp({switchToLogin}) {
+function SignUp(props) {
+    const { switchToLogin, switchToSearch } = props;
     // States for registration
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -81,17 +82,17 @@ function SignUp({switchToLogin}) {
                 }).catch((error) => {
                     console.log(error);
                 });
-                // console.log(response);
-                if (response.status === 409) {
+                console.log(response);
+                const userId = await response.json();
+                console.log(userId);
+                if (response.status !== 201) {
                     setSubmitted(false);
                     setEmailUse(true);
-                    // console.log("email bad");
-                    // throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 else{
                     setSubmitted(true);
-                    // console.log(response.json);
-                    // console.log("yay!");
+                    setEmailUse(false);
+                    switchToSearch(userId);
                 }
             }
         }
@@ -235,7 +236,7 @@ function SignUp({switchToLogin}) {
                         </button>
                     </form>
                 </div>
-                <div className="centerAlign redirect" onClick={switchToLogin}>Have an account? Login Here</div>
+                <div className="centerAlign redirect" data-testid="toLogin" onClick={switchToLogin}>Have an account? Login Here</div>
             </div>
         </div>
     );

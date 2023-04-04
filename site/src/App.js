@@ -19,13 +19,16 @@ function App() {
         let path = '/login';
         navigate(path);
     }
+    const switchToSearch = (userId) => {
+        navigate(`/search?userId=${userId}`);
+    }
 
   return (
     <div>
       <Routes>
         {/* Root pages, located in /pages/ */}
-        <Route path="/login" element={<LoginForm switchToSignUp={switchToSignUp}/>} />
-        <Route path="/signUp" element={<SignUp switchToLogin={switchToLogin}/>} />
+        <Route path="/login" element={<LoginForm switchToSignUp={switchToSignUp} switchToSearch={switchToSearch}/>} />
+        <Route path="/signUp" element={<SignUp switchToLogin={switchToLogin} switchToSearch={switchToSearch}/>} />
           <Route path="/movie" element={<MovieList />} />
           <Route path="/search" element={<Search onViewDetails={setMoviesList}/>} />
         <Route path="/details" element={<Details details={moviesList} />} />
