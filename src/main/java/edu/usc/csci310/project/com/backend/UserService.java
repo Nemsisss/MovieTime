@@ -1,7 +1,5 @@
 package edu.usc.csci310.project.com.backend;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +13,9 @@ public class UserService
         return userRepository.save(s);
     }
 
-//    public UserEntity attemptLogin(UserEntity user){
-//        return userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
-//    }
+    public UserEntity attemptLogin(String email, String password){
+        return userRepository.findByEmailAndPassword(email, password);
+    }
 
     public UserEntity getByEmail(String email){
         return userRepository.findByEmail(email);

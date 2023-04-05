@@ -23,7 +23,7 @@ public class UserControllerTest {
         user.setEmail("test@gmail.com");
         user.setPassword("Password1!");
 
-        ResponseEntity<UserEntity> returnedResponse = uc.saveUser(user);
+        ResponseEntity<Integer> returnedResponse = uc.saveUser(user);
 
         assertNotNull(returnedResponse.getBody());
         assertEquals(HttpStatus.CREATED, returnedResponse.getStatusCode());
@@ -39,9 +39,37 @@ public class UserControllerTest {
         user.setEmail("test@gmail.com");
         user.setPassword("Password1!");
 
-        ResponseEntity<UserEntity> returnedResponse = uc.saveUser(user);
+        ResponseEntity<Integer> returnedResponse = uc.saveUser(user);
 
         assertEquals(HttpStatus.CONFLICT, returnedResponse.getStatusCode());
+    }
+
+    @Test
+    public void checkUser_withExistingUser_shouldReturnGood() {
+        UserService service = mock(UserService.class);
+        ReflectionTestUtils.setField(uc, "userService", service);
+        UserEntity entity = new UserEntity();
+        entity.setEmail("test@gmail.com");
+        entity.setPassword("Password1!");
+        when(service.attemptLogin("test@gmail.com", "Password1!")).thenReturn(entity);
+
+        ResponseEntity<Integer> returnedResponse = uc.checkUserExist(entity.getEmail(), entity.getPassword());
+
+        assertEquals(HttpStatus.CREATED, returnedResponse.getStatusCode());
+    }
+
+    @Test
+    public void checkUser_withNoExistingUser_shouldReturnBad() {
+        UserService service = mock(UserService.class);
+        ReflectionTestUtils.setField(uc, "userService", service);
+        UserEntity entity = new UserEntity();
+        entity.setEmail("test@gmail.com");
+        entity.setPassword("Password1!");
+        when(service.attemptLogin("test@gmail.com", "Password1!")).thenReturn(null);
+
+        ResponseEntity<Integer> returnedResponse = uc.checkUserExist(entity.getEmail(), entity.getPassword());
+
+        assertEquals(HttpStatus.EXPECTATION_FAILED, returnedResponse.getStatusCode());
     }
 
 }

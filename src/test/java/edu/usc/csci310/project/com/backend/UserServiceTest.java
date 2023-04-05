@@ -30,4 +30,17 @@ class UserServiceTest {
         UserEntity te = us.getByEmail("test@email.com");
         assertEquals(te, user);
     }
+
+    @Test
+    void attemptLogin() {
+        UserRepository rp = mock(UserRepository.class);
+        UserEntity user = new UserEntity();
+        user.setEmail("test@email.com");
+        user.setPassword("Password1!");
+        ReflectionTestUtils.setField(us, "userRepository", rp);
+        when(rp.findByEmailAndPassword("test@gmail.com", "Password1!")).thenReturn(user);
+        UserEntity te = us.attemptLogin("test@gmail.com", "Password1!");
+        assertEquals(te.getEmail(), user.getEmail());
+        assertEquals(te.getPassword(), user.getPassword());
+    }
 }

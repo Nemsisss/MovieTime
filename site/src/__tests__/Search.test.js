@@ -12,7 +12,6 @@ test("correctly fetches a movie result for Shrek", async () => {
  const { getByTestId } = render(<Search />, {wrapper: BrowserRouter});
  const searchField = getByTestId("searchField");
  const query = "Shrek";
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
    axios.get.mockResolvedValue({
     data:
        {
@@ -50,7 +49,6 @@ test("fails to fetch a movie result for shrek", async () => {
  const { getByTestId } = render(<Search />, {wrapper: BrowserRouter});
  const searchField = getByTestId("searchField");
  const query = "Shrek";
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
    axios.get.mockRejectedValueOnce({
     data:
        {
@@ -72,7 +70,7 @@ test("correctly fetches a movie result for Shrek and title option selected ", as
  const searchField = getByTestId("searchField");
  const options = getByTestId("options");
  const query = "Shrek";
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
+ 
    axios.get.mockResolvedValue({
     data:
        {
@@ -111,7 +109,6 @@ test("fails to fetch a movie result for shrek with title option", async () => {
  const searchField = getByTestId("searchField");
  const query = "Shrek";
  const options = getByTestId("options");
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
    axios.get.mockRejectedValueOnce({
     data:
        {
@@ -135,7 +132,6 @@ test("correctly fetches a movie result for Shrek with release date filter", asyn
  const query = "Shrek";
  const startYear = getByTestId("startYear");
  const endYear = getByTestId("endYear");
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
    axios.get.mockResolvedValue({
     data:
        {
@@ -177,7 +173,6 @@ test("correctly fetches movies for an actor", async () => {
  const searchField = getByTestId("searchField");
  const options=getByTestId("options");
  const query = "Tom Hanks";
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
  axios.get.mockResolvedValueOnce({
      data: {
        page: 1,
@@ -284,7 +279,6 @@ test("fails to fetch a movie result for Tom Hanks with actor option", async () =
  const searchField = getByTestId("searchField");
  const query = "Tom Hanks";
  const options = getByTestId("options");
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
    axios.get.mockRejectedValueOnce({
     data:
        {
@@ -308,7 +302,7 @@ const onViewDetails = jest.fn();
  const { getByTestId } = render(<Search onViewDetails={onViewDetails}/>, {wrapper: BrowserRouter});
    const searchField = getByTestId("searchField");
    const query = "Shrek";
-   const apiKey = "00f824df761bd517e281a3753a0a70f1";
+ 
      axios.get.mockResolvedValue({
       data:
          {
