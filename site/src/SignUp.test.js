@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import {render, fireEvent, getAllByText, act, screen} from '@testing-library/react';
+import {render, fireEvent, getAllByText, act} from '@testing-library/react';
 import SignUp from './pages/SignUp';
-
-// const axios= require("axios");
-// import fetch from 'jest-mock-fetch';
-// jest.mock('fetch');
+import './App.js';
 
 
 describe('SignUp component', () => {
@@ -44,8 +41,8 @@ describe('SignUp component', () => {
     it('displays an error message when form is submitted with no data', () => {
         const { getAllByText, getByLabelText, getByTestId } = render(<SignUp />);
         const emailInput = getByLabelText('Email');
-        const passwordInput = getByLabelText('Password');
-        const confirmPasswordInput = getByLabelText('Confirm Password');
+        // const passwordInput = getByLabelText('Password');
+        // const confirmPasswordInput = getByLabelText('Confirm Password');
         const submitButton = getByTestId('submit-button');
 
         fireEvent.change(emailInput, { target: { value: 'email@email.com' } });
@@ -105,7 +102,7 @@ describe('SignUp component', () => {
 
     it('displays an error message when form is submitted without email', () => {
         const { getAllByText, getByLabelText, getByTestId } = render(<SignUp />);
-        const emailInput = getByLabelText('Email');
+        //const emailInput = getByLabelText('Email');
         const passwordInput = getByLabelText('Password');
         const confirmPasswordInput = getByLabelText('Confirm Password');
         const submitButton = getByTestId('submit-button');
@@ -189,5 +186,37 @@ describe('SignUp component', () => {
             fireEvent.click(submitButton);
         });
         expect(getByText('This email is already in use.')).toBeInTheDocument();
+    });
+
+    it('should work for valid email and password', async () => {
+        const switchToLogin = jest.fn();
+        const switchToSearch = jest.fn();
+        const props = { switchToLogin, switchToSearch };
+
+        const { getByLabelText, getByTestId } = render(<SignUp {...props}/>);
+        const emailInput = getByLabelText(/email/i);
+        const passwordInput = getByLabelText('Password');
+        const passwordCheckInput = getByLabelText('Confirm Password');
+        const submitButton = getByTestId('submit-button');
+
+        fireEvent.change(emailInput, { target: { value: 'test@test.com' } });
+        fireEvent.change(passwordInput, { target: { value: 'Password123!' } });
+        fireEvent.change(passwordCheckInput, { target: { value: 'Password123!' } });
+
+        // Mocking the fetch function
+        global.fetch = jest.fn().mockImplementation(() =>
+            Promise.resolve({
+                status: 201,
+                json: () => Promise.resolve({ userId: 123 }),
+            })
+        );
+
+        await act(async () => {
+            fireEvent.click(submitButton);
+        });
+
+        // Assertions
+        expect(fetch).toHaveBeenCalledTimes(1);
+        expect(switchToSearch).toHaveBeenCalled();
     });
 });
