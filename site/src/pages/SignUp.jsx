@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import "../styles/SignUp.css"
+import "../styles/SignUp.css";
 
 function SignUp(props) {
+
     const { switchToLogin, switchToSearch } = props;
     // States for registration
     const [email, setEmail] = useState('');
@@ -81,15 +82,14 @@ function SignUp(props) {
                     body: JSON.stringify(data)
                 }).catch((error) => {
                     console.log(error);
+
                 });
-                console.log(response);
-                const userId = await response.json();
-                console.log(userId);
                 if (response.status !== 201) {
                     setSubmitted(false);
                     setEmailUse(true);
                 }
                 else{
+                    const userId = await response.json();
                     setSubmitted(true);
                     setEmailUse(false);
                     switchToSearch(userId);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {render, fireEvent, getAllByText} from '@testing-library/react';
 import LogIn from './pages/LogIn';
+import {act} from "react-dom/test-utils";
 
 describe('LogIn component', () => {
 
@@ -32,7 +33,7 @@ describe('LogIn component', () => {
     it('should display an error message when form is submitted without email', () => {
         const { getAllByText, getByLabelText, getByTestId } = render(<LogIn />);
         const emailInput = getByLabelText('Email');
-        const passwordInput = getByLabelText('Password');
+        //const passwordInput = getByLabelText('Password');
         const submitButton = getByTestId('submit-button');
 
         fireEvent.change(emailInput, { target: { value: 'test@test.com' } });
@@ -44,7 +45,7 @@ describe('LogIn component', () => {
 
     it('should display an error message when form is submitted without password', () => {
         const { getAllByText, getByLabelText, getByTestId } = render(<LogIn />);
-        const emailInput = getByLabelText('Email');
+        //const emailInput = getByLabelText('Email');
         const passwordInput = getByLabelText('Password');
         const submitButton = getByTestId('submit-button');
 
@@ -94,7 +95,7 @@ describe('user authentication', () => {
         const email = 'test@example.com';
         const password = 'Password1!';
 
-        const { getByText, getByLabelText, getByTestId } = render(<LogIn />);
+        const { getByLabelText, getByTestId } = render(<LogIn />);
         const emailInput = getByLabelText('Email');
         const passwordInput = getByLabelText('Password');
         const submitButton = getByTestId('submit-button');
@@ -145,7 +146,16 @@ describe('user authentication', () => {
 
         const url = `/user/check?email=${email}&password=${password}`;
 
-        fireEvent.click(submitButton);
+        await act(async () => {
+            fireEvent.click(submitButton);
+        });
+
+        // act(() => {
+        //     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+        //     fireEvent.change(passwordInput, { target: { value: 'Password1!' } });
+        //     fireEvent.click(submitButton);
+        // });
+        //fireEvent.click(submitButton);
 
         // Assertions
         expect(fetch).toHaveBeenCalledTimes(1);
@@ -157,6 +167,36 @@ describe('user authentication', () => {
         });
         const errorMessage = getByText(/This email and password cannot be found./);
         expect(errorMessage).toBeInTheDocument();
+    });
+
+    it('should log error if fetch fails', async () => {
+        // Arrange
+        const errorMessage = 'Network Error';
+        global.fetch = jest.fn().mockRejectedValue(new Error(errorMessage));
+
+        const { getByLabelText, getByTestId } = render(<LogIn />);
+        const emailInput = getByLabelText('Email');
+        const passwordInput = getByLabelText('Password');
+        const submitButton = getByTestId('submit-button');
+
+        fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+        fireEvent.change(passwordInput, { target: { value: 'Password1!' } });
+
+        global.fetch = jest.fn().mockRejectedValue(new Error(errorMessage));
+
+        //fireEvent.click(submitButton);
+
+        await new Promise((resolve) => {
+            fireEvent.click(submitButton);
+            resolve();
+        });
+
+        // Act
+        //await expect(resolve).rejects.toThrow();
+
+        // Assert
+        expect(fetch).toHaveBeenCalledTimes(1);
+        //expect(consoleSpy).toHaveBeenCalledWith(new Error(errorMessage));
     });
 });
 

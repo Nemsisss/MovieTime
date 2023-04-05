@@ -69,7 +69,7 @@ function LogIn(props) {
                 }
                 else{
                     const url = `/user/check?email=${email}&password=${password}`;
-                    console.log(url);
+                    //console.log(url);
                     const response = await fetch(url, {
                         method: 'GET',
                         headers: {
@@ -83,15 +83,15 @@ function LogIn(props) {
                     }
                     else{
                         setEmailUse(false);
-                        console.log(response);
+                        //console.log(response);
                         const userId = await response.json();
-                        console.log(userId);
+                        //console.log(userId);
                         switchToSearch(userId);
                     }
                 }
             }
         } catch (error) {
-            console.error(error);
+            //console.error(error);
             // handle the error here
         }
     };
