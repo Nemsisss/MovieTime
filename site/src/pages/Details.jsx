@@ -9,8 +9,8 @@ function Details(props){
   const [crew, setCrew]= useState([]);
   const [message, setMessage] = useState(null);
   useEffect(()=> {
-              const apiKey="00f824df761bd517e281a3753a0a70f1";
-              const url=`https://api.themoviedb.org/3/movie/${props.details}?api_key=${apiKey}&append_to_response=credits`;
+//               const apiKey="00f824df761bd517e281a3753a0a70f1";
+              const url=`https://api.themoviedb.org/3/movie/${props.details}?api_key=00f824df761bd517e281a3753a0a70f1&append_to_response=credits`;
                 axios
                     .get(url)
                     .then((res) => {

@@ -13,7 +13,6 @@ test("correctly fetches a movie result for Shrek", async () => {
  const { getByTestId } = render(<Search />, {wrapper: BrowserRouter});
  const searchField = getByTestId("searchField");
  const query = "Shrek";
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
    axios.get.mockResolvedValue({
     data:
        {
@@ -51,7 +50,6 @@ test("fails to fetch a movie result for shrek", async () => {
  const { getByTestId } = render(<Search />, {wrapper: BrowserRouter});
  const searchField = getByTestId("searchField");
  const query = "Shrek";
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
    axios.get.mockRejectedValueOnce({
     data:
        {
@@ -69,12 +67,10 @@ test("fails to fetch a movie result for shrek", async () => {
 });
 
 test("correctly fetches a movie result for Shrek and title option selected ", async () => {
-///////SETMOVIES(......)
  const { getByTestId, findAllByTestId } = render(<Search />, {wrapper: BrowserRouter});
  const searchField = getByTestId("searchField");
  const options = getByTestId("options");
  const query = "Shrek";
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
 axios.get.mockResolvedValue({
       data:
          {
@@ -107,54 +103,12 @@ axios.get.mockResolvedValue({
  fireEvent.change(searchField, { target: { value: "Shrek" } });
  fireEvent.submit(searchField);
 expect(await screen.findByText('Shrek')).toBeInTheDocument();
-
-//// Wait for the movie elements to be rendered
-//  const movieElements = await findAllByTestId("movie-element");
-//
-//  // Extract the movie data from the elements
-//  const movies = movieElements.map((element) => {
-//    const title = element.querySelector("#title").textContent;
-//    const poster = element.querySelector("img").getAttribute("src");
-//    const rdate = element.querySelector("#release-date").textContent;
-//    return { title, poster, rdate };
-//  });
-//
-//  // Check if the first 10 movies are the expected ones
-//  expect(movies.slice(0, 10)).toEqual([{
-//      title: " Shrek",
-//      poster: "https://image.tmdb.org/t/p/w500/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg",
-//      rdate: "2001-05-18"},
-//  ]);
-/////////////
-   // Get the state of the component
-//    const { movies } = screen.getByTestId('movie-results').querySelector('div').__reactInternalInstance_.child.stateNode;
-//  // Get the movie container element
-//  const movieContainer = getByTestId("movie-results");
-//
-//  // Get the movies state from the component instance
-//  const movies = movieContainer.__reactInternalInstance_.child.stateNode.movies;
-//
-//
-//    // Check if the first 10 movies are the expected ones
-//    expect(movies.slice(0, 10)).toEqual(expect.arrayContaining([
-//      {
-//        id: 808,
-//        title: "Shrek",
-//        poster: "https://image.tmdb.org/t/p/w185/jhTVNBVkdS4Wf6NXYA9kRKQU3YM.jpg",
-//        overview:
-//          "It ain't easy bein' green -- especially if you're a likable (albeit smelly) ogre named Shrek. On a mission to retrieve a gorgeous princess from the clutches of a fire-breathing dragon, Shrek teams up with an unlikely compatriot -- a wisecracking donkey."
-//      }
-//    ]));
-
-
-
 });
 test("fails to fetch a movie result for shrek with title option", async () => {
  const { getByTestId } = render(<Search />, {wrapper: BrowserRouter});
  const searchField = getByTestId("searchField");
  const query = "Shrek";
  const options = getByTestId("options");
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
    axios.get.mockRejectedValueOnce({
     data:
        {
@@ -178,7 +132,6 @@ test("correctly fetches a movie result for Shrek with release date filter", asyn
  const query = "Shrek";
  const startYear = getByTestId("startYear");
  const endYear = getByTestId("endYear");
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
    axios.get.mockResolvedValue({
     data:
        {
@@ -220,7 +173,6 @@ test("correctly fetches movies for an actor", async () => {
  const searchField = getByTestId("searchField");
  const options=getByTestId("options");
  const query = "Tom Hanks";
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
  axios.get.mockResolvedValueOnce({
      data: {
        page: 1,
@@ -327,7 +279,6 @@ test("fails to fetch a movie result for Tom Hanks with actor option", async () =
  const searchField = getByTestId("searchField");
  const query = "Tom Hanks";
  const options = getByTestId("options");
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
    axios.get.mockRejectedValueOnce({
     data:
        {
@@ -351,7 +302,6 @@ const onViewDetails = jest.fn();
  const { getByTestId } = render(<Search onViewDetails={onViewDetails}/>, {wrapper: BrowserRouter});
    const searchField = getByTestId("searchField");
    const query = "Shrek";
-   const apiKey = "00f824df761bd517e281a3753a0a70f1";
      axios.get.mockResolvedValue({
       data:
          {
@@ -395,7 +345,6 @@ test('handleHover should set hovered state to true', async () => {
  const searchField = getByTestId("searchField");
  const options = getByTestId("options");
  const query = "Shrek";
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
  axios.get.mockResolvedValue({
       data:
          {
@@ -445,7 +394,6 @@ test('clicking add button should set buttonPopup state to true', async () => {
  const searchField = getByTestId("searchField");
  const options = getByTestId("options");
  const query = "Shrek";
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
 
  axios.get.mockResolvedValue({
       data:
@@ -587,19 +535,7 @@ test('handleLoadMore should call searchMovies', async () => {
      fireEvent.click(loadMoreButton);
     });
      expect(await screen.findByText('Shrek')).toBeInTheDocument();
-
-//     expect(await screen.findByText('Shrek')).toBeInTheDocument();
-//
-//     await waitFor(() => {
-//      const loadMoreButton = getByTestId("loadMoreButton");
-//      fireEvent.click(loadMoreButton);
-//      expect(searchMovies).toBeTruthy();
-//    });
 });
-
-
-
-
 
 it("correctly executes the setGenreQuery function ", async () => {
 
