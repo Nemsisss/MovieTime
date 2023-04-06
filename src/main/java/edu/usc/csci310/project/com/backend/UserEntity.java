@@ -2,6 +2,9 @@ package edu.usc.csci310.project.com.backend;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 //mark class as an Entity
 //defining class name as Table name
 @Entity
@@ -19,6 +22,9 @@ public class UserEntity
     //defining age as column name
     @Column
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private Set<MovieListEntity> movieLists = new HashSet<>();
     //defining email as column name
     public int getId()
     {
@@ -43,5 +49,13 @@ public class UserEntity
     public void setEmail(String email)
     {
         this.email = email;
+    }
+
+    public Set<MovieListEntity> getLists() {
+        return this.movieLists;
+    }
+
+    public void addMovieList(MovieListEntity movie_list) {
+        this.movieLists.add(movie_list);
     }
 }
