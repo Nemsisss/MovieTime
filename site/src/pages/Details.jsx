@@ -1,28 +1,39 @@
 import React, {useState,useEffect} from "react";
-// import httpRequest from "../utils/httpRequest";
+
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Details(props){
   const [movie, setMovie] = useState([]);
   const [cast, setCast]= useState([]);
   const [crew, setCrew]= useState([]);
   const [message, setMessage] = useState(null);
-//     console.log(props.details);
   useEffect(()=> {
               const apiKey="00f824df761bd517e281a3753a0a70f1";
               const url=`https://api.themoviedb.org/3/movie/${props.details}?api_key=${apiKey}&append_to_response=credits`;
                 axios
                     .get(url)
                     .then((res) => {
-//                     console.log(res.data.genres);
-//                     console.log(res.data);
-//                     console.log(res.data.credits);
                     setMessage(null);
                     setMovie(res.data);
                     setCast(res.data.credits.cast);
                     setCrew(res.data.credits.crew);
                     })
             },[]);
+
+const navigate = useNavigate();
+const genreClickHandler= (genreId)=>{
+    props.onLinkClick(genreId);
+//         console.log(genreId);
+    let path = `/Search`;
+    navigate(path);
+}
+const actorClickHandler= (actorId)=>{
+    props.onActorClick(actorId);
+//     console.log(actorId);
+    let path = `/Search`;
+    navigate(path);
+}
 return(
 <div id="page-wrapper" className="container">
         <div className="row mx-auto mt-5 mb-5 " >
@@ -40,7 +51,7 @@ return(
                  {Array.isArray(movie.genres) && movie.genres.map((item, idx) => (
                       <div key={idx}>
                          <ul>
-                             <li>{item.name}</li>
+                             <li><button data-testid="genreLink" type="button" className="btn btn-link" onClick={()=> genreClickHandler(item.id)}>{item.name}</button></li>
                          </ul>
                       </div>
                  ))}
@@ -48,7 +59,7 @@ return(
                  {Array.isArray(movie.production_companies) && movie.production_companies.map((item, idx) => (
                       <div key={idx} >
                          <ul>
-                               <li>{item.name}</li>
+                              <li>{item.name}</li>
                          </ul>
                       </div>
                  ))}
@@ -72,7 +83,7 @@ return(
                  {Array.isArray(cast) && cast.map((item, idx) => (
                       <div key={idx} style={{ display: 'inline-block', marginRight: '20px', paddingTop: '10px'}}>
                          <div className="col-6" style={{ color: 'black', textDecoration: 'none',fontSize:'18px' }}>
-                        {item.name}
+                        <button data-testid="actorLink" type="button" className="btn btn-link" onClick={()=> actorClickHandler(item.id)}>{item.name}</button>
                         </div>
                       </div>
                  ))}

@@ -25,3 +25,47 @@ button {
   cursor: pointer;
   border-radius: 4px;
 }
+.hover-effect {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.hover-effect:hover {
+  opacity: 0.5;
+  filter: brightness(50%);
+}
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.add-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+.mobile-add-button {
+  display: none;
+}
+
+.image-container:hover .add-button {
+  opacity: 1;
+}
+
+
+@media only screen and (max-width: 767px) {
+  .add-button {
+    display: none;
+  }
+
+  .mobile-add-button {
+    display: block;
+    margin-left: 2px;
+  }
+   #viewDetails {
+      margin-right: 2px;
+    }
+}
