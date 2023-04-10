@@ -8,6 +8,7 @@ const axios= require("axios");
 jest.mock('axios');
 import { render, fireEvent, screen,waitFor } from '@testing-library/react';
 import handleHover from '../pages/Search.jsx';
+import Popup from '../components/Popup';
 
 test("correctly fetches a movie result for Shrek", async () => {
  const { getByTestId } = render(<Search />, {wrapper: BrowserRouter});
@@ -642,4 +643,47 @@ test('LoadMore should fail', async () => {
       fireEvent.click(loadMoreButton);
     });
     expect(await screen.findByText('Load More')).toBeInTheDocument();
+});
+
+
+
+describe('Popup component', () => {
+  it('renders properly', () => {
+    const { getByText } = render(
+      <Popup trigger={true} setTrigger={() => {}}>
+        <div className="test-child">Test Content</div>
+      </Popup>
+    );
+    expect(getByText('Test Content')).toBeInTheDocument();
+  });
+
+  it('does not render when trigger is false', () => {
+    const { container } = render(
+      <Popup trigger={false} setTrigger={() => {}}>
+        <div className="test-child">Test Content</div>
+      </Popup>
+    );
+    expect(container.firstChild).toBeNull();
+  });
+
+  it('renders children properly', () => {
+    const { getByText } = render(
+      <Popup trigger={true} setTrigger={() => {}}>
+        <div className="test-child">Test Content</div>
+      </Popup>
+    );
+    expect(getByText('Test Content')).toBeInTheDocument();
+  });
+
+  it('sets trigger to false when close button is clicked', () => {
+    const setTrigger = jest.fn();
+    const { getByRole } = render(
+      <Popup trigger={true} setTrigger={setTrigger}>
+        <div className="test-child">Test Content</div>
+      </Popup>
+    );
+    const closeButton = getByRole('button');
+    fireEvent.click(closeButton);
+    expect(setTrigger).toHaveBeenCalledWith(false);
+  });
 });
