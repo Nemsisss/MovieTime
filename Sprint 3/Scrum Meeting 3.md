@@ -4,7 +4,7 @@ Daniel Zeng
 Nemsiss Shahbazian
 Roza Babayan
 Sohee Yoon
-Include a Zoom Meeting Recording Link 
+Include a Zoom Meeting Recording Link https://usc.zoom.us/rec/share/bU7zabQCJ3_Egi6yMxwNkZY24gaN6jSI_6fejcbSrAx7gi2jOH5eBcAIK5nFiznf.5cUye6kUhCSm_9bL
 
 Angela:
 What have you done since the last meeting?
