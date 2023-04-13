@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {BrowserRouter} from 'react-router-dom';
 import renderer from 'react-test-renderer';
 import searchMovies from '../pages/Search.jsx';
@@ -7,6 +7,8 @@ import httpRequest from '../utils/httpRequest.jsx';
 const axios= require("axios");
 jest.mock('axios');
 import { render, fireEvent, screen,waitFor } from '@testing-library/react';
+import handleHover from '../pages/Search.jsx';
+import Popup from '../components/Popup';
 
 test("correctly fetches a movie result for Shrek", async () => {
  const { getByTestId } = render(<Search />, {wrapper: BrowserRouter});
@@ -42,7 +44,7 @@ test("correctly fetches a movie result for Shrek", async () => {
 })
  fireEvent.change(searchField, { target: { value: "Shrek" } });
  fireEvent.submit(searchField);
-  expect(await screen.findByText('Shrek')).toBeInTheDocument();
+ expect(await screen.findByText('Shrek')).toBeInTheDocument();
 });
 
 test("fails to fetch a movie result for shrek", async () => {
@@ -66,43 +68,43 @@ test("fails to fetch a movie result for shrek", async () => {
 });
 
 test("correctly fetches a movie result for Shrek and title option selected ", async () => {
- const { getByTestId } = render(<Search />, {wrapper: BrowserRouter});
+ const { getByTestId, findAllByTestId } = render(<Search />, {wrapper: BrowserRouter});
  const searchField = getByTestId("searchField");
  const options = getByTestId("options");
  const query = "Shrek";
- 
-   axios.get.mockResolvedValue({
-    data:
-       {
-           page: 1,
-           results:
-               [
-                 {
-                   adult: false,
-                   backdrop: "/sRvXNDItGlWCqtO3j6wks52FmbD.jpg",
-                   genre_ids: [16, 35, 14, 12, 10751],
-                   id: 808,
-                   original_language: "en",
-                   original_title: "Shrek",
-                   overview:
-                     "It ain't easy bein' green -- especially if you're a likable (albeit smelly) ogre named Shrek. On a mission to retrieve a gorgeous princess from the clutches of a fire-breathing dragon, Shrek teams up with an unlikely compatriot -- a wisecracking donkey.",
-                   popularity: 207.13,
-                   poster_path: "/jhTVNBVkdS4Wf6NXYA9kRKQU3YM.jpg",
-                   release_date: "2001-05-18",
-                   title: "Shrek",
-                   video: false,
-                   vote_average: 7.716,
-                   vote_count: 14992
-                 }
-               ],
-               total_pages: 2,
-               total_results: 25
-       }
-})
+axios.get.mockResolvedValue({
+      data:
+         {
+             page: 1,
+             results:
+                 [
+                   {
+                     adult: false,
+                     backdrop: "/sRvXNDItGlWCqtO3j6wks52FmbD.jpg",
+                     genre_ids: [16, 35, 14, 12, 10751],
+                     id: 808,
+                     original_language: "en",
+                     original_title: "Shrek",
+                     overview:
+                       "It ain't easy bein' green -- especially if you're a likable (albeit smelly) ogre named Shrek. On a mission to retrieve a gorgeous princess from the clutches of a fire-breathing dragon, Shrek teams up with an unlikely compatriot -- a wisecracking donkey.",
+                     popularity: 244.15,
+                     poster_path: "/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg",
+                     release_date: "2001-05-18",
+                     title: "Shrek",
+                     video: false,
+                     vote_average: 7.718,
+                     vote_count: 15104
+                   }
+                 ],
+                 total_pages: 2,
+                 total_results: 25
+         }
+  })
+
  fireEvent.change(options, { target: { value: "title" } });
  fireEvent.change(searchField, { target: { value: "Shrek" } });
  fireEvent.submit(searchField);
-  expect(await screen.findByText('Shrek')).toBeInTheDocument();
+expect(await screen.findByText('Shrek')).toBeInTheDocument();
 });
 test("fails to fetch a movie result for shrek with title option", async () => {
  const { getByTestId } = render(<Search />, {wrapper: BrowserRouter});
@@ -162,8 +164,8 @@ test("correctly fetches a movie result for Shrek with release date filter", asyn
 })
   fireEvent.change(startYear, { target: { value: "2000" } });
   fireEvent.change(endYear, { target: { value: "2022" } });
- fireEvent.change(searchField, { target: { value: "Shrek" } });
- fireEvent.submit(searchField);
+  fireEvent.change(searchField, { target: { value: "Shrek" } });
+  fireEvent.submit(searchField);
   expect(await screen.findByText('Shrek')).toBeInTheDocument();
   expect(await screen.findByText('2001-05-18')).toBeInTheDocument();
 });
@@ -302,7 +304,7 @@ const onViewDetails = jest.fn();
  const { getByTestId } = render(<Search onViewDetails={onViewDetails}/>, {wrapper: BrowserRouter});
    const searchField = getByTestId("searchField");
    const query = "Shrek";
- 
+
      axios.get.mockResolvedValue({
       data:
          {
@@ -336,6 +338,354 @@ const onViewDetails = jest.fn();
    expect(await screen.findByText('Shrek')).toBeInTheDocument();
    const details = getByTestId("viewDetails");
    fireEvent.click(details);
-      expect(onViewDetails).toHaveBeenCalled();
-      expect(await screen.findByText('Shrek')).toBeInTheDocument();
+   expect(onViewDetails).toHaveBeenCalled();
+   expect(await screen.findByText('Shrek')).toBeInTheDocument();
+});
+
+
+test('handleHover should set hovered state to true', async () => {
+  const { getByTestId } = render(<Search />, {wrapper: BrowserRouter});
+ const searchField = getByTestId("searchField");
+ const options = getByTestId("options");
+ const query = "Shrek";
+ axios.get.mockResolvedValue({
+      data:
+         {
+             page: 1,
+             results:
+                 [
+                   {
+                     adult: false,
+                     backdrop: "/sRvXNDItGlWCqtO3j6wks52FmbD.jpg",
+                     genre_ids: [16, 35, 14, 12, 10751],
+                     id: 808,
+                     original_language: "en",
+                     original_title: "Shrek",
+                     overview:
+                       "It ain't easy bein' green -- especially if you're a likable (albeit smelly) ogre named Shrek. On a mission to retrieve a gorgeous princess from the clutches of a fire-breathing dragon, Shrek teams up with an unlikely compatriot -- a wisecracking donkey.",
+                     popularity: 244.15,
+                     poster_path: "/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg",
+                     release_date: "2001-05-18",
+                     title: "Shrek",
+                     video: false,
+                     vote_average: 7.718,
+                     vote_count: 15104
+                   }
+                 ],
+                 total_pages: 2,
+                 total_results: 25
+         }
+  })
+ fireEvent.change(options, { target: { value: "title" } });
+ fireEvent.change(searchField, { target: { value: "Shrek" } });
+ fireEvent.submit(searchField);
+ expect(await screen.findByText('Shrek')).toBeInTheDocument();
+     //Wait for the image to load
+     await waitFor(() => {
+       const image = getByTestId('imgTest');
+       expect(image).toBeInTheDocument();
+       fireEvent.mouseEnter(image);
+       expect(image).toHaveClass('hover-effect');
+       fireEvent.mouseLeave(image);
+       expect(image).not.toHaveClass('hover-effect');
+     });
+});
+
+
+test('clicking add button should set buttonPopup state to true', async () => {
+  const { getByTestId } = render(<Search />, {wrapper: BrowserRouter});
+ const searchField = getByTestId("searchField");
+ const options = getByTestId("options");
+ const query = "Shrek";
+
+ axios.get.mockResolvedValue({
+      data:
+         {
+             page: 1,
+             results:
+                 [
+                   {
+                     adult: false,
+                     backdrop: "/sRvXNDItGlWCqtO3j6wks52FmbD.jpg",
+                     genre_ids: [16, 35, 14, 12, 10751],
+                     id: 808,
+                     original_language: "en",
+                     original_title: "Shrek",
+                     overview:
+                       "It ain't easy bein' green -- especially if you're a likable (albeit smelly) ogre named Shrek. On a mission to retrieve a gorgeous princess from the clutches of a fire-breathing dragon, Shrek teams up with an unlikely compatriot -- a wisecracking donkey.",
+                     popularity: 244.15,
+                     poster_path: "/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg",
+                     release_date: "2001-05-18",
+                     title: "Shrek",
+                     video: false,
+                     vote_average: 7.718,
+                     vote_count: 15104
+                   }
+                 ],
+                 total_pages: 2,
+                 total_results: 25
+         }
+  })
+ fireEvent.change(options, { target: { value: "title" } });
+ fireEvent.change(searchField, { target: { value: "Shrek" } });
+ fireEvent.submit(searchField);
+ expect(await screen.findByText('Shrek')).toBeInTheDocument();
+     //Wait for the button to load
+     await waitFor(() => {
+       const addButton = getByTestId('addButton');
+       expect(addButton).toBeInTheDocument();
+       fireEvent.click(addButton);
+       expect(addButton).toBeTruthy();
+       expect(addButton.getAttribute('aria-expanded')).toBe('true');
+      });
+});
+
+test('clicking mobile add button should set buttonPopup state to true', async () => {
+  const { getByTestId } = render(<Search />, {wrapper: BrowserRouter});
+
+  // Set the viewport to mobile mode
+  global.innerWidth = 360;
+  global.dispatchEvent(new Event('resize'));
+
+  const searchField = getByTestId("searchField");
+  const options = getByTestId("options");
+  const query = "Shrek";
+
+  axios.get.mockResolvedValue({
+    data: {
+      page: 1,
+      results: [
+        {
+          adult: false,
+          backdrop: "/sRvXNDItGlWCqtO3j6wks52FmbD.jpg",
+          genre_ids: [16, 35, 14, 12, 10751],
+          id: 808,
+          original_language: "en",
+          original_title: "Shrek",
+          overview:
+            "It ain't easy bein' green -- especially if you're a likable (albeit smelly) ogre named Shrek. On a mission to retrieve a gorgeous princess from the clutches of a fire-breathing dragon, Shrek teams up with an unlikely compatriot -- a wisecracking donkey.",
+          popularity: 244.15,
+          poster_path: "/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg",
+          release_date: "2001-05-18",
+          title: "Shrek",
+          video: false,
+          vote_average: 7.718,
+          vote_count: 15104
+        }
+      ],
+      total_pages: 2,
+      total_results: 25
+    }
+  });
+
+  fireEvent.change(options, { target: { value: "title" } });
+  fireEvent.change(searchField, { target: { value: "Shrek" } });
+  fireEvent.submit(searchField);
+
+  expect(await screen.findByText('Shrek')).toBeInTheDocument();
+
+  //Wait for the button to load
+  await waitFor(() => {
+    // Verify that the mobile button is visible
+    const mobileButton = getByTestId('mobileAddButton');
+    expect(mobileButton).toBeInTheDocument();
+    fireEvent.click(mobileButton);
+    expect(mobileButton).toBeTruthy();
+    expect(mobileButton.getAttribute('aria-expanded')).toBe('true');
+  });
+});
+
+test('handleLoadMore should call searchMovies', async () => {
+ const searchMovies = jest.fn();
+ const props={searchMovies}
+  const { getByTestId } = render(<Search {...props} />, {wrapper: BrowserRouter});
+    const searchField = getByTestId("searchField");
+     const options = getByTestId("options");
+     const query = "Shrek";
+
+     axios.get.mockResolvedValue({
+       data: {
+         page: 1,
+         results: [
+           {
+             adult: false,
+             backdrop: "/sRvXNDItGlWCqtO3j6wks52FmbD.jpg",
+             genre_ids: [16, 35, 14, 12, 10751],
+             id: 808,
+             original_language: "en",
+             original_title: "Shrek",
+             overview:
+               "It ain't easy bein' green -- especially if you're a likable (albeit smelly) ogre named Shrek. On a mission to retrieve a gorgeous princess from the clutches of a fire-breathing dragon, Shrek teams up with an unlikely compatriot -- a wisecracking donkey.",
+             popularity: 244.15,
+             poster_path: "/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg",
+             release_date: "2001-05-18",
+             title: "Shrek",
+             video: false,
+             vote_average: 7.718,
+             vote_count: 15104
+           }
+         ],
+         total_pages: 2,
+         total_results: 25
+       }
+     });
+
+     fireEvent.change(options, { target: { value: "title" } });
+     fireEvent.change(searchField, { target: { value: "Shrek" } });
+     fireEvent.submit(searchField);
+     await waitFor(() => {
+     const loadMoreButton = getByTestId("loadMoreButton");
+     fireEvent.click(loadMoreButton);
+    });
+     expect(await screen.findByText('Shrek')).toBeInTheDocument();
+});
+
+it("correctly executes the setGenreQuery function ", async () => {
+
+    const setGenrequery = jest.fn();
+    const props = { gQuery: '12' , setGquery: setGenrequery };
+    const { getByTestId } = render(<Search {...props} />,{wrapper: BrowserRouter});
+    axios.get.mockResolvedValue({
+          data:
+             {
+                 page: 1,
+                 results:
+                     [
+                       {
+                         adult: false,
+                         backdrop: "/sRvXNDItGlWCqtO3j6wks52FmbD.jpg",
+                         genre_ids: [16, 35, 14, 12, 10751],
+                         id: 808,
+                         original_language: "en",
+                         original_title: "Shrek",
+                         overview:
+                           "It ain't easy bein' green -- especially if you're a likable (albeit smelly) ogre named Shrek. On a mission to retrieve a gorgeous princess from the clutches of a fire-breathing dragon, Shrek teams up with an unlikely compatriot -- a wisecracking donkey.",
+                         popularity: 244.15,
+                         poster_path: "/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg",
+                         release_date: "2001-05-18",
+                         title: "Shrek",
+                         video: false,
+                         vote_average: 7.718,
+                         vote_count: 15104
+                       }
+                     ],
+                     total_pages: 2,
+                     total_results: 25
+             }
+      })
+    expect(getByTestId("movie-container")).toBeTruthy();
+    expect(await screen.findByText('Shrek')).toBeInTheDocument();
+
+});
+
+it("correctly executes the setActorQuery function ", async () => {
+
+    const setActorquery = jest.fn();
+    const props = { aQuery: '31' , setAquery: setActorquery };
+    const { getByTestId } = await waitFor(()=>render(<Search {...props} />,{wrapper: BrowserRouter}));
+    const actorLoad=await waitFor(()=>getByTestId("movie-container"));
+     axios.get.mockResolvedValueOnce({
+       data: {
+         page: 1,
+         cast: [
+           {
+             adult: false,
+             backdrop_path: "/dGbBnTYxdHf1qyUgHsuFpxn1K4E.jpg",
+             character: "Josh Baskin",
+             credit_id: "52fe4349c3a36847f8048ac3",
+             genre_ids: [14, 18, 35, 10749, 10751],
+             id: 2280,
+             order: 0,
+             original_language: "en",
+             original_title: "Big",
+             overview: "When a young boy makes a wish at a carnival machine to be big—he wakes up the following morning to find that it has been granted and his body has grown older overnight. But he is still the same 13-year-old boy inside. Now he must learn how to cope with the unfamiliar world of grown-ups including getting a job and having his first romantic encounter with a woman.",
+             popularity: 22.994,
+             poster_path: "/eWhCDJiwxvx3YXkAFRiHjimnF0j.jpg",
+             release_date: "1988-06-03",
+             title: "Big",
+             video: false,
+             vote_average: 7.148,
+             vote_count: 3111,
+           },
+         ],
+         total_pages: 1,
+         total_results: 1,
+       },
+     });
+    expect(actorLoad).toBeTruthy();
+    expect(await screen.findByText("Big")).toBeInTheDocument();
+
+});
+test('LoadMore should fail', async () => {
+ const searchMovies = jest.fn();
+  const { getByTestId } = render(<Search searchMovies={searchMovies} />, {wrapper: BrowserRouter});
+    const searchField = getByTestId("searchField");
+     const options = getByTestId("options");
+     const query = "Shrek";
+
+     axios.get.mockResolvedValue({
+       data: {
+         page: 1,
+         results: [
+           {
+
+           }
+         ],
+         total_pages: 2,
+         total_results: 25
+       }
+     });
+
+     fireEvent.change(options, { target: { value: "title" } });
+     fireEvent.change(searchField, { target: { value: "Shrek" } });
+     fireEvent.submit(searchField);
+
+     await waitFor(() => {
+      const loadMoreButton = getByTestId("loadMoreButton");
+      fireEvent.click(loadMoreButton);
+    });
+    expect(await screen.findByText('Load More')).toBeInTheDocument();
+});
+
+
+
+describe('Popup component', () => {
+  it('renders properly', () => {
+    const { getByText } = render(
+      <Popup trigger={true} setTrigger={() => {}}>
+        <div className="test-child">Test Content</div>
+      </Popup>
+    );
+    expect(getByText('Test Content')).toBeInTheDocument();
+  });
+
+  it('does not render when trigger is false', () => {
+    const { container } = render(
+      <Popup trigger={false} setTrigger={() => {}}>
+        <div className="test-child">Test Content</div>
+      </Popup>
+    );
+    expect(container.firstChild).toBeNull();
+  });
+
+  it('renders children properly', () => {
+    const { getByText } = render(
+      <Popup trigger={true} setTrigger={() => {}}>
+        <div className="test-child">Test Content</div>
+      </Popup>
+    );
+    expect(getByText('Test Content')).toBeInTheDocument();
+  });
+
+  it('sets trigger to false when close button is clicked', () => {
+    const setTrigger = jest.fn();
+    const { getByRole } = render(
+      <Popup trigger={true} setTrigger={setTrigger}>
+        <div className="test-child">Test Content</div>
+      </Popup>
+    );
+    const closeButton = getByRole('button');
+    fireEvent.click(closeButton);
+    expect(setTrigger).toHaveBeenCalledWith(false);
+  });
 });
