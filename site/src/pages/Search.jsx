@@ -4,6 +4,8 @@ import "../styles/search.css";
 import httpRequest from "../utils/httpRequest";
 import Popup from '../components/Popup';
 import "regenerator-runtime/runtime";
+import { useLocation } from 'react-router-dom';
+
 
 function Search(props) {
 //  const [searching, setSearching] = useState(false);
@@ -53,12 +55,9 @@ function Search(props) {
           const movieResponse = await httpRequest(url);
           const movieData = await movieResponse.data;
           setMovies(movieData.cast);
-
       }catch (err) {
           setMessage("An unexpected error occurred.");
       }
-
-
   }
 
       if(props.gQuery)
@@ -77,7 +76,6 @@ function Search(props) {
 const searchMovies = async (e) => {
   e.preventDefault();
   let url = "";
-
   switch (selectedOption) {
     case "actor":
     url = `https://api.themoviedb.org/3/search/person?api_key=00f824df761bd517e281a3753a0a70f1&query=${query}`;

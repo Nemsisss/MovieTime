@@ -1,29 +1,31 @@
 import React, { useState } from "react";
 import "../styles/SignUp.css"
 
-function LogIn({switchToSignUp}) {
+function LogIn(props) {
+    const { switchToSignUp, switchToSearch } = props;
     // states for email & password field
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     // states for submit & input errors
-    const [submitted, setSubmitted] = useState(false);
+    //const [submitted, setSubmitted] = useState(false);
     const [errorEmailEmpty, setErrorEmailEmpty] = useState(false);
     const [errorPassEmpty, setErrorPassEmpty] = useState(false);
 
     const [errorEmail, setErrorEmail] = useState(false);
     const [errorPassword, setErrorPassword] = useState(false);
+    const [emailUse, setEmailUse] = useState(false);
 
     // handle email input change
     const handleEmail = (e) => {
         setEmail(e.target.value);
-        setSubmitted(false);
+        //setSubmitted(false);
     };
 
     // handle password input change
     const handlePassword = (e) => {
         setPassword(e.target.value);
-        setSubmitted(false);
+        //setSubmitted(false);
     };
 
     // handle page redirect
@@ -33,51 +35,88 @@ function LogIn({switchToSignUp}) {
 //     };
 
     // handle user submission
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setErrorEmailEmpty(false);
-        setErrorPassEmpty(false);
+    const handleSubmit = async(e) => {
+        try{
 
-        setErrorPassword(false);
-        setErrorEmail(false);
+            e.preventDefault();
+            setErrorEmailEmpty(false);
+            setErrorPassEmpty(false);
 
-        let testEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        let testPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{4,}$/;
-        let passed = true;
+            setErrorPassword(false);
+            setErrorEmail(false);
 
-        // email field is empty
-        if (email === ''){
-            passed = false;
-            setErrorEmailEmpty(true);
-        }
-        // password field is empty
-        if (password === ''){
-            passed = false;
-            setErrorPassEmpty(true)
-        }
+            let testEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            let testPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{4,}$/;
+            let passed = true;
 
-        if (passed){
-            if(!testEmail.test(email)) {
-                setErrorEmail(true);
+            // email field is empty
+            if (email === ''){
+                passed = false;
+                setErrorEmailEmpty(true);
             }
-            else if (!testPassword.test(password)){
-                setErrorPassword(true);
+            // password field is empty
+            if (password === ''){
+                passed = false;
+                setErrorPassEmpty(true)
             }
-            else{
-                setSubmitted(true);
+
+            if (passed){
+                if(!testEmail.test(email)) {
+                    setErrorEmail(true);
+                }
+                else if (!testPassword.test(password)){
+                    setErrorPassword(true);
+                }
+                else{
+                    const url = `/user/check?email=${email}&password=${password}`;
+                    //console.log(url);
+                    const response = await fetch(url, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }).catch((error) => {
+                        console.log(error);
+                    });
+                    if (response.status !== 201) {
+                        setEmailUse(true);
+                    }
+                    else{
+                        setEmailUse(false);
+                        //console.log(response);
+                        const userId = await response.json();
+                        //console.log(userId);
+                        switchToSearch(userId);
+                    }
+                }
             }
+        } catch (error) {
+            //console.error(error);
+            // handle the error here
         }
     };
 
     // welcome message when log in success
-    const welcomeMessage = () => {
+    // const welcomeMessage = () => {
+    //     return (
+    //         <div
+    //             className="success"
+    //             style={{
+    //                 display: submitted ? '' : 'none',
+    //             }}>
+    //             Welcome Back!
+    //         </div>
+    //     );
+    // };
+
+    const emailNotFoundMessage = () => {
         return (
             <div
                 className="success"
                 style={{
-                    display: submitted ? '' : 'none',
+                    display: emailUse ? '' : 'none',
                 }}>
-                Welcome Back!
+                This email and password cannot be found.
             </div>
         );
     };
@@ -90,17 +129,17 @@ function LogIn({switchToSignUp}) {
                     style={{
                         display: errorPassword ? '' : 'none',
                     }}>
-                    User Not Found!
+                    Please enter a valid password!
                 </div>
             );
         };
 
         // when log in fail, redirect to the login page in 1.5 sec
-        if (errorPassword == true) {
-        setTimeout(() => {
-          document.location.reload();
-        }, 1500);
-        }
+        // if (errorPassword == true) {
+        // setTimeout(() => {
+        //   document.location.reload();
+        // }, 1500);
+        // }
 
     // email error message if email filed is empty
     const errorMessageEmailEmpty = () => {
@@ -147,8 +186,7 @@ function LogIn({switchToSignUp}) {
             <div className="login-form-signup">
                 <div className="title-signup">User Log In Page</div>
                 <div className="messages-signup">
-                    {welcomeMessage()}
-                    {notFoundMessage()}
+                    {emailNotFoundMessage()}
                 </div>
                 <div className="form">
                     <form className="formStyle-signup">
@@ -166,6 +204,7 @@ function LogIn({switchToSignUp}) {
                             <input onChange={handlePassword} className="input-signup"
                                    value={password} type="password" id="password"/>
                             {errorMessagePassEmpty()}
+                            {notFoundMessage()}
                         </div>
 
                         <button onClick={handleSubmit} className="btn-signup" type="submit" data-testid="submit-button">
@@ -174,7 +213,7 @@ function LogIn({switchToSignUp}) {
                     </form>
                 </div>
                 <div className="App">
-                <div className="centerAlign redirect" onClick={switchToSignUp}>Not Registered Yet? <br /> Sign Up Here</div>
+                <div className="centerAlign redirect" data-testid="toSignUp" onClick={switchToSignUp}>Not Registered Yet? <br /> Sign Up Here</div>
                 </div>
 
 

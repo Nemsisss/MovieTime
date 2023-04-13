@@ -100,6 +100,7 @@ axios.get.mockResolvedValue({
                  total_results: 25
          }
   })
+
  fireEvent.change(options, { target: { value: "title" } });
  fireEvent.change(searchField, { target: { value: "Shrek" } });
  fireEvent.submit(searchField);
@@ -303,6 +304,7 @@ const onViewDetails = jest.fn();
  const { getByTestId } = render(<Search onViewDetails={onViewDetails}/>, {wrapper: BrowserRouter});
    const searchField = getByTestId("searchField");
    const query = "Shrek";
+
      axios.get.mockResolvedValue({
       data:
          {
