@@ -4,7 +4,7 @@ import "../styles/search.css";
 import httpRequest from "../utils/httpRequest";
 import Popup from '../components/Popup';
 import "regenerator-runtime/runtime";
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 
 
 function Search(props) {
