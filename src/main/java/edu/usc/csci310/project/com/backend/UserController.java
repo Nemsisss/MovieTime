@@ -5,6 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
+//user_id/list
+//user_id/list_id/movie
+
+//user_id/list_id
+//user_id_
+
 //creating RestController
 @RestController
 @RequestMapping("/user")
