@@ -1,0 +1,21 @@
+			Grading Table - Team Team 5
+
+| Section                  | Grade               | Note                                                                                                                                                |
+|--------------------------|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| Sprint Planning          | 8.0/8               |                                                                                                                                                     |
+| Scrums                   | 24.0/24             | Scrum 1:Good job!                                                                                                                                   |
+|                          |                     | Scrum 2:Good job!                                                                                                                                   |
+|                          |                     | Scrum 3:Good job!                                                                                                                                   |
+|                          |                     | Scrum 4:Good job!                                                                                                                                   |
+| Retrospective            | 8.0/8               | Very nice work on this sprint! Keep up the great work.  A small request: please format the Retro in a way that is a little more reader friendly. :) |
+| TDD                      | 12.0/12             |                                                                                                                                                     |
+| GitFlow                  | 12.0/12             |                                                                                                                                                     |
+| Continuous Integration   | 12.0/12             |                                                                                                                                                     |
+| Refactor                 | 12.0/12             |                                                                                                                                                     |
+| Coverage                 | 11.0/12             |                                                                                                                                                     |
+| ------------------------ | ------------------- |                                                                                                                                                     |
+| Total                    | 99.0                |                                                                                                                                                     |
+| ------------------------ | ------------------- |                                                                                                                                                     |
+| Implementation Score     | 85/400              |                                                                                                                                                     |
+| Sustainable Pace Penalty | 0.0                 |                                                                                                                                                     |
+|                          |                     |                                                                                                                                                     |
