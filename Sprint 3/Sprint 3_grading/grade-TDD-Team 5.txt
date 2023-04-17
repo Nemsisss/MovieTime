@@ -1,0 +1,13 @@
+Best Practice TDD Report
+Owner: Team 5
+Grade: 8.7/12
+Comments: 
+	No test found for: moviedetailentity.addmovies
+		Commit: https://github.com/CSCI310/20231-project-team-5/commit/612b6890d8f1625cc85add5ece92c14b7d61feb4
+	No test found for: movielistentity.addmovie
+		Commit: https://github.com/CSCI310/20231-project-team-5/commit/612b6890d8f1625cc85add5ece92c14b7d61feb4
+	No test found for: userentity.addmovielist
+		Commit: https://github.com/CSCI310/20231-project-team-5/commit/612b6890d8f1625cc85add5ece92c14b7d61feb4
+Correct TDD methods: 8
+Incorrect TDD methods: 3
+Total methods evaluated for TDD: 11
