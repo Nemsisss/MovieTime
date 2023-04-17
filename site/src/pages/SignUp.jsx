@@ -74,6 +74,7 @@ function SignUp(props) {
             else{
                 const url = '/user/save';
                 const data = {email: email, password: password};
+                let err = false;
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: {
@@ -82,13 +83,13 @@ function SignUp(props) {
                     body: JSON.stringify(data)
                 }).catch((error) => {
                     console.log(error);
-
+                    err = true;
                 });
-                if (response.status !== 201) {
+                if (!err && (response.status !== 201)) {
                     setSubmitted(false);
                     setEmailUse(true);
                 }
-                else{
+                else if(!err){
                     const userId = await response.json();
                     setSubmitted(true);
                     setEmailUse(false);

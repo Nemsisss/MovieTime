@@ -96,19 +96,6 @@ function LogIn(props) {
         }
     };
 
-    // welcome message when log in success
-    // const welcomeMessage = () => {
-    //     return (
-    //         <div
-    //             className="success"
-    //             style={{
-    //                 display: submitted ? '' : 'none',
-    //             }}>
-    //             Welcome Back!
-    //         </div>
-    //     );
-    // };
-
     const emailNotFoundMessage = () => {
         return (
             <div
@@ -134,12 +121,6 @@ function LogIn(props) {
             );
         };
 
-        // when log in fail, redirect to the login page in 1.5 sec
-        // if (errorPassword == true) {
-        // setTimeout(() => {
-        //   document.location.reload();
-        // }, 1500);
-        // }
 
     // email error message if email filed is empty
     const errorMessageEmailEmpty = () => {

@@ -9,6 +9,30 @@ import Navbar from '../components/Navbar';
 
 
 function Search(props) {
+
+    // set the inactivity timeout to 60 seconds
+    const inactivityTimeout = 60 * 1000; // in milliseconds
+
+    let timeoutId;
+
+    function resetTimeout() {
+        // clear the previous timeout (if any)
+        clearTimeout(timeoutId);
+        //console.log("wow");
+
+        // start a new timeout
+        timeoutId = setTimeout(() => {
+            // redirect the user to the login page
+            window.location.href = "/login";
+        }, inactivityTimeout);
+    }
+
+// listen for user activity events (e.g. mousemove, keypress, etc.)
+    window.addEventListener("mousemove", resetTimeout);
+    window.addEventListener("keypress", resetTimeout);
+
+// start the initial timeout
+    resetTimeout();
 //  const [searching, setSearching] = useState(false);
  const [message, setMessage] = useState(null);
  const [query, setQuery] = useState("");

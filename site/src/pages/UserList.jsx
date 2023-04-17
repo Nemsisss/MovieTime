@@ -4,6 +4,26 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Navbar from '../components/Navbar';
 function UserList() {
+    // set the inactivity timeout to 60 seconds
+    const inactivityTimeout = 60 * 1000; // in milliseconds
+
+    let timeoutId;
+
+    function resetTimeout() {
+        // clear the previous timeout (if any)
+        clearTimeout(timeoutId);
+        console.log("wow");
+
+        // start a new timeout
+        timeoutId = setTimeout(() => {
+            // redirect the user to the login page
+            window.location.href = "/login";
+        }, inactivityTimeout);
+    }
+
+// listen for user activity events (e.g. mousemove, keypress, etc.)
+    window.addEventListener("mousemove", resetTimeout);
+    window.addEventListener("keypress", resetTimeout);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);

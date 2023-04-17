@@ -1,10 +1,9 @@
 import { render, waitFor, screen, fireEvent } from '@testing-library/react';
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
 import Details from '../pages/Details.jsx';
-import { act } from 'react-dom/test-utils';
 import {BrowserRouter} from 'react-router-dom';
+
 
 describe('Details component', () => {
   beforeEach(() => {
