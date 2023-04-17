@@ -1,12 +1,14 @@
 import UserList from "./pages/UserList.jsx"
 import {render, screen, fireEvent} from '@testing-library/react'
+import {BrowserRouter} from "react-router-dom";
+import React from "react";
 
 describe('User List', () => {
     it("Initial user list landing page", () => {
-        render(<UserList/>);
+        render(<UserList />, {wrapper: BrowserRouter});
     });
     it ('Click on pop-up', () => {
-        render(<UserList/>);
+        render(<UserList />, {wrapper: BrowserRouter});
         const jsdomAlert = window.alert;  // remember the jsdom alert
         window.alert = () => {};  // provide an empty implementation for window.alert
         const button = screen.getByTestId("add-button");

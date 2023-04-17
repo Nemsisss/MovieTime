@@ -1,10 +1,11 @@
 import React, {useState} from "react";
-import { useNavigate } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import "../styles/search.css";
 import httpRequest from "../utils/httpRequest";
 import Popup from '../components/Popup';
 import "regenerator-runtime/runtime";
-// import { useLocation } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+
 
 
 function Search(props) {
@@ -19,6 +20,9 @@ function Search(props) {
  const [page, setPage] = useState(1);
  const [buttonPopup, setButtonPopup] = useState(false);
 
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const userId = searchParams.get('userId');
 
  const handleOptionChange = (option) => {
    setSelectedOption(option);
@@ -150,12 +154,13 @@ const handleLoadMore = async (e) => {
  const navigate = useNavigate();
  const routeChange = (selected) => {
    props.onViewDetails(selected);
-   let path = `/Details`;
+   let path = `/details?userId=${userId}`
    navigate(path);
  };
 
  return (
    <div>
+       <Navbar />
      <div id="page-wrapper" className="container">
         <div className="row mt-5">
                     <div className="col-4">

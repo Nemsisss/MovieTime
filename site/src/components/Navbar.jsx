@@ -1,8 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const userId = searchParams.get("userId");
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{backgroundColor: "lightblue"}}>
             <a className="navbar-brand" href="#">
@@ -23,51 +27,25 @@ const Navbar = () => {
             <div className="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul className="navbar-nav">
                     <li className="nav-item active">
-                        <a data-testid = "home" className="nav-link"  onClick={() => {
-                            navigate("/home")
+                        <a data-testid = "home" className="nav-link" style={{ cursor: "pointer" }}  onClick={() => {
+                            navigate(`/search?userId=${userId}`)
                         }}>
-                            Home <span className="sr-only">(current)</span>
+                            Search Page
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a data-testid = "other" className="nav-link"  onClick={() => {
-                            navigate("/other")
+                        <a data-testid = "other" className="nav-link" style={{ cursor: "pointer" }}  onClick={() => {
+                            navigate(`/user?userId=${userId}`)
                         }}>
-                            Other
+                            All Lists
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a data-testid = "movie" className="nav-link"  onClick={() => {
-                            navigate("/movie")
+                        <a data-testid = "movie" className="nav-link" style={{ cursor: "pointer" }} onClick={() => {
+                            navigate("/login")
                         }}>
-                            Movies
+                            Logout
                         </a>
-                    </li>
-                    <li className="nav-item dropdown">
-                        <a
-                            className="nav-link dropdown-toggle"
-                            href="#"
-                            id="navbarDropdownMenuLink"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                        >
-                            Dropdown link
-                        </a>
-                        <div
-                            className="dropdown-menu"
-                            aria-labelledby="navbarDropdownMenuLink"
-                        >
-                            <a className="dropdown-item" href="#">
-                                Action
-                            </a>
-                            <a className="dropdown-item" href="#">
-                                Another action
-                            </a>
-                            <a className="dropdown-item" href="#">
-                                Something else here
-                            </a>
-                        </div>
                     </li>
                 </ul>
             </div>

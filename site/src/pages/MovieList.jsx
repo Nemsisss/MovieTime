@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from 'react'
-// import { useNavigate } from "react-router-dom";
+import React from 'react'
 import "../styles/movielist.css"
 import Navbar from "../components/Navbar"
 import ImageSlider from "../components/ImageSlider.jsx"

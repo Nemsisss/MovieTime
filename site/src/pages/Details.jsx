@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from "react";
-
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import Navbar from '../components/Navbar';
 
 function Details(props){
   const [movie, setMovie] = useState([]);
@@ -22,75 +22,81 @@ function Details(props){
             },[]);
 
 const navigate = useNavigate();
+const location = useLocation();
+const searchParams = new URLSearchParams(location.search);
+const userId = searchParams.get('userId');
 const genreClickHandler= (genreId)=>{
     props.onLinkClick(genreId);
 //         console.log(genreId);
-    let path = `/Search`;
+    let path = `/search?userId=${userId}`;
     navigate(path);
 }
 const actorClickHandler= (actorId)=>{
     props.onActorClick(actorId);
 //     console.log(actorId);
-    let path = `/Search`;
+    let path = `/search?userId=${userId}`;
     navigate(path);
 }
 return(
-<div id="page-wrapper" className="container">
-        <div className="row mx-auto mt-5 mb-5 " >
-             <div className="col-6" >
-                <div style={{height: '600px'}}>
-                 <img className="thumbnail" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt="Movie image" />
-                 </div>
-             </div>
-             <div className="col-6">
-                 <p> <span className="fw-bold">Title</span>: {movie.original_title}</p>
-                 <p> <span className="fw-bold">Release Date</span>: {movie.release_date}</p>
-                 <p><span className="fw-bold">Plot:</span> {movie.overview}</p>
-                 <p><span className="fw-bold">Genres:</span></p>
-                 <p style={{ hidden: true }}>{message}</p>
-                 {Array.isArray(movie.genres) && movie.genres.map((item, idx) => (
-                      <div key={idx}>
-                         <ul>
-                             <li><button data-testid="genreLink" type="button" className="btn btn-link" onClick={()=> genreClickHandler(item.id)}>{item.name}</button></li>
-                         </ul>
-                      </div>
-                 ))}
-                 <p className="fw-bold">Production:</p>
-                 {Array.isArray(movie.production_companies) && movie.production_companies.map((item, idx) => (
-                      <div key={idx} >
-                         <ul>
-                              <li>{item.name}</li>
-                         </ul>
-                      </div>
-                 ))}
-                 <p className="fw-bold">Directors:</p>
-                 {Array.isArray(crew) && (
-                     <ul>
-                      {crew.filter(item => item.known_for_department === 'Directing').map((item, idx, arr) => {
-                         if (arr.findIndex(i => i.name === item.name) !== idx) {
-                              return null; // Skip repeated names
-                      }
-                        return (
-                             <li key={idx}>
-                                {item.name}
-                             </li>
-                             );
-                          })}
-                      </ul>
-                    )}
-                 <p className="fw-bold">Cast:</p>
-                 <div className="container" style={{ whiteSpace: 'nowrap', overflowX: 'auto', backgroundColor: '#dedede', height: '70px' }} >
-                 {Array.isArray(cast) && cast.map((item, idx) => (
-                      <div key={idx} style={{ display: 'inline-block', marginRight: '20px', paddingTop: '10px'}}>
-                         <div className="col-6" style={{ color: 'black', textDecoration: 'none',fontSize:'18px' }}>
-                        <button data-testid="actorLink" type="button" className="btn btn-link" onClick={()=> actorClickHandler(item.id)}>{item.name}</button>
+    <div>
+        <Navbar />
+        <div id="page-wrapper" className="container">
+            <div className="row mx-auto mt-5 mb-5 " >
+                <div className="col-6" >
+                    <div style={{height: '600px'}}>
+                        <img className="thumbnail" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt="Movie image" />
+                    </div>
+                </div>
+                <div className="col-6">
+                    <p> <span className="fw-bold">Title</span>: {movie.original_title}</p>
+                    <p> <span className="fw-bold">Release Date</span>: {movie.release_date}</p>
+                    <p><span className="fw-bold">Plot:</span> {movie.overview}</p>
+                    <p><span className="fw-bold">Genres:</span></p>
+                    <p style={{ hidden: true }}>{message}</p>
+                    {Array.isArray(movie.genres) && movie.genres.map((item, idx) => (
+                        <div key={idx}>
+                            <ul>
+                                <li><button data-testid="genreLink" type="button" className="btn btn-link" onClick={()=> genreClickHandler(item.id)}>{item.name}</button></li>
+                            </ul>
                         </div>
-                      </div>
-                 ))}
-                 </div>
-             </div>
- </div>
- </div>
+                    ))}
+                    <p className="fw-bold">Production:</p>
+                    {Array.isArray(movie.production_companies) && movie.production_companies.map((item, idx) => (
+                        <div key={idx} >
+                            <ul>
+                                <li>{item.name}</li>
+                            </ul>
+                        </div>
+                    ))}
+                    <p className="fw-bold">Directors:</p>
+                    {Array.isArray(crew) && (
+                        <ul>
+                            {crew.filter(item => item.known_for_department === 'Directing').map((item, idx, arr) => {
+                                if (arr.findIndex(i => i.name === item.name) !== idx) {
+                                    return null; // Skip repeated names
+                                }
+                                return (
+                                    <li key={idx}>
+                                        {item.name}
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    )}
+                    <p className="fw-bold">Cast:</p>
+                    <div className="container" style={{ whiteSpace: 'nowrap', overflowX: 'auto', backgroundColor: '#dedede', height: '70px' }} >
+                        {Array.isArray(cast) && cast.map((item, idx) => (
+                            <div key={idx} style={{ display: 'inline-block', marginRight: '20px', paddingTop: '10px'}}>
+                                <div className="col-6" style={{ color: 'black', textDecoration: 'none',fontSize:'18px' }}>
+                                    <button data-testid="actorLink" type="button" className="btn btn-link" onClick={()=> actorClickHandler(item.id)}>{item.name}</button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 )
 }
 export default Details;

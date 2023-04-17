@@ -6,7 +6,7 @@ import SignUp from "./pages/SignUp"
 import MovieList from "./pages/MovieList"
 import Search from "./pages/Search";
 import Details from "./pages/Details";
-import UserList from "./pages/UserList"
+import UserList from "./pages/UserList";
 
 function App() {
     const [moviesList, setMoviesList] = useState(null);

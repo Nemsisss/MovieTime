@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import "../styles/user.css";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
+import Navbar from '../components/Navbar';
 function UserList() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -166,6 +166,7 @@ function UserList() {
     // }
     return(
         <div>
+            <Navbar />
             <h1 className = "Title">Your Movie List</h1>
             <Button className = "movie-button" variant="primary" data-testid = "add-button" onClick={handleShow}>
                 Launch demo modal
