@@ -40,7 +40,6 @@ public class SignUpStepDef {
 
     @Given("I am on the signup page")
     public void iAmOnTheSignupPage() {
-        System.out.println("HELLO");
         driver.get(ROOT_URL+"signUp");
     }
 

@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {BrowserRouter} from 'react-router-dom';
-import renderer from 'react-test-renderer';
-import searchMovies from '../pages/Search.jsx';
 import Search from '../pages/Search.jsx';
-import httpRequest from '../utils/httpRequest.jsx';
 const axios= require("axios");
 jest.mock('axios');
 import { render, fireEvent, screen,waitFor } from '@testing-library/react';
-import handleHover from '../pages/Search.jsx';
 import Popup from '../components/Popup';
 
 test("correctly fetches a movie result for Shrek", async () => {
@@ -68,7 +64,7 @@ test("fails to fetch a movie result for shrek", async () => {
 });
 
 test("correctly fetches a movie result for Shrek and title option selected ", async () => {
- const { getByTestId, findAllByTestId } = render(<Search />, {wrapper: BrowserRouter});
+ const { getByTestId } = render(<Search />, {wrapper: BrowserRouter});
  const searchField = getByTestId("searchField");
  const options = getByTestId("options");
  const query = "Shrek";
@@ -301,7 +297,10 @@ test("fails to fetch a movie result for Tom Hanks with actor option", async () =
 
 test("calls routeChanger() when clicked ", async () => {
 const onViewDetails = jest.fn();
- const { getByTestId } = render(<Search onViewDetails={onViewDetails}/>, {wrapper: BrowserRouter});
+const hasComeFromValid = jest.fn();
+const setHasComeFromValid = jest.fn();
+const props = { onViewDetails, hasComeFromValid, setHasComeFromValid };
+ const { getByTestId } = render(<Search {...props}/>, {wrapper: BrowserRouter});
    const searchField = getByTestId("searchField");
    const query = "Shrek";
 

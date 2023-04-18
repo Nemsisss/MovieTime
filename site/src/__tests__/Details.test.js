@@ -39,7 +39,9 @@ describe('Details component', () => {
   });
 
   it('fetches movie details and updates state', async () => {
-    const props = { details: '87827' };
+  const hasComeFromValid = jest.fn();
+  const setHasComeFromValid = jest.fn();
+    const props = { details: '87827', hasComeFromValid, setHasComeFromValid };
     const { getByText } = render(<Details {...props} />,{wrapper: BrowserRouter});
     await waitFor(() => {
       expect(axios.get).toHaveBeenCalledWith(
@@ -59,9 +61,10 @@ describe('Details component', () => {
 });
 
 it("correctly executes the genreClickHandler function ", async () => {
-
+    const hasComeFromValid = jest.fn();
+    const setHasComeFromValid = jest.fn();
     const setGenreQuery = jest.fn();
-    const props = { details: '87827' , onLinkClick: setGenreQuery };
+    const props = { details: '87827' , onLinkClick: setGenreQuery, hasComeFromValid, setHasComeFromValid };
     const { getAllByTestId } = render(<Details {...props} />,{wrapper: BrowserRouter});
     const genreLink=await waitFor(()=>getAllByTestId("genreLink"));
     fireEvent.click(genreLink[0]);
@@ -69,9 +72,10 @@ it("correctly executes the genreClickHandler function ", async () => {
 
 });
 it("correctly executes the actorClickHandler function ", async () => {
-
+    const hasComeFromValid = jest.fn();
+    const setHasComeFromValid = jest.fn();
     const setActorQuery = jest.fn();
-    const props = { details: '87827' , onActorClick: setActorQuery };
+    const props = { details: '87827' , onActorClick: setActorQuery, hasComeFromValid, setHasComeFromValid };
     const { getAllByTestId } = render(<Details {...props} />,{wrapper: BrowserRouter});
     const actorLink=await waitFor(()=>getAllByTestId("actorLink"));
     fireEvent.click(actorLink[0]);

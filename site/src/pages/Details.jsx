@@ -29,6 +29,21 @@ function Details(props){
   const [cast, setCast]= useState([]);
   const [crew, setCrew]= useState([]);
   const [message, setMessage] = useState(null);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!props.hasComeFromValid) {
+            console.log(props.hasComeFromValid);
+            console.log("fail");
+            navigate('/login');
+        }
+        else{
+            props.setHasComeFromValid(false);
+        }
+    }, [navigate]);
+
+
   useEffect(()=> {
 
               const url=`https://api.themoviedb.org/3/movie/${props.details}?api_key=00f824df761bd517e281a3753a0a70f1&append_to_response=credits`;
@@ -42,7 +57,7 @@ function Details(props){
                     })
             },[]);
 
-const navigate = useNavigate();
+
 const location = useLocation();
 const searchParams = new URLSearchParams(location.search);
 const userId = searchParams.get('userId');
@@ -50,12 +65,14 @@ const genreClickHandler= (genreId)=>{
     props.onLinkClick(genreId);
 //         console.log(genreId);
     let path = `/search?userId=${userId}`;
+    props.setHasComeFromValid(true);
     navigate(path);
 }
 const actorClickHandler= (actorId)=>{
     props.onActorClick(actorId);
 //     console.log(actorId);
     let path = `/search?userId=${userId}`;
+    props.setHasComeFromValid(true);
     navigate(path);
 }
 return(

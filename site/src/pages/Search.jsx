@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import "../styles/search.css";
 import httpRequest from "../utils/httpRequest";
@@ -9,6 +9,7 @@ import Navbar from '../components/Navbar';
 
 
 function Search(props) {
+    const navigate = useNavigate();
 
     // set the inactivity timeout to 60 seconds
     const inactivityTimeout = 60 * 1000; // in milliseconds
@@ -43,6 +44,15 @@ function Search(props) {
  const [hovered, setHovered] = useState(false);
  const [page, setPage] = useState(1);
  const [buttonPopup, setButtonPopup] = useState(false);
+
+useEffect(() => {
+    if (!props.hasComeFromValid) {
+        navigate('/login');
+    }
+    else{
+        props.setHasComeFromValid(false);
+    }
+}, [navigate]);
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -175,10 +185,10 @@ const handleLoadMore = async (e) => {
     console.error(err);
   }
 };
- const navigate = useNavigate();
  const routeChange = (selected) => {
    props.onViewDetails(selected);
    let path = `/details?userId=${userId}`
+   props.setHasComeFromValid(true);
    navigate(path);
  };
 
