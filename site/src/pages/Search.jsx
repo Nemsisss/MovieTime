@@ -19,6 +19,7 @@ function Search(props) {
  const [page, setPage] = useState(1);
  const [buttonPopup, setButtonPopup] = useState(false);
 
+ const apiKey = "00f824df761bd517e281a3753a0a70f1";
 
  const handleOptionChange = (option) => {
    setSelectedOption(option);
@@ -62,13 +63,13 @@ function Search(props) {
 
       if(props.gQuery)
       {
-          const url=`https://api.themoviedb.org/3/discover/movie?api_key=00f824df761bd517e281a3753a0a70f1&with_genres=${props.gQuery}`;
+          const url=`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${props.gQuery}`;
           loadPageWGenre(url);
       }
       if(props.aQuery)
       {
 //           console.log(props.aQuery);
-         const url = `https://api.themoviedb.org/3/person/${props.aQuery}/movie_credits?api_key=00f824df761bd517e281a3753a0a70f1`;
+         const url = `https://api.themoviedb.org/3/person/${props.aQuery}/movie_credits?api_key=${apiKey}`;
          loadPageWactor(url);
       }
 
@@ -78,14 +79,14 @@ const searchMovies = async (e) => {
   let url = "";
   switch (selectedOption) {
     case "actor":
-    url = `https://api.themoviedb.org/3/search/person?api_key=00f824df761bd517e281a3753a0a70f1&query=${query}`;
+    url = `https://api.themoviedb.org/3/search/person?api_key=${apiKey}&query=${query}`;
     try {
         const response = await httpRequest(url);
         const data = await response.data;
         console.log(data.results);
         setMessage(null);
         const personId = data.results[0].id;
-        url = `https://api.themoviedb.org/3/person/${personId}/movie_credits?api_key=00f824df761bd517e281a3753a0a70f1`;
+        url = `https://api.themoviedb.org/3/person/${personId}/movie_credits?api_key=${apiKey}`;
         const movieResponse = await httpRequest(url);
         const movieData = await movieResponse.data;
 //         console.log(movieResponse.data)
@@ -98,7 +99,7 @@ const searchMovies = async (e) => {
       }
       break;
     case "title":
-      url = `https://api.themoviedb.org/3/search/movie?api_key=00f824df761bd517e281a3753a0a70f1&language=en-US&query=${query}&page=${page}&include_adult=false`;
+      url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}&page=${page}&include_adult=false`;
       try {
         const response = await httpRequest(url);
         const data = await response.data;
@@ -115,13 +116,13 @@ const searchMovies = async (e) => {
       }
       break;
     default:
-      url = `https://api.themoviedb.org/3/search/keyword?api_key=00f824df761bd517e281a3753a0a70f1&query=${query}`;
+      url = `https://api.themoviedb.org/3/search/keyword?api_key=${apiKey}&query=${query}`;
           try {
             const response = await httpRequest(url);
             const data = await response.data;
             setMessage(null);
             const keywordId = data.results[0].id;
-            url = `https://api.themoviedb.org/3/discover/movie?api_key=00f824df761bd517e281a3753a0a70f1&with_keywords=${keywordId}&page=${page}`;
+            url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_keywords=${keywordId}&page=${page}`;
             const keywordResponse = await httpRequest(url);
             const keywordData = await keywordResponse.data;
             setMessage(null);
