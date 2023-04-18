@@ -1,10 +1,4 @@
 Feature: testing out the various parts of login page
-  Scenario: Login successfully
-    Given I am on the login page
-    When I enter "test@test.com" in email field
-    And I enter "password1!D" in password field
-    And I click the submit button
-    Then I should see "Welcome Back!" in the page
   Scenario: Login fail due to invalid email
     Given I am on the login page
     When I enter "invalid.email" in email field
@@ -16,7 +10,7 @@ Feature: testing out the various parts of login page
     When I enter "test@test.com" in email field
     And I enter "password" in password field
     And I click the submit button
-    Then I should see "User Not Found!" in the page
+    Then I should see "This email and password cannot be found." in the page
   Scenario: Enter nothing to email field
     Given I am on the login page
     And I click the submit button

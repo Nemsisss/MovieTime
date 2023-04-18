@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import io.cucumber.java.Before;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -98,4 +99,8 @@ public class SignUpStepDef {
         driver.quit();
     }
 
+    @Then("I should not see {string} in the page")
+    public void iShouldNotSeeInThePage(String arg0) {
+        assertFalse(driver.getPageSource().contains(arg0));
+    }
 }
