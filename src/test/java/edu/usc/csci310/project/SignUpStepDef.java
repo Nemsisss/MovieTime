@@ -97,5 +97,4 @@ public class SignUpStepDef {
     public void after() {
         driver.quit();
     }
-
 }
