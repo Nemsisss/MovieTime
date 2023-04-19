@@ -17,5 +17,5 @@ Feature: testing out the various parts of login page
     Then I should see "Email cannot be empty" in the page
   Scenario: Enter nothing to password field
     Given I am on the login page
-    And I press the submit button
+    And I click the submit button
     Then I should see "Password cannot be empty" in the page

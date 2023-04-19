@@ -48,7 +48,7 @@ public class MyStepdefs {
         driver.findElement(By.id("email")).sendKeys(arg0);
         driver.findElement(By.id("password")).sendKeys("Password1!");
         driver.findElement(By.id("passwordCheck")).sendKeys("Password1!");
-        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div/div[3]/form/button")).click();
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div/div/div[3]/form/button")).click();
 
         Duration duration = Duration.ofSeconds(10);
         WebDriverWait wait = new WebDriverWait(driver, duration);
@@ -78,7 +78,7 @@ public class MyStepdefs {
         driver.findElement(By.id("email")).sendKeys("test3@email.com");
         driver.findElement(By.id("password")).sendKeys("Password1!");
         driver.findElement(By.id("passwordCheck")).sendKeys("Password1!");
-        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div/div[3]/form/button")).click();
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div/div/div[3]/form/button")).click();
 
         Duration duration = Duration.ofSeconds(10);
         WebDriverWait wait = new WebDriverWait(driver, duration);

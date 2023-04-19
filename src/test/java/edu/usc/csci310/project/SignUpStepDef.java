@@ -56,7 +56,7 @@ public class SignUpStepDef {
 
     @And("I press the submit button")
     public void iPressTheSubmitButton() {
-        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div/div[3]/form/button")).click();
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div/div/div[3]/form/button")).click();
     }
 
     @Then("I should see {string} in the page")
@@ -91,7 +91,7 @@ public class SignUpStepDef {
 
     @And("I click the submit button")
     public void iClickTheSubmitButton() {
-        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div/div[3]/form/button")).click();
+        driver.findElement(By.xpath("//*[@id=\"submit-button\"]")).click();
     }
     @After
     public void after() {
