@@ -9,8 +9,8 @@ const Navbar = () => {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{backgroundColor: "lightblue"}}>
-            <a className="navbar-brand" href="#">
-                Movie Time
+            <a className="navbar-brand shift-left" href="#">
+                Movie Time Team #5
             </a>
             <button
                 className="navbar-toggler"

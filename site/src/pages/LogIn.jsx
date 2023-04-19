@@ -213,39 +213,49 @@ function LogIn(props) {
     };
 
     return (
-        <div className="app-signup">
-
-            <div className="login-form-signup">
-                <div className="title-signup">User Log In Page</div>
-                <div className="messages-signup">
-                    {emailNotFoundMessage()}
+        <div>
+            <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{backgroundColor: "lightblue"}}>
+                <a className="navbar-brand shift-left" href="#">
+                    Movie Time
+                </a>
+                <div>
+                    Team #5
                 </div>
-                <div className="form">
-                    <form className="formStyle-signup">
-                        {/* Labels and inputs for form data */}
-                        <div className="input-container-signup">
-                            <label className="label-signup" htmlFor="email">Email</label>
-                            <input onChange={handleEmail} className="input-signup"
-                                   value={email} type="email" id="email"/>
-                            {errorMessageEmailEmpty()}
-                            {errorMessageInvalidEmail()}
-                        </div>
+            </nav>
+            <div className="app-signup">
 
-                        <div className="input-container-signup">
-                            <label className="label-signup" htmlFor="password">Password</label>
-                            <input onChange={handlePassword} className="input-signup"
-                                   value={password} type="password" id="password"/>
-                            {errorMessagePassEmpty()}
-                            {notFoundMessage()}
-                        </div>
-                        {error && <div className="error">{error}</div>}
-                        <button onClick={handleSubmit} className="btn-signup" type="submit" data-testid="submit-button" id="submit-button">
+                <div className="login-form-signup">
+                    <div className="title-signup">User Log In Page</div>
+                    <div className="messages-signup">
+                        {emailNotFoundMessage()}
+                    </div>
+                    <div className="form">
+                        <form className="formStyle-signup">
+                            {/* Labels and inputs for form data */}
+                            <div className="input-container-signup">
+                                <label className="label-signup" htmlFor="email">Email</label>
+                                <input onChange={handleEmail} className="input-signup"
+                                       value={email} type="email" id="email"/>
+                                {errorMessageEmailEmpty()}
+                                {errorMessageInvalidEmail()}
+                            </div>
+
+                            <div className="input-container-signup">
+                                <label className="label-signup" htmlFor="password">Password</label>
+                                <input onChange={handlePassword} className="input-signup"
+                                       value={password} type="password" id="password"/>
+                                {errorMessagePassEmpty()}
+                                {notFoundMessage()}
+                            </div>
+                            {error && <div className="error">{error}</div>}
+                            <button onClick={handleSubmit} className="btn-signup" type="submit" data-testid="submit-button" id="submit-button">
                                 Submit
-                        </button>
-                    </form>
-                </div>
-                <div className="App">
-                <div className="centerAlign redirect" data-testid="toSignUp" onClick={switchToSignUp}>Not Registered Yet? <br /> Sign Up Here</div>
+                            </button>
+                        </form>
+                    </div>
+                    <div className="App">
+                        <div className="centerAlign redirect" data-testid="toSignUp" onClick={switchToSignUp}>Not Registered Yet? <br /> Sign Up Here</div>
+                    </div>
                 </div>
             </div>
         </div>

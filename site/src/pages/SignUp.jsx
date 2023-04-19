@@ -198,46 +198,56 @@ function SignUp(props) {
     };
 
     return (
-        <div className="app-signup">
-            <div className="login-form-signup" data-testid="sign-up-form">
-                <div className="title-signup">User Registration Page</div>
-                <div className="messages-signup">
-                    {successMessage()}
-                    {emailUseMessage()}
+        <div>
+            <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{backgroundColor: "lightblue"}}>
+                <a className="navbar-brand shift-left" href="#">
+                    Movie Time
+                </a>
+                <div>
+                    Team #5
                 </div>
-                <div className="form">
-                    <form className="formStyle-signup">
-                        {/* Labels and inputs for form data */}
-                        <div className="input-container-signup">
-                            <label className="label-signup" htmlFor="email">Email</label>
-                            <input onChange={handleEmail} className="input-signup"
-                                   value={email} type="email" id="email"/>
-                            {errorMessageEmptyEmail()}
-                            {errorMessageInvalidEmail()}
-                        </div>
+            </nav>
+            <div className="app-signup">
+                <div className="login-form-signup" data-testid="sign-up-form">
+                    <div className="title-signup">User Registration Page</div>
+                    <div className="messages-signup">
+                        {successMessage()}
+                        {emailUseMessage()}
+                    </div>
+                    <div className="form">
+                        <form className="formStyle-signup">
+                            {/* Labels and inputs for form data */}
+                            <div className="input-container-signup">
+                                <label className="label-signup" htmlFor="email">Email</label>
+                                <input onChange={handleEmail} className="input-signup"
+                                       value={email} type="email" id="email"/>
+                                {errorMessageEmptyEmail()}
+                                {errorMessageInvalidEmail()}
+                            </div>
 
-                        <div className="input-container-signup">
-                            <label className="label-signup" htmlFor="password">Password</label>
-                            <input onChange={handlePassword} className="input-signup"
-                                   value={password} type="password" id="password" data-testid="password"/>
-                            {errorMessagePassVal()}
-                            {errorMessagePassEmp()}
-                        </div>
+                            <div className="input-container-signup">
+                                <label className="label-signup" htmlFor="password">Password</label>
+                                <input onChange={handlePassword} className="input-signup"
+                                       value={password} type="password" id="password" data-testid="password"/>
+                                {errorMessagePassVal()}
+                                {errorMessagePassEmp()}
+                            </div>
 
-                        <div className="input-container-signup">
-                            <label className="label-signup" htmlFor="passwordCheck">Confirm Password</label>
-                            <input onChange={handlePasswordCheck} className="input-signup"
-                                   value={passwordCheck} type="password" id="passwordCheck" data-testid="passwordCheck"/>
-                            {errorMessagePass()}
-                            {errorMessagePassValEmp()}
-                        </div>
+                            <div className="input-container-signup">
+                                <label className="label-signup" htmlFor="passwordCheck">Confirm Password</label>
+                                <input onChange={handlePasswordCheck} className="input-signup"
+                                       value={passwordCheck} type="password" id="passwordCheck" data-testid="passwordCheck"/>
+                                {errorMessagePass()}
+                                {errorMessagePassValEmp()}
+                            </div>
 
-                        <button onClick={handleSubmit} className="btn-signup" type="submit" data-testid="submit-button">
-                            Submit
-                        </button>
-                    </form>
+                            <button onClick={handleSubmit} className="btn-signup" type="submit" data-testid="submit-button">
+                                Submit
+                            </button>
+                        </form>
+                    </div>
+                    <div className="centerAlign redirect" data-testid="toLogin" onClick={switchToLogin}>Have an account? Login Here</div>
                 </div>
-                <div className="centerAlign redirect" data-testid="toLogin" onClick={switchToLogin}>Have an account? Login Here</div>
             </div>
         </div>
     );

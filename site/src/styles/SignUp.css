@@ -93,7 +93,7 @@ button:active {
 
 .title-signup {
     font-size: 22px;
-
+    text-align: center;
     font-family: 'Comfortaa', cursive;
 }
 
@@ -102,6 +102,10 @@ button:active {
     flex-direction: column;
     gap: 8px;
     margin: 10px;
+}
+
+.shift-left {
+    margin-left: 15px;
 }
 
 /*input[type="text"],*/
