@@ -6,6 +6,7 @@ Nemsiss Shahbazian
 Sohee Yoon 
 
 Include a Zoom Meeting Recording Link: 
+https://usc.zoom.us/rec/share/Aly6S3ISMI6NMyvqIAHTPiFj9rlhT1t2-G1fnUAWp1mOPvT0r4_6ca9R391vF7ug.j_iRRd2oPq-gilpX
 
 Angela: 
 What have you done since the last meeting?
