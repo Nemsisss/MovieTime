@@ -1,16 +1,17 @@
-import React, {useState} from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/search.css";
 import httpRequest from "../utils/httpRequest";
 import Popup from '../components/Popup';
 import "regenerator-runtime/runtime";
-// import { useLocation } from 'react-router-dom';
+import { Eye, PlusCircle } from "react-bootstrap-icons";
+
 
 
 function Search(props) {
-//  const [searching, setSearching] = useState(false);
- const [message, setMessage] = useState(null);
+ const [message, setMessage] = useState("");
  const [query, setQuery] = useState("");
+ const [savedQuery, setSavedQuery]=useState("");
  const [movies, setMovies] = useState([]);
  const [selectedOption, setSelectedOption] = useState("keyword");
  const [selectedStartYear, setSelectedStartYear] = useState(1900);
@@ -18,6 +19,27 @@ function Search(props) {
  const [hovered, setHovered] = useState(false);
  const [page, setPage] = useState(1);
  const [buttonPopup, setButtonPopup] = useState(false);
+ const [buttonPopupMovie, setButtonPopupMovie] = useState(false);
+ const [buttonPopupList, setButtonPopupList] = useState(false);
+ const [addListName, setAddListName]=useState("");
+//  const [listID, setListID]=useState();
+ const [lists, setLists]=useState([]);
+ const [movie,setMovie]=useState();
+ const [selectedList, setSelectedList] = useState();
+ const [errorMsg, setErrorMsg] = useState("");
+ const [buttonPopupEye, setButtonPopupEye] = useState(false);
+ const [listEye, setListEye] = useState([]);
+ const [eyeMsg, setEyeMsg] = useState("");
+ const location = useLocation();
+ const searchParams = new URLSearchParams(location.search);
+ const genre_ids= {action:28, adventure:12, animation: 16, comedy:35, crime:80, documentary: 99, drama:18,
+         family: 10751, fantasy: 14, history:36, horror:27, music: 10402, mystery:9648, romance: 10749, science_fiction: 878, tv_movie:10770,
+         thriller: 53, war: 10752, western: 37};
+ const userId = searchParams.get('userId'); //access unique userId
+ props.setUid(userId);
+
+
+
 
 
  const handleOptionChange = (option) => {
@@ -25,6 +47,11 @@ function Search(props) {
    setPage(1); // reset page to 1
    setMovies([]); // clear movies array
  };
+  const handleListOptionChange = (option) => {
+   console.log(option);
+   setSelectedList(option);
+
+  };
  const handleStartYearChange = (event) => {
    setSelectedStartYear(parseInt(event.target.value));
  };
@@ -38,37 +65,68 @@ function Search(props) {
     setHovered(false);
   };
   const loadPageWGenre = async(url)=>{
-      props.setGquery(null);
+
       try {
              const response = await httpRequest(url);
              const data = await response.data;
-             setMessage(null);
-             setMovies(data.results);
-             console.log(data.results);
+             setMessage("");
+            setSavedQuery(props.gQuery);
+            props.setGquery(null);
+             setSelectedOption("genre");
+             setMovies(data.results.slice(0, 10));
+             setPage(2);
           } catch (err) {
-             setMessage("An unexpected error occurred.");
+             setMessage("No results found.");
           }
   }
   const loadPageWactor = async(url)=>{
-      props.setAquery(null);
-      try{
-          const movieResponse = await httpRequest(url);
-          const movieData = await movieResponse.data;
-          setMovies(movieData.cast);
-      }catch (err) {
-          setMessage("An unexpected error occurred.");
+try {
+        const response = await httpRequest(url);
+        const data = await response.data;
+        setMessage(null);
+        const personId = data.results[0].id;
+        url = `https://api.themoviedb.org/3/person/${personId}/movie_credits?api_key=00f824df761bd517e281a3753a0a70f1`;
+        const movieResponse = await httpRequest(url);
+
+        const movieData = await movieResponse.data;
+        setSavedQuery(props.aQuery);
+        props.setAquery(null);
+        setSelectedOption("actor");
+        setMovies(movieData.cast.slice(0, 10));
+        setPage(2);
+
+      } catch (err) {
+        setMessage("No results found.");
       }
   }
 
       if(props.gQuery)
       {
-          const url=`https://api.themoviedb.org/3/discover/movie?api_key=00f824df761bd517e281a3753a0a70f1&with_genres=${props.gQuery}`;
+
+                  let genre_id;
+                  if(props.gQuery.toLowerCase() === "science fiction")
+                  {
+                      genre_id= genre_ids["science_fiction"];
+                  }
+                  else if (props.gQuery.toLowerCase() === "tv movie")
+                  {
+                      genre_id= genre_ids["tv_movie"];
+                  }
+                  else if(!genre_ids[props.gQuery.toLowerCase()])
+                  {
+                       genre_id=0;
+                  }
+                  else
+                  {
+                      genre_id= genre_ids[props.gQuery.toLowerCase()];
+                  }
+          const url=`https://api.themoviedb.org/3/discover/movie?api_key=00f824df761bd517e281a3753a0a70f1&with_genres=${genre_id}`;
           loadPageWGenre(url);
+
       }
       if(props.aQuery)
       {
-//           console.log(props.aQuery);
-         const url = `https://api.themoviedb.org/3/person/${props.aQuery}/movie_credits?api_key=00f824df761bd517e281a3753a0a70f1`;
+            const url = `https://api.themoviedb.org/3/search/person?api_key=00f824df761bd517e281a3753a0a70f1&query=${props.aQuery}`;
          loadPageWactor(url);
       }
 
@@ -77,45 +135,85 @@ const searchMovies = async (e) => {
   e.preventDefault();
   let url = "";
   switch (selectedOption) {
+
     case "actor":
-    url = `https://api.themoviedb.org/3/search/person?api_key=00f824df761bd517e281a3753a0a70f1&query=${query}`;
+    url = `https://api.themoviedb.org/3/search/person?api_key=00f824df761bd517e281a3753a0a70f1&query=${savedQuery}`;
     try {
         const response = await httpRequest(url);
         const data = await response.data;
-        console.log(data.results);
         setMessage(null);
         const personId = data.results[0].id;
         url = `https://api.themoviedb.org/3/person/${personId}/movie_credits?api_key=00f824df761bd517e281a3753a0a70f1`;
         const movieResponse = await httpRequest(url);
         const movieData = await movieResponse.data;
-//         console.log(movieResponse.data)
         setMessage(null);
-        setMovies(movieData.cast.slice(0, 10));
-        setPage(2);
+        if (page === 1) {
+                setMovies(movieData.cast.slice(0, 10));
+            } else {
+                setMovies(prevMovies => [...prevMovies, ...movieData.cast.slice((page-1)*10, page*10)]);
+        }
+       setPage(prevPage => prevPage + 1);
+
 
       } catch (err) {
-        setMessage("An unexpected error occurred.");
+        setMessage("No results found.");
       }
       break;
     case "title":
-      url = `https://api.themoviedb.org/3/search/movie?api_key=00f824df761bd517e281a3753a0a70f1&language=en-US&query=${query}&page=${page}&include_adult=false`;
+      url = `https://api.themoviedb.org/3/search/movie?api_key=00f824df761bd517e281a3753a0a70f1&language=en-US&query=${savedQuery}&page=${page}&include_adult=false`;
       try {
         const response = await httpRequest(url);
         const data = await response.data;
         setMessage(null);
-        console.log(data.results);
         if (page === 1) {
           setMovies(data.results.slice(0, 10));
         } else {
           setMovies(prevMovies => [...prevMovies, ...data.results.slice(0, 10)]);
         }
         setPage(prevPage => prevPage + 1);
+
       } catch (err) {
-        setMessage("An unexpected error occurred.");
+        setMessage("No results found.");
       }
       break;
+      case "genre":{
+            let genre_id;
+            if(savedQuery.toLowerCase() === "science fiction")
+            {
+                genre_id= genre_ids["science_fiction"];
+            }
+            else if (savedQuery.toLowerCase() === "tv movie")
+            {
+                genre_id= genre_ids["tv_movie"];
+            }
+            else if(!genre_ids[savedQuery.toLowerCase()])
+            {
+                genre_id=0;
+            }
+            else
+            {
+                genre_id= genre_ids[savedQuery.toLowerCase()];
+            }
+            url=`https://api.themoviedb.org/3/discover/movie?api_key=00f824df761bd517e281a3753a0a70f1&with_genres=${genre_id}&page=${page}`;
+            try {
+              const response = await httpRequest(url);
+              const data = await response.data;
+              setMessage(null);
+
+              if (page === 1) {
+                setMovies(data.results.slice(0, 10));
+              } else {
+                setMovies(prevMovies => [...prevMovies, ...data.results.slice(0, 10)]);
+              }
+              setPage(prevPage => prevPage + 1);
+
+            } catch (err) {
+              setMessage("No results found.");
+            }
+        break;
+        }
     default:
-      url = `https://api.themoviedb.org/3/search/keyword?api_key=00f824df761bd517e281a3753a0a70f1&query=${query}`;
+      url = `https://api.themoviedb.org/3/search/keyword?api_key=00f824df761bd517e281a3753a0a70f1&query=${savedQuery}`;
           try {
             const response = await httpRequest(url);
             const data = await response.data;
@@ -133,11 +231,11 @@ const searchMovies = async (e) => {
             setPage(prevPage => prevPage + 1);
 
           } catch (err) {
-            setMessage("An unexpected error occurred.");
+            setMessage("No results found.");
           }
       break;
   }
-//   setQuery("");
+  setQuery("");
 };
 const handleLoadMore = async (e) => {
   e.preventDefault();
@@ -147,6 +245,112 @@ const handleLoadMore = async (e) => {
     console.error(err);
   }
 };
+
+const updatePopup=()=>{
+setButtonPopup(false);
+setButtonPopupMovie(true);
+}
+const updatePopupList=()=>{
+setButtonPopup(false);
+setButtonPopupList(true);
+}
+
+const handleCreateNewList= async(e)=>{
+ e.preventDefault();
+console.log(addListName);
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ listName: `${addListName}` })
+    };
+
+    let json;
+    try{
+    const response = await fetch(`http://localhost:8080/daniel/${userId}/list`, requestOptions);
+    json = await response.json();
+    }
+    catch (err) {
+         setErrorMsg("The list name already exists, try a different name.");
+         setButtonPopupMovie(true);
+    }
+
+    if(json){
+//     setListID(json.listId);
+       setErrorMsg("");
+       fetch(`http://localhost:8080/daniel/${userId}/list`)
+       .then(response => response.json())
+       .then(data => {
+        console.log(data);
+        setLists(data)});
+        setButtonPopupMovie(false);
+    }
+
+}
+
+useEffect(()=> {
+try{
+
+    fetch(`http://localhost:8080/daniel/${userId}/list`)
+        .then(response => response.json())
+        .then(data => {
+        console.log(data);
+        setLists(data)});
+}
+catch (err) {
+     console.log(err);
+}
+},[])
+const handleAddButton =(m)=>{
+setButtonPopup(true);
+setMovie(m);
+}
+
+const handleAddMovie =  async(e)=>{
+ e.preventDefault();
+
+
+ try{
+    const url=`https://api.themoviedb.org/3/movie/${movie.id}?api_key=00f824df761bd517e281a3753a0a70f1&language=en-US&append_to_response=credits,production_companies`;
+             const response = await httpRequest(url);
+             console.log(response);
+             const data = await response.data;
+     const directorList = data.credits.crew
+                 .filter((crewMember) => crewMember.job === "Director")
+                 .map((director) => director.name);
+           const castList = data.credits.cast.map((castMember) => castMember.name);
+           const studioList = data.production_companies.map((company) => company.name);
+            const genreIdConverted = data.genres.map((genre)=>genre.id);
+
+     const requestOptions = {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify(
+         {
+               movieDbId: movie.id,
+               picture: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+               title: movie.title,
+               plot: movie.overview,
+                genre: genreIdConverted.join(","),
+               studio: studioList.join(","),
+               actors: castList.join(","),
+               directors: directorList.join(",")
+         })
+     };
+     console.log(requestOptions);
+
+     const uid=parseInt(userId);
+     const slist=parseInt(selectedList);
+
+     fetch(`http://localhost:8080/daniel/${uid}/${slist}/movie`, requestOptions)
+         .then(response => response.json())
+         .then(data => console.log(data));
+         setButtonPopupList(false);
+    }catch (err) {
+      console.log(err);
+    }
+ }
+
+
  const navigate = useNavigate();
  const routeChange = (selected) => {
    props.onViewDetails(selected);
@@ -154,6 +358,25 @@ const handleLoadMore = async (e) => {
    navigate(path);
  };
 
+const eyeHandler = async(movieID)=>{
+     setButtonPopupEye(true);
+//      setMovie(movie);
+     console.log("EYE HANDLER");
+     let json="";
+     try{
+          console.log(movieID)
+           const response = await  fetch(`http://localhost:8080/daniel/${movieID}/movie`);
+           json = await response.json();
+     }
+     catch (err) {
+     setEyeMsg("This movie is not in any of your lists!");
+     }
+         if(json){
+         console.log(json);
+         setEyeMsg("");
+         setListEye(json);
+     }
+   }
  return (
    <div>
      <div id="page-wrapper" className="container">
@@ -191,13 +414,11 @@ const handleLoadMore = async (e) => {
                style={{ width: "200px" }}
                onChange={(e) => handleOptionChange(e.target.value)}
                value={selectedOption}
-               data-testid="options"
-             >
+               data-testid="options">
                <option value="actor" >Actor</option>
-               <option value="keyword"  >
-                 Keyword
-               </option>
+               <option value="keyword"  >Keyword</option>
                <option value="title" >Title</option>
+               <option value="genre" >Genre</option>
              </select>
            </div>
            <input
@@ -207,38 +428,94 @@ const handleLoadMore = async (e) => {
              name="query"
              placeholder="Search movies..."
              value={query}
-             onChange={(e) => setQuery(e.target.value)}
+             onChange={(e) => {
+             setQuery(e.target.value);
+             setSavedQuery(e.target.value);
+             }}
            />
-           <button type="submit" style={{ borderRadius: "5px" }}>
+           <button data-testid= "clickme" type="submit" style={{ borderRadius: "5px" }} onClick={()=>{setMovies([]);setPage(1);}}>
              Search{" "}
            </button>
            <small className="mt-2 form-text text-danger" data-testid="error">
-             <em id="emphText">{message}</em>
+               <em id="emphText">{message}</em>
            </small>
          </form>
        </div>
        <div id="movie-container" className="row mx-auto" data-testid="movie-container">
          { movies.map((item, idx)=>(
-                   (new Date(item.release_date).getFullYear() >= selectedStartYear && new Date(item.release_date).getFullYear() <= selectedEndYear) ?
+                   (!item.release_date || (new Date(item.release_date).getFullYear() >= selectedStartYear && new Date(item.release_date).getFullYear() <= selectedEndYear)) ?
                      (<div key={idx} className="col-6 col-lg-3 text-center" data-testid="movie-element">
                             <div className="image-container">
-                                 <img  className={`thumbnail ${hovered ? 'hover-effect' : ''}`} src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt="Movie image" onMouseEnter={handleHover} onMouseLeave={handleMouseLeave} data-testid="imgTest"/>
-                                    <button type="button" className="add-button"  onClick={()=>setButtonPopup(true)} data-testid="addButton" aria-expanded={buttonPopup}>Add</button>
+                                 <img  className={`thumbnail ${hovered ? 'hover-effect' : ''}`} src={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : "https://www.altavod.com/assets/images/poster-placeholder.png"} alt="Movie image" onMouseEnter={handleHover} onMouseLeave={handleMouseLeave} data-testid="imgTest"/>
+                                    <PlusCircle type="button" className="add-button"  onClick={()=>handleAddButton(item)} data-testid="addButton" aria-expanded={buttonPopup}  size={60} style={{ fill: 'black', stroke: 'none' }}>Add</PlusCircle>
+                                    <br></br><Eye data-testid="eyeButton" type="button" onClick={()=>eyeHandler(item.id)} className="eye-button"  size={60} />
                                     <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                                            <h3>Add Movie</h3>
                                            <p>Choose an option:</p>
-                                           <button type="button" className="btn btn-primary" style={{ marginRight: '10px' }} >Create New List</button>
-                                           <button type="button" className="btn btn-primary" >Add to Existing List</button>
-
+                                           <button type="button" data-testid="createNewList" className="btn btn-primary" style={{ marginRight: '10px' }}  onClick={()=>updatePopup()}>Create New List</button>
+                                           <button type="button" data-testid="addToExisting" className="btn btn-primary" onClick={()=>updatePopupList()}>Add to Existing List</button>
                                     </Popup>
-                            </div>
-                         <ul className="list-unstyled">
-                           <li className="fw-bold" id="title"> {item.title}</li>
-                           <li id="release-date">{item.release_date}</li>
-                           <button id="viewDetails" data-testid="viewDetails" type="button" className="btn btn-primary" onClick={()=>routeChange(item.id)} >View Details</button>
-                           <button type="button" className="mobile-add-button"  onClick={()=>setButtonPopup(true)} data-testid="mobileAddButton" aria-expanded={buttonPopup}>Add</button>
-                         </ul>
+                                    <Popup trigger={buttonPopupEye} setTrigger={setButtonPopupEye}>
+                                      <div>
+                                        <h3>Lists that contain this movie</h3>
+                                  {!eyeMsg?( <ul>
+                                          {listEye.map((list) => (
+                                           <li key={list.listId}>{list.listName}</li> ))}
+                                        </ul>):(<p>{eyeMsg}</p>) }
 
+                                      </div>
+                                    </Popup>
+                                    <Popup trigger={buttonPopupMovie} setTrigger={setButtonPopupMovie}>
+                                            <h3>Create New List</h3>
+                                            <form onSubmit={handleCreateNewList}>
+                                              <div className="row">
+                                                <label htmlFor="lname">List name:</label><br></br>
+                                                <input data-testid="createListPopUpInput" type="text" id="lname" name="lname" value={addListName} placeholder="Enter a list name...." onChange={(e) => setAddListName(e.target.value)}/><br></br>
+                                                    { errorMsg!=="" ? (<small className="mt-2 form-text text-danger" data-testid="error">
+                                                        <em id="emphText">{errorMsg}</em>
+                                                      </small>):""}
+                                              </div>
+                                              <button data-testid="createListPopUpSubmit" type="submit" className="btn btn-primary" style={{ marginRight: '10px' ,marginTop: '10px' }}  >Submit</button>
+                                            </form>
+                                    </Popup>
+                                    <Popup trigger={buttonPopupList} setTrigger={setButtonPopupList}>
+                                    <h3>Choose list to add the movie</h3>
+                                     <form onSubmit={handleAddMovie}>
+                                     <div>
+                                                 <select
+                                                    data-testid="listOptions"
+                                                   name="dropdown"
+                                                   style={{ width: "200px" }}
+                                                   onChange={(e) => handleListOptionChange(e.target.value)}
+                                                   value={selectedList}
+                                                 >
+                                                  <option value="selectList"> -- Select a list -- </option>
+                                                  {(lists== undefined)? (""):(lists.map((item, idx)=>(
+                                                  <option key={idx}
+                                                  value={item.listId}>{item.listName}</option>
+
+                                                       ))) }
+                                                 </select>
+                                     </div>
+                                     <button data-testid="submitSelectedList"  type="submit" className="btn btn-primary" style={{ marginRight: '10px',marginTop: '10px' }}  >Submit</button>
+                                     </form>
+                                    </Popup>
+
+                            </div>
+
+                           <ul className="list-unstyled">
+                             <li>
+                               <h4 className="fw-bold" id="title">{item.title}</h4>
+                               <p id="release-date">{item.release_date ? item.release_date : "N/A"}</p>
+                               <button id="viewDetails" data-testid="viewDetails" type="button" className="btn btn-primary" onClick={() => routeChange(item.id)}>View Details</button>
+                             </li>
+                             <li className="d-flex justify-content-start align-items-center mobile-buttons">
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                               <PlusCircle type="button" className="mobile-add-button me-2" onClick={() => setButtonPopup(true)} data-testid="mobileAddButton" aria-expanded={buttonPopup} size={30}>Add</PlusCircle>
+                               <Eye data-testid="movie-eye-button-1" type="button" onClick={() => eyeHandler(item.id)} className="mobile-eye-button" size={30} />
+                              </div>
+                             </li>
+                           </ul>
                      </div>
                      ):''
                    ))}
@@ -253,4 +530,3 @@ const handleLoadMore = async (e) => {
  );
 }
 export default Search;
-

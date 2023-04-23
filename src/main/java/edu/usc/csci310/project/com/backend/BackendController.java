@@ -58,6 +58,7 @@ public class BackendController {
             movie.setPlot(movieRequest.getPlot());
             movie.setStudio(movieRequest.getStudio());
             movie.setTitle(movieRequest.getTitle());
+            movie.setDirectors(movieRequest.getDirectors());
             movie.addMovies(list);
             movieDetailRepository.save(movie);
             list.addMovie(movie);
@@ -83,7 +84,16 @@ public class BackendController {
         UserEntity user = userRepository.findById(user_ID);
         return new ResponseEntity<Set<MovieListEntity>>(user.getLists(), HttpStatus.OK);
     }
-
+    @GetMapping("/{movie_id}/movie")
+    public ResponseEntity<Set<MovieListEntity>> getSingleMovie(@PathVariable("movie_id") int movieId)
+    {
+        if(!movieDetailRepository.existsByMovieDbId(movieId))
+        {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+        MovieDetailEntity movie = movieDetailRepository.findByMovieDbId(movieId);
+        return new ResponseEntity<Set<MovieListEntity>>(movie.GetMoviesLists(), HttpStatus.OK);
+    }
     @GetMapping("/{user_ID}/{list_ID}/{movie_id}/movies")
     public ResponseEntity<MovieDetailEntity> getMovies(@PathVariable("user_ID") int userID, @PathVariable("list_ID") int listID, @PathVariable("movie_id") int movieID) {
         if (!userRepository.existsById(userID)) {
