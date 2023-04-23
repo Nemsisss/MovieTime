@@ -41,6 +41,7 @@ function Search(props) {
 
 
 
+ const apiKey = "00f824df761bd517e281a3753a0a70f1";
 
  const handleOptionChange = (option) => {
    setSelectedOption(option);
@@ -126,7 +127,9 @@ try {
       }
       if(props.aQuery)
       {
+
             const url = `https://api.themoviedb.org/3/search/person?api_key=00f824df761bd517e281a3753a0a70f1&query=${props.aQuery}`;
+
          loadPageWactor(url);
       }
 
@@ -137,13 +140,15 @@ const searchMovies = async (e) => {
   switch (selectedOption) {
 
     case "actor":
+
     url = `https://api.themoviedb.org/3/search/person?api_key=00f824df761bd517e281a3753a0a70f1&query=${savedQuery}`;
+
     try {
         const response = await httpRequest(url);
         const data = await response.data;
         setMessage(null);
         const personId = data.results[0].id;
-        url = `https://api.themoviedb.org/3/person/${personId}/movie_credits?api_key=00f824df761bd517e281a3753a0a70f1`;
+        url = `https://api.themoviedb.org/3/person/${personId}/movie_credits?api_key=${apiKey}`;
         const movieResponse = await httpRequest(url);
         const movieData = await movieResponse.data;
         setMessage(null);
@@ -160,6 +165,7 @@ const searchMovies = async (e) => {
       }
       break;
     case "title":
+
       url = `https://api.themoviedb.org/3/search/movie?api_key=00f824df761bd517e281a3753a0a70f1&language=en-US&query=${savedQuery}&page=${page}&include_adult=false`;
       try {
         const response = await httpRequest(url);
@@ -213,13 +219,15 @@ const searchMovies = async (e) => {
         break;
         }
     default:
+
       url = `https://api.themoviedb.org/3/search/keyword?api_key=00f824df761bd517e281a3753a0a70f1&query=${savedQuery}`;
+
           try {
             const response = await httpRequest(url);
             const data = await response.data;
             setMessage(null);
             const keywordId = data.results[0].id;
-            url = `https://api.themoviedb.org/3/discover/movie?api_key=00f824df761bd517e281a3753a0a70f1&with_keywords=${keywordId}&page=${page}`;
+            url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_keywords=${keywordId}&page=${page}`;
             const keywordResponse = await httpRequest(url);
             const keywordData = await keywordResponse.data;
             setMessage(null);
