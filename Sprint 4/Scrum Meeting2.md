@@ -4,7 +4,7 @@ Daniel Zeng
 Nemsiss Shahbazian
 Roza Babayan 
 Sohee Yoon 
-Include a Zoom Meeting Recording Link: 
+Include a Zoom Meeting Recording Link: https://usc.zoom.us/rec/share/L30lGEE9IwycdluOhQ3Xd4G3wvxG8AiDA4p3317m1krGwMmJeDz7gll3HxWC5pdX.dvjU9As_a74ilh-B
 Angela: 
 What have you done since the last meeting?
 I did a little switch with daniel and got the testing done for the movies.jsx page. I also had to update the movies.jsx to help with the testing.
