@@ -11,6 +11,10 @@ import Movies from "./pages/Movies"
 
 function App() {
     const [moviesList, setMoviesList] = useState(null);
+    const [userID, setUserID]= useState(null);
+    const [genreQuery, setGenreQuery] = useState(null);
+    const [actorQuery, setActorQuery] = useState(null);
+
     const navigate = useNavigate();
     const switchToSignUp = () => {
         let path = '/signUp';
@@ -31,8 +35,8 @@ function App() {
         <Route path="/login" element={<LoginForm switchToSignUp={switchToSignUp} switchToSearch={switchToSearch}/>} />
         <Route path="/signUp" element={<SignUp switchToLogin={switchToLogin} switchToSearch={switchToSearch}/>} />
           <Route path="/movie" element={<MovieList />} />
-          <Route path="/search" element={<Search onViewDetails={setMoviesList}/>} />
-        <Route path="/details" element={<Details details={moviesList} />} />
+          <Route path="/search" element={<Search onViewDetails={setMoviesList} gQuery={genreQuery} setGquery={setGenreQuery} aQuery={actorQuery} setAquery={setActorQuery} setUid={setUserID}/>} />
+        <Route path="/details" element={<Details userId={userID}  details={moviesList} onLinkClick={setGenreQuery} onActorClick={setActorQuery}/>} />
           <Route path="/user" element={<UserList />} />
           <Route path="/movies" element={<Movies />} />
         {/* 404 page not found redirect */}

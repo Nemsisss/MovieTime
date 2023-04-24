@@ -76,6 +76,7 @@ public class BackendController {
             movie.setPlot(movieRequest.getPlot());
             movie.setStudio(movieRequest.getStudio());
             movie.setTitle(movieRequest.getTitle());
+            movie.setDirectors(movieRequest.getDirectors());
             movie.addMovies(list);
             movieDetailRepository.save(movie);
             list.addMovie(movie);
