@@ -147,12 +147,12 @@ public class MovieDetailEntity {
 
     public String getDirector()
     {
-        return this.director;
+        return this.directors;
     }
 
     public void setDirector(String director)
     {
-        this.director = director;
+        this.directors = director;
     }
 
     public Set<MovieListEntity> GetMoviesLists() {
