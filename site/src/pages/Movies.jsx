@@ -25,7 +25,7 @@ function Movies(props) {
     function resetTimeout() {
         // clear the previous timeout (if any)
         clearTimeout(timeoutId);
-        console.log("wow");
+        //console.log("wow");
 
         // start a new timeout
         timeoutId = setTimeout(() => {
@@ -59,16 +59,21 @@ function Movies(props) {
     const [movies, setMovies] = useState([]);
     const [lists, setLists] = useState([]);
     const[movieId, setMovieId] = useState(-1);
-    const[listId, setListId] = useState(0);
+    const[listId, setListId] = useState(props.listId);
     //const[otherMovieId, setOtherMovieId] = useState(0);
 
     const [showCreateOrMove, setCreateOrMove] = useState(false);
     const [showMove, setMove] = useState(false);
     const [isPublic, setPublic] = useState(false);
 
+    const userId = props.userId;
+
+    console.log("user id: ", userId);
+    console.log("list id: ", listId);
+
     const loadDataOneTime = async() => {
         //console.log("load data");
-        const url = "http://localhost:8080/daniel/1/1/movies";
+        const url = "http://localhost:8080/daniel/" + userId +"/" + listId + "/movies";
         let noError = true;
         const response = await fetch(url, {
             method: 'GET',
@@ -79,16 +84,16 @@ function Movies(props) {
             console.log(error);
             noError = false;
         });
+        console.log(response);
         if(noError){
             if (response.status === 200) {
                 const responseArray = response.json();
                 //console.log(responseArray);
                 await responseArray
                     .then((value) => {
-                        //  console.log(value);//This is a fulfilled promise  👈
-                        act(() => {
                             setMovies(value);
-                        });
+                            console.log("value: ", value);//This is a fulfilled promise  👈
+                            console.log("movies: ", movies);
 
                     })
                     .catch((err) => {
@@ -99,7 +104,7 @@ function Movies(props) {
     }
     const loadLists = async() => {
         console.log("load list");
-        const url = "http://localhost:8080/daniel/1/list";
+        const url = "http://localhost:8080/daniel/" + userId +"/list";
         let noError = true;
         const response = await fetch(url, {
             method: 'GET',
@@ -110,16 +115,15 @@ function Movies(props) {
             console.log(error);
             noError = false;
         });
+        console.log("resppnse 2:", response);
         if(noError){
             if (response.status === 200) {
                 const responseArray = response.json();
                 console.log(responseArray);
                 await responseArray
                     .then((value) => {
-                        console.log(value);//This is a fulfilled promise  👈
-                        act(() => {
                             setLists(value);
-                        });
+                            console.log("value 2: ", value);//This is a fulfilled promise  👈
                     })
                     .catch((err) => {
                         console.log(err);
@@ -154,7 +158,7 @@ function Movies(props) {
 
     const createListAndAddMovie = async() => {
         console.log("create list and add movie");
-        const url = 'http://localhost:8080/daniel/1/list';
+        const url = 'http://localhost:8080/daniel/' + userId + '/list';
         const data = {listName: input, isPublic: isPublic};
         let noError = true;
         const response = await fetch(url, {
@@ -216,7 +220,7 @@ function Movies(props) {
         console.log("move movie");
         console.log(listId);
         console.log(movieId);
-        const url = 'http://localhost:8080/daniel/1/1/' + movieId + '/movie';
+        const url = 'http://localhost:8080/daniel/' + userId + '/' + listId + '/' + movieId + '/movie';
         let noError = true;
         const response = await fetch(url, {
             method: 'DELETE',
@@ -239,7 +243,7 @@ function Movies(props) {
         console.log("delete movie");
         console.log(listId);
         console.log(movieId)
-        const url = 'http://localhost:8080/daniel/1/1/' + movieId + '/movie';
+        const url = 'http://localhost:8080/daniel/' + userId + '/' + listId + '/' + movieId + '/movie';
         let noError = true;
         const response = await fetch(url, {
             method: 'DELETE',
@@ -261,7 +265,7 @@ function Movies(props) {
         <div>
             <Navbar userId={props.userId} setHasComeFromValid={props.setHasComeFromValid}/>
             <Button variant="primary" data-testid="launchButton" onClick={handleShow}>
-                Launch demo modal
+                Create or Copy List
             </Button>
             <Modal id = "create" show={showCreate}  onHide={handleCreateClose} animation={true}>
                 <Modal.Header data-testid="showCreateClose" closeButton>
@@ -269,8 +273,8 @@ function Movies(props) {
                 </Modal.Header>
                 <Modal.Body>
                     <div onChange = {event => setPublic(event.target.value)}>
-                        <input type="radio" value="false" name="gender"/> False
-                        <input type="radio" value="true" name="gender" data-testid="lineSomething"/> True
+                        <input type="radio" value="false" name="gender"/> Private
+                        <input type="radio" value="true" name="gender" data-testid="lineSomething"/> Public
                     </div>
                     <form>
                         <label>
@@ -397,10 +401,10 @@ function Movies(props) {
                 </Modal.Footer>
             </Modal>
             <div className="row mx-auto g-3">
-                {movies.map((movie) => (
-                    <div key = {movie.movieDbId} id = {movie.movieDbId} className="col-6 col-lg-4 text-center">
-                        <div className = "movie-overlay">
-                            <img src = {movie.picture}/>
+                {movies.map((movie, index) => (
+                    <div key = {index} id = {movie.movieDbId} className="col-6 col-lg-4 text-center user-movie-list">
+                        <div className = "movie-overlay-movies">
+                            <img className="img-style" src = {movie.picture}/>
                             <div className = "move">
                                 <FaArrowRight data-testid="moveClickArrow" onClick = {() => {setMovieId(movie.movieDbId); setCreateOrMove(true);}}/>
                                 <p>Move</p>
@@ -418,7 +422,7 @@ function Movies(props) {
                                 <p>Copy</p>
                             </div>
                         </div>
-                        <button className = "view-button">View Movie Detail</button>
+                        <button className = "view-button" onClick = {() => {props.setHasComeFromValid(true); props.onViewDetails(movie.movieDbId); navigate(`/details`);}}>View Movie Detail</button>
                     </div>
                 ))}
 
