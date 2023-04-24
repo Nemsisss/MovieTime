@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {render, fireEvent, getAllByText, act, findByTestId, getAllByLabelText} from '@testing-library/react';
 import './App.js';
 import Movies from "./pages/Movies";
+import {BrowserRouter} from 'react-router-dom';
 
 const mockMovieDetails = [
     {
@@ -97,7 +98,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        render(<Movies />);
+        render(<Movies />,{wrapper: BrowserRouter});
     });
 
     it('should have error for loadMovieOnce', async () => {
@@ -111,7 +112,7 @@ describe('Movies component', () => {
 
 
         await new Promise((resolve) => {
-            render(<Movies />);
+            render(<Movies />,{wrapper: BrowserRouter});
             resolve();
         });
     });
@@ -130,7 +131,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        render(<Movies />);
+        render(<Movies />,{wrapper: BrowserRouter});
     });
 
     it('should hit the catch statement pt2', async () => {
@@ -147,7 +148,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        render(<Movies />);
+        render(<Movies />,{wrapper: BrowserRouter});
     });
 
     it('should find and click modal button', async () => {
@@ -162,7 +163,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { getByTestId } = render(<Movies />);
+        const { getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
         //expect(findByTestId('launchButton')).toBeInTheDocument();
 
@@ -185,7 +186,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { getByTestId } = render(<Movies />);
+        const { getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
 
 
@@ -227,7 +228,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { getByTestId } = render(<Movies />);
+        const { getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
 
         const launchModal = getByTestId('launchButton');
@@ -264,7 +265,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { getByTestId } = render(<Movies />);
+        const { getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
         const launchModal = getByTestId('launchButton');
         expect(launchModal).toBeInTheDocument();
@@ -298,7 +299,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { getByTestId } = render(<Movies />);
+        const { getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
 
         const launchModal = getByTestId('launchButton');
@@ -337,7 +338,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { getByTestId } = render(<Movies />);
+        const { getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
 
         const launchModal = getByTestId('launchButton');
@@ -376,7 +377,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { getByTestId } = render(<Movies />);
+        const { getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
 
         const launchModal = getByTestId('launchButton');
@@ -410,7 +411,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { debug, getAllByTestId, getByTestId } = render(<Movies />);
+        const { debug, getAllByTestId, getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
         await new Promise(resolve => setTimeout(resolve, 50));
 
@@ -471,7 +472,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { debug, getAllByTestId, getByTestId } = render(<Movies />);
+        const { debug, getAllByTestId, getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
         await new Promise(resolve => setTimeout(resolve, 50));
 
@@ -521,7 +522,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { getAllByTestId } = render(<Movies />);
+        const { getAllByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
         await new Promise(resolve => setTimeout(resolve, 50));
 
@@ -548,7 +549,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { getAllByTestId, getByTestId } = render(<Movies />);
+        const { getAllByTestId, getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
         await new Promise(resolve => setTimeout(resolve, 50));
 
@@ -589,7 +590,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { getAllByTestId, getByTestId } = render(<Movies />);
+        const { getAllByTestId, getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
         await new Promise(resolve => setTimeout(resolve, 50));
 
@@ -623,7 +624,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { debug, getAllByTestId, getByTestId } = render(<Movies />);
+        const { debug, getAllByTestId, getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
         await new Promise(resolve => setTimeout(resolve, 50));
 
@@ -658,7 +659,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { debug, getAllByTestId, getByTestId } = render(<Movies />);
+        const { debug, getAllByTestId, getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
         await new Promise(resolve => setTimeout(resolve, 50));
 
@@ -685,7 +686,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { debug, getAllByTestId, getByTestId, getAllByLabelText, getByLabelText } = render(<Movies />);
+        const { debug, getAllByTestId, getByTestId, getAllByLabelText, getByLabelText } = render(<Movies />,{wrapper: BrowserRouter});
 
         await new Promise(resolve => setTimeout(resolve, 50));
 
@@ -716,7 +717,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { debug, getAllByTestId, getByTestId } = render(<Movies />);
+        const { debug, getAllByTestId, getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
         await new Promise(resolve => setTimeout(resolve, 50));
 
@@ -776,7 +777,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { getByTestId } = render(<Movies />);
+        const { getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
 
         const launchModal = getByTestId('launchButton');
@@ -809,7 +810,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { getAllByTestId, getByTestId } = render(<Movies />);
+        const { getAllByTestId, getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
         await new Promise(resolve => setTimeout(resolve, 50));
 
@@ -843,7 +844,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { debug, getAllByTestId, getByTestId } = render(<Movies />);
+        const { debug, getAllByTestId, getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
         await new Promise(resolve => setTimeout(resolve, 50));
 
@@ -872,7 +873,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { debug, getByTestId, getAllByLabelText } = render(<Movies />);
+        const { debug, getByTestId, getAllByLabelText } = render(<Movies />,{wrapper: BrowserRouter});
 
 
         const launchModal = getByTestId('launchButton');
@@ -906,7 +907,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { getAllByTestId, getByTestId, getByLabelText } = render(<Movies />);
+        const { getAllByTestId, getByTestId, getByLabelText } = render(<Movies />,{wrapper: BrowserRouter});
 
         await new Promise(resolve => setTimeout(resolve, 50));
 
@@ -941,7 +942,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        render(<Movies />);
+        render(<Movies />,{wrapper: BrowserRouter});
     });
 
     it('should render the component with failed loadLists', async () => {
@@ -956,7 +957,7 @@ describe('Movies component', () => {
             status: 400
         });
 
-        render(<Movies />);
+        render(<Movies />,{wrapper: BrowserRouter});
     });
 
     it('should find and click the create button but 40 error', async () => {
@@ -971,7 +972,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { getByTestId } = render(<Movies />);
+        const { getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
 
 
@@ -1013,7 +1014,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { getByTestId } = render(<Movies />);
+        const { getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
 
         const launchModal = getByTestId('launchButton');
@@ -1052,7 +1053,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { debug, getAllByTestId, getByTestId } = render(<Movies />);
+        const { debug, getAllByTestId, getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
         await new Promise(resolve => setTimeout(resolve, 50));
 
@@ -1104,7 +1105,7 @@ describe('Movies component', () => {
             status: 200
         });
 
-        const { getAllByTestId, getByTestId } = render(<Movies />);
+        const { getAllByTestId, getByTestId } = render(<Movies />,{wrapper: BrowserRouter});
 
         await new Promise(resolve => setTimeout(resolve, 50));
 
