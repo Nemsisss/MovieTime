@@ -24,7 +24,7 @@ function Movies() {
     const [lists, setLists] = useState([]);
     const[movieId, setMovieId] = useState(-1);
     const[listId, setListId] = useState(0);
-    const[otherMovieId, setOtherMovieId] = useState(0);
+    //const[otherMovieId, setOtherMovieId] = useState(0);
 
     const [showCreateOrMove, setCreateOrMove] = useState(false);
     const [showMove, setMove] = useState(false);
@@ -112,6 +112,7 @@ function Movies() {
         }).catch((error) => {
             console.log(error);
         });
+        console.log(response);
         return;
     }
 
@@ -275,7 +276,7 @@ function Movies() {
                     <form>
                         <select name="selectList" data-testid="testSelectList" id="selectList" onChange = {(event) => {setCopyInput(event.target.value); setListId(event.target.value);} }>
                             <option value="">Choose an option</option>
-                            {lists.map((list, index) => {
+                            {lists.map((list) => {
                                 if (list.listId == 1) {
                                     return;
                                 }
@@ -322,7 +323,7 @@ function Movies() {
                     <form>
                         <select data-testid="testSelectList2" name="selectList" id="selectList" onChange = {(event) => {setCopyInput(event.target.value); setListId(event.target.value);} }>
                             <option value="">Choose an option</option>
-                            {lists.map((list, index) => {
+                            {lists.map((list) => {
                                 if (list.listId == 1) {
                                     return;
                                 }
@@ -359,16 +360,16 @@ function Movies() {
                 </Modal.Footer>
             </Modal>
             <div className="row mx-auto g-3">
-                {movies.map((movie, index) => (
+                {movies.map((movie) => (
                     <div key = {movie.movieDbId} id = {movie.movieDbId} className="col-6 col-lg-4 text-center">
                         <div className = "movie-overlay">
                             <img src = {movie.picture}/>
                             <div className = "move">
-                                <FaArrowRight data-testid="moveClickArrow" onClick = {() => {setOtherMovieId(movie.tutorialId); setMovieId(movie.movieDbId); setCreateOrMove(true);}}/>
+                                <FaArrowRight data-testid="moveClickArrow" onClick = {() => {setMovieId(movie.movieDbId); setCreateOrMove(true);}}/>
                                 <p>Move</p>
                             </div>
                             <div className = "minus">
-                                <FaMinus data-testid="moveMinusArrow" onClick = {() => {setOtherMovieId(movie.tutorialId); setMovieId(movie.movieDbId);handleRemoveOpen();}}/>
+                                <FaMinus data-testid="moveMinusArrow" onClick = {() => {setMovieId(movie.movieDbId);handleRemoveOpen();}}/>
                                 <p>Minus</p>
                             </div>
                             <div className = "add">

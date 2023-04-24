@@ -24,7 +24,7 @@ function UserList() {
     const [showCompareList, setCompareList] = useState(false);
     const [otherUsers, setOtherUsers] = useState([]);
     const [otherUserId, setOtherUserId] = useState(0);
-    const [otherUserLists, setOtherUserLists] = useState([]);
+    //const [otherUserLists, setOtherUserLists] = useState([]);
     const [otherUserListId, setOtherUserListId] = useState(0);
     async function loadDataOneTime() {
         const url = 'http://localhost:8080/daniel/1/list';
@@ -304,7 +304,7 @@ function UserList() {
                             setOtherUserId(event.target.value);}
                         }>
                             <option value="0">Pick a User To Compare</option>
-                            {otherUsers.map((user, index) => {
+                            {otherUsers.map((user) => {
                                 console.log(user.lists);
                                 if (user.id === 1) {
                                     return;
@@ -338,7 +338,7 @@ function UserList() {
                     <form>
                         <select name="selectList" id="selectList" data-testid = "compare-second-select" onChange = {(event) => {setOtherUserListId(event.target.value);} }>
                             <option value="0">Lists to Pick From</option>
-                            {otherUsers.map((user, index) => {
+                            {otherUsers.map((user) => {
                                 console.log(user);
                                 console.log("Current user id: " + user.id);
                                 console.log('Other user id: ' + otherUserId);
@@ -405,7 +405,7 @@ function UserList() {
             </Modal>
 
             <div className="row mx-auto g-3 movie-user-list" id = "movie-list-row">
-                {lists.map((item, index) => {
+                {lists.map((item) => {
                     let source;
                     let temp;
                     if (item.movie.length === 0) {
