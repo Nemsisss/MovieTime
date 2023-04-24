@@ -41,6 +41,9 @@ public class MovieDetailEntity {
     @Column
     private String actors;
 
+    @Column
+    private String director;
+
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
@@ -131,6 +134,16 @@ public class MovieDetailEntity {
     public void setMovieDbId(long id)
     {
         this.movieDbId = id;
+    }
+
+    public String getDirector()
+    {
+        return this.director;
+    }
+
+    public void setDirector(String director)
+    {
+        this.director = director;
     }
 
     public Set<MovieListEntity> GetMoviesLists() {

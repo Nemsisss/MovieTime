@@ -11,6 +11,7 @@ public class MovieListTest {
     void test_setter() {
         list.setListId(1);
         list.setListName("daniel");
+        list.setIsPublic(true);
     }
 
     @Test
@@ -18,9 +19,11 @@ public class MovieListTest {
         list.getListId();
         list.getMovie();
         list.getListName();
+        list.getIsPublic();
         UserEntity user = new UserEntity();
         list.setUser(user);
         MovieDetailEntity movie = new MovieDetailEntity();
         list.addMovie(movie);
+        list.deleteMovie(movie);
     }
 }

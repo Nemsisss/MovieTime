@@ -17,6 +17,9 @@ public class MovieListEntity {
 
     @Column
     private String listName;
+
+    @Column
+    private boolean publicList;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -35,8 +38,16 @@ public class MovieListEntity {
         this.movies.add(movie);
     }
 
+    public void deleteMovie(MovieDetailEntity movie) {
+        this.movies.remove(movie);
+    }
+
     public Set<MovieDetailEntity> getMovie() {
         return this.movies;
+    }
+
+    public void setMovie(Set<MovieDetailEntity> movies) {
+        this.movies = movies;
     }
 
     public MovieListEntity() {
@@ -62,8 +73,19 @@ public class MovieListEntity {
         this.listName = list_name;
     }
 
+    public boolean getIsPublic()
+    {
+        return publicList;
+    }
+
+    public void setIsPublic(boolean isPublic)
+    {
+        this.publicList = isPublic;
+    }
+
     public void setUser(UserEntity user) {
         this.user = user;
     }
+
 
 }
