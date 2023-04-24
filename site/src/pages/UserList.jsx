@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import "../styles/user.css";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Navbar from '../components/Navbar';
+import {useNavigate} from "react-router-dom";
 function UserList(userId) {
+    const navigate = useNavigate();
     // set the inactivity timeout to 60 seconds
     const inactivityTimeout = 60 * 1000; // in milliseconds
 
@@ -17,7 +19,8 @@ function UserList(userId) {
         // start a new timeout
         timeoutId = setTimeout(() => {
             // redirect the user to the login page
-            window.location.href = "/login";
+            navigate("/login");
+            //window.location.href = "/login";
         }, inactivityTimeout);
     }
 

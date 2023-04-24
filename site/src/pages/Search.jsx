@@ -30,8 +30,6 @@ function Search(props) {
         }, inactivityTimeout);
     }
 
-    resetTimeout();
-
 // listen for user activity events (e.g. mousemove, keypress, etc.)
     window.addEventListener("mousemove", resetTimeout);
     window.addEventListener("keypress", resetTimeout);
