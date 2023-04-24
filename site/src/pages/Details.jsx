@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from "react";
 import httpRequest from "../utils/httpRequest";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Popup from '../components/Popup';
 import "../styles/search.css";
 import { Eye, PlusCircle} from "react-bootstrap-icons";

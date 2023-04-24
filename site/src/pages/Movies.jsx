@@ -3,7 +3,6 @@ import "../styles/movies.css"
 import {FaArrowRight, FaMinus, FaPlus, FaStickyNote} from 'react-icons/fa'
 import Modal from 'react-bootstrap/Modal';
 import Button from "react-bootstrap/Button";
-import {act} from "react-dom/test-utils";
 import Navbar from '../components/Navbar';
 import {useNavigate} from "react-router-dom";
 function Movies(props) {
