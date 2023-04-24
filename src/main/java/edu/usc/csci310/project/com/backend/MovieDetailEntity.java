@@ -145,6 +145,16 @@ public class MovieDetailEntity {
         this.movieDbId = id;
     }
 
+    public String getDirector()
+    {
+        return this.directors;
+    }
+
+    public void setDirector(String director)
+    {
+        this.directors = director;
+    }
+
     public Set<MovieListEntity> GetMoviesLists() {
         return lists;
     }

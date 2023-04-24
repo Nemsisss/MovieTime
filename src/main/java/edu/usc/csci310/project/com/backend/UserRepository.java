@@ -14,4 +14,6 @@ public interface UserRepository extends CrudRepository<UserEntity, Integer>
 
     Set<MovieListEntity> findMoviesById(int id);
 
+    Set<UserEntity> findAll();
+
 }

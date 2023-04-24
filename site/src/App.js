@@ -7,6 +7,7 @@ import MovieList from "./pages/MovieList"
 import Search from "./pages/Search";
 import Details from "./pages/Details";
 import UserList from "./pages/UserList";
+import Movies from "./pages/Movies"
 
 function App() {
     const [moviesList, setMoviesList] = useState(null);
@@ -39,6 +40,7 @@ function App() {
           <Route path="/search" element={<Search onViewDetails={setMoviesList} gQuery={genreQuery} setGquery={setGenreQuery} aQuery={actorQuery} setAquery={setActorQuery} setUid={setUserID} hasComeFromValid={hasComeFromValid} setHasComeFromValid={setHasComeFromValid}/>} />
         <Route path="/details" element={<Details userId={userID}  details={moviesList} onLinkClick={setGenreQuery} onActorClick={setActorQuery} hasComeFromValid={hasComeFromValid} setHasComeFromValid={setHasComeFromValid}/>} />
           <Route path="/user" element={<UserList userId={userID}/>} />
+          <Route path="/movies" element={<Movies userId={userID}/>} />
         {/* 404 page not found redirect */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
