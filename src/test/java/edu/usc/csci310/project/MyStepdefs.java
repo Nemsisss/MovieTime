@@ -8,6 +8,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,6 +21,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.Duration;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -98,6 +100,40 @@ public class MyStepdefs {
         assertTrue(driver.getPageSource().contains(arg3));
         assertTrue(driver.getPageSource().contains(arg4));
         assertTrue(driver.getPageSource().contains(arg5));
+    }
+
+    @Given("I on the user list page right now")
+    public void iOnTheUserListPage() {
+
+        driver.get(ROOT_URL+"signUp");
+        driver.findElement(By.id("email")).sendKeys("test4@email.com");
+        driver.findElement(By.id("password")).sendKeys("Password1!");
+        driver.findElement(By.id("passwordCheck")).sendKeys("Password1!");
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div/div/div[3]/form/button")).click();
+
+        Duration duration = Duration.ofSeconds(10);
+        WebDriverWait wait = new WebDriverWait(driver, duration);
+        By searchFieldLocator = By.xpath("//*[@id=\"navbarNavDropdown\"]/ul/li[2]/a");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(searchFieldLocator));
+        driver.findElement(By.xpath("//*[@id=\"navbarNavDropdown\"]/ul/li[2]/a")).click();
+    }
+    @When("I click on the add list button")
+    public void iClickOnTheAddListButton() {
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/button")).click();
+    }
+
+    @And("I press enter into my text field {string}")
+    public void iPressEnterIntoMyTextField(String arg0) {
+        driver.findElement(By.xpath("/html/body/div[3]/div/div/div[2]/form/label/input")).sendKeys(arg0);
+        driver.findElement(By.xpath("/html/body/div[3]/div/div/div[3]/button[2]")).click();
+    }
+
+    @Then("I should see a pop up that says {string}")
+    public void iShouldSeeAPopUpThatSays(String arg0) {
+        Alert alert = driver.switchTo().alert();
+        String alerttext = alert.getText();
+        assertEquals(alerttext, arg0);
+        System.out.println(alerttext);
     }
     @After
     public void after() {

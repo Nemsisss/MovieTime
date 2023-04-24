@@ -23,7 +23,7 @@ function UserList(props) {
     function resetTimeout() {
         // clear the previous timeout (if any)
         clearTimeout(timeoutId);
-        console.log("wow");
+        //console.log("wow");
 
         // start a new timeout
         timeoutId = setTimeout(() => {
@@ -61,7 +61,7 @@ function UserList(props) {
     //const [otherUserLists, setOtherUserLists] = useState([]);
     const [otherUserListId, setOtherUserListId] = useState(0);
     async function loadDataOneTime() {
-        const url = 'http://localhost:8080/daniel/1/list';
+        const url = 'http://localhost:8080/daniel/' + props.userId + '/list';
         const response = await fetch(url, {
             method: 'GET',
             headers: {
@@ -114,7 +114,7 @@ function UserList(props) {
     }, [])
 
     async function CompareList() {
-        const url = 'http://localhost:8080/daniel/compare/1/' + listIdHook + '/' + otherUserListId;
+        const url = 'http://localhost:8080/daniel/compare/' + props.userId + '/' + listIdHook + '/' + otherUserListId;
         const data = {listName: input2, isPublic: isPublic};
         const response = await fetch(url, {
             method: 'POST',
@@ -136,7 +136,7 @@ function UserList(props) {
         }
     }
     const addList = async()  => {
-        const url = 'http://localhost:8080/daniel/1/list';
+        const url = 'http://localhost:8080/daniel/' + props.userId + '/list';
         const data = {listName: input, isPublic: isPublic};
         const response = await fetch(url, {
             method: 'POST',
@@ -150,7 +150,7 @@ function UserList(props) {
         });
         console.log(response);
         if (response.status == 200) {
-            const url = 'http://localhost:8080/daniel/1/list';
+            const url = 'http://localhost:8080/daniel/' + props.userId + '/list';
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -175,7 +175,7 @@ function UserList(props) {
         console.log(lists);
     }
     async function deleteList(listId) {
-        let url = 'http://localhost:8080/daniel/1/' + listId + '/list';
+        let url = 'http://localhost:8080/daniel/' + props.userId + '/' + listId + '/list';
         console.log(url);
         const response = await fetch(url, {
             method: 'DELETE',
@@ -186,7 +186,7 @@ function UserList(props) {
             console.log(error);
         });
         if (response.status == 200) {
-            const url = 'http://localhost:8080/daniel/1/list';
+            const url = 'http://localhost:8080/daniel/' + props.userId + '/list';
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -210,7 +210,7 @@ function UserList(props) {
 
     const renameList = async() => {
         document.getElementById('movie-list-row').innerHTML = '';
-        const url = 'http://localhost:8080/daniel/1/' + listIdHook + '/name';
+        const url = 'http://localhost:8080/daniel/' + props.userId + '/' + listIdHook + '/name';
         const data = input2;
         const response = await fetch(url, {
             method: 'PUT',
@@ -256,7 +256,7 @@ function UserList(props) {
             <Navbar userId={props.userId} setHasComeFromValid={props.setHasComeFromValid}/>
             <h1 className = "Title">Your Movie List</h1>
             <Button className = "movie-button" variant="primary" data-testid = "add-button" onClick={handleShow}>
-                Launch demo modal
+                Create New List
             </Button>
             <Modal show={show} data-testid = "create-button" onHide={handleClose} animation={false}>
                 <Modal.Header closeButton>
@@ -264,8 +264,8 @@ function UserList(props) {
                 </Modal.Header>
                 <Modal.Body>
                     <div onChange = {event => setPublic(event.target.value)}>
-                        <input data-testid = "private-create" type="radio" value="false" name="gender"/> False
-                        <input data-testid = "public-create" type="radio" value="true" name="gender"/> True
+                        <input data-testid = "private-create" type="radio" value="false" name="gender"/> Private
+                        <input data-testid = "public-create" type="radio" value="true" name="gender"/> Public
                     </div>
                     <form>
                         <label>
@@ -458,13 +458,14 @@ function UserList(props) {
                     return(
                         <div className="col-6 col-lg-4 text-center user-movie-list" key = {item.listId}>
                             <div className = "movie-overlay">
-                                <img className="image" src={source} alt="Movie image" />
+                                <img className="image" src={source} alt="Movie image"/>
                                 <button className = "list-rename" onClick = {() => {setListId(item.listId); handleShow2();}} data-testid= "rename-hover">Rename</button>
                                 <button className = "list-delete" onClick = {() => {setListId(item.listId); handleRemoveOpen();}} data-testId = "delete-hover">Delete</button>
-                                <button className = "list-compare" onClick = {() => {setListId(item.listId); setCompareUser(true);}} data-testid = "compare-hover">Delete</button>
+                                <button className = "list-compare" onClick = {() => {setListId(item.listId); setCompareUser(true);}} data-testid = "compare-hover">Compare</button>
                                 <p className = "list-public">{temp}</p>
                             </div>
-                            <button className = "list-details">{item.listName}</button>
+                            <button className = "list-details" onClick = {() => {props.setHasComeFromValid(true); props.setListId(item.listId); navigate(`/movies`);}}>{item.listName}</button>
+                            {/*onClick = {() => {props.setHasComeFromValid(true); props.setListId(item.listId); navigate(`/movies`);}}*/}
                         </div>
                     );
                 })}

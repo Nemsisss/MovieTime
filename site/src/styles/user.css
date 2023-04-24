@@ -4,18 +4,22 @@
 }
 
 .movie-overlay {
+    /*position: relative;*/
+    /*top: 10%;*/
+    /*width: 80%;*/
+    /*height: 80%;*/
+    width: 75%;
     position: relative;
-    top: 10%;
-    width: 80%;
-    height: 80%;
+    margin-left: 12.5%;
+    margin-right: 12.5%;
 }
 
-img {
-    position: relative;
-    left: 10%;
-    width: 80%;
-    height: 80%;
-}
+/*img {*/
+/*    position: relative;*/
+/*    left: 10%;*/
+/*    width: 80%;*/
+/*    height: 80%;*/
+/*}*/
 
 .list-rename {
     position: absolute;
@@ -59,6 +63,8 @@ img {
     border-radius: 10px;
     background-color: blue;
     left: 45%;
+    margin-top: 10px;
+    margin-bottom: 1rem;
 }
 
 img:hover {
@@ -92,21 +98,21 @@ img:hover {
 /*    margin-top: 5%;*/
 /*}*/
 
-/*.user-movie-list {*/
-/*}*/
+.user-movie-list {
+    margin-top: 3%;
+    padding-top: 25px;
+}
 
 /*.movie-button {*/
 /*    margin-bottom: 2%;*/
 /*    margin-left: 45%;*/
 /*    margin-top: 2%;*/
 /*}*/
-/*.image {*/
-/*    position: relative;*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*    width: 80%;*/
-/*    height: 80%;*/
-/*}*/
+.image {
+    width: 300px;
+    height: 350px;
+    overflow: hidden;
+}
 
 /*.list-button {*/
 /*    margin-top: 5%;*/
