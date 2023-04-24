@@ -1,9 +1,34 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import "../styles/user.css";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Navbar from '../components/Navbar';
+import {useNavigate} from "react-router-dom";
+function UserList(userId) {
+    const navigate = useNavigate();
+    // set the inactivity timeout to 60 seconds
+    const inactivityTimeout = 60 * 1000; // in milliseconds
 
-function UserList() {
+    let timeoutId;
+
+    function resetTimeout() {
+        // clear the previous timeout (if any)
+        clearTimeout(timeoutId);
+        console.log("wow");
+
+        // start a new timeout
+        timeoutId = setTimeout(() => {
+            // redirect the user to the login page
+            navigate("/login");
+            //window.location.href = "/login";
+        }, inactivityTimeout);
+    }
+
+    resetTimeout();
+
+// listen for user activity events (e.g. mousemove, keypress, etc.)
+    window.addEventListener("mousemove", resetTimeout);
+    window.addEventListener("keypress", resetTimeout);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -219,6 +244,7 @@ function UserList() {
     // }
     return(
         <div>
+            <Navbar />
             <h1 className = "Title">Your Movie List</h1>
             <Button className = "movie-button" variant="primary" data-testid = "add-button" onClick={handleShow}>
                 Launch demo modal

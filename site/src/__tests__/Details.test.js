@@ -1,9 +1,7 @@
 import { render, waitFor, screen, fireEvent } from '@testing-library/react';
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
 import Details from '../pages/Details.jsx';
-import { act } from 'react-dom/test-utils';
 import {BrowserRouter} from 'react-router-dom';
 
 describe('Details component', () => {
@@ -40,7 +38,9 @@ describe('Details component', () => {
   });
 
   it('fetches movie details and updates state', async () => {
-    const props = { details: '87827' , userId: 1};
+  const hasComeFromValid = jest.fn();
+  const setHasComeFromValid = jest.fn();
+    const props = { details: '87827' , userId: 1, hasComeFromValid, setHasComeFromValid};
     const { getByText } = render(<Details {...props} />,{wrapper: BrowserRouter});
     await waitFor(() => {
       expect(axios.get).toHaveBeenCalledWith(
@@ -343,9 +343,10 @@ it("eye handler shows that a movie is not in any lists", async () => {
 });
 
 it("correctly executes the genreClickHandler function ", async () => {
-
+    const hasComeFromValid = jest.fn();
+    const setHasComeFromValid = jest.fn();
     const setGenreQuery = jest.fn();
-    const props = { details: '87827' , onLinkClick: setGenreQuery, userId: 1 };
+    const props = { details: '87827' , onLinkClick: setGenreQuery, userId: 1, hasComeFromValid, setHasComeFromValid };
     const { getAllByTestId } = render(<Details {...props} />,{wrapper: BrowserRouter});
     const genreLink=await waitFor(()=>getAllByTestId("genreLink"));
     fireEvent.click(genreLink[0]);
@@ -353,9 +354,10 @@ it("correctly executes the genreClickHandler function ", async () => {
 
 });
 it("correctly executes the actorClickHandler function ", async () => {
-
+    const hasComeFromValid = jest.fn();
+    const setHasComeFromValid = jest.fn();
     const setActorQuery = jest.fn();
-    const props = { details: '87827' , onActorClick: setActorQuery, userId: 1 };
+    const props = { details: '87827' , onActorClick: setActorQuery, userId: 1, hasComeFromValid, setHasComeFromValid };
     const { getAllByTestId } = render(<Details {...props} />,{wrapper: BrowserRouter});
     const actorLink=await waitFor(()=>getAllByTestId("actorLink"));
     fireEvent.click(actorLink[0]);

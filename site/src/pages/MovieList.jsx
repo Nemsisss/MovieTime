@@ -1,11 +1,35 @@
 import React from 'react'
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../styles/movielist.css"
 import Navbar from "../components/Navbar"
 import ImageSlider from "../components/ImageSlider.jsx"
 
 
-function MovieList()  {
+function MovieList(userId)  {
+    const navigate = useNavigate();
+    // set the inactivity timeout to 60 seconds
+    const inactivityTimeout = 60 * 1000; // in milliseconds
+
+    let timeoutId;
+
+    function resetTimeout() {
+        // clear the previous timeout (if any)
+        clearTimeout(timeoutId);
+        //console.log("wow");
+
+        // start a new timeout
+        timeoutId = setTimeout(() => {
+            // redirect the user to the login page
+            //window.location.href = "/login";
+            navigate("/login");
+        }, inactivityTimeout);
+    }
+
+    resetTimeout();
+
+// listen for user activity events (e.g. mousemove, keypress, etc.)
+    window.addEventListener("mousemove", resetTimeout);
+    window.addEventListener("keypress", resetTimeout);
     // constructor(props) {
     //     super(props);
     //     this.state = {

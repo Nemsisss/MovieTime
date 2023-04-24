@@ -6,9 +6,36 @@ import Popup from '../components/Popup';
 import "regenerator-runtime/runtime";
 import { Eye, PlusCircle } from "react-bootstrap-icons";
 
+import Navbar from '../components/Navbar';
+
 
 
 function Search(props) {
+    const navigate = useNavigate();
+
+    // set the inactivity timeout to 60 seconds
+    const inactivityTimeout = 60 * 1000; // in milliseconds
+
+    let timeoutId;
+
+    function resetTimeout() {
+        // clear the previous timeout (if any)
+        clearTimeout(timeoutId);
+        //console.log("wow");
+
+        // start a new timeout
+        timeoutId = setTimeout(() => {
+            // redirect the user to the login page
+            window.location.href = "/login";
+        }, inactivityTimeout);
+    }
+
+// listen for user activity events (e.g. mousemove, keypress, etc.)
+    window.addEventListener("mousemove", resetTimeout);
+    window.addEventListener("keypress", resetTimeout);
+
+// start the initial timeout
+    resetTimeout();
  const [message, setMessage] = useState("");
  const [query, setQuery] = useState("");
  const [savedQuery, setSavedQuery]=useState("");
@@ -39,7 +66,14 @@ function Search(props) {
  props.setUid(userId);
 
 
-
+    useEffect(() => {
+        if (!props.hasComeFromValid) {
+            navigate('/login');
+        }
+        else{
+            props.setHasComeFromValid(false);
+        }
+    }, [navigate]);
 
  const apiKey = "00f824df761bd517e281a3753a0a70f1";
 
@@ -359,10 +393,12 @@ const handleAddMovie =  async(e)=>{
  }
 
 
- const navigate = useNavigate();
+
  const routeChange = (selected) => {
    props.onViewDetails(selected);
-   let path = `/Details`;
+   //let path = `/details?userId=${userId}`
+     let path = `/details`
+   props.setHasComeFromValid(true);
    navigate(path);
  };
 
@@ -387,6 +423,7 @@ const eyeHandler = async(movieID)=>{
    }
  return (
    <div>
+       <Navbar userId={props.userId}/>
      <div id="page-wrapper" className="container">
         <div className="row mt-5">
                     <div className="col-4">

@@ -1,9 +1,7 @@
-import ImageSlider from "./components/ImageSlider.jsx"
-import MovieList from "./pages/MovieList.jsx"
-import {render, screen, cleanup, getByLabelText, fireEvent} from '@testing-library/react'
-import userEvent from "@testing-library/user-event";
+import {render, screen, fireEvent} from '@testing-library/react'
 import Navbar from "./components/Navbar"
-import {BrowserRouter as Router} from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import React from "react";
 
 
 describe("testing navbarlist", () => {

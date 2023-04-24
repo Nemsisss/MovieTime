@@ -3,6 +3,7 @@ import {render, fireEvent, waitFor, getAllByText, findByTestId, getAllByLabelTex
 import UserList from './pages/UserList';
 import {act} from "react-dom/test-utils";
 import userEvent from "@testing-library/user-event";
+import {BrowserRouter} from 'react-router-dom';
 
 const singleList = [
     {
@@ -110,7 +111,7 @@ describe('Testing the user list', () => {
             status: 200
         });
         await act(async () => {
-            render(<UserList />);
+            render(<UserList />,{wrapper: BrowserRouter});
         });
     });
 
@@ -125,7 +126,7 @@ describe('Testing the user list', () => {
             json: async () => users,
             status: 200
         });
-        const {getByTestId, getAllByTestId} = render(<UserList />);
+        const {getByTestId, getAllByTestId} = render(<UserList />,{wrapper: BrowserRouter});
     });
 
     it('should hit the catch statement for LoadUsers', async () => {
@@ -139,7 +140,7 @@ describe('Testing the user list', () => {
             },
             status: 200
         });
-        const {getByTestId, getAllByTestId} = render(<UserList />);
+        const {getByTestId, getAllByTestId} = render(<UserList />,{wrapper: BrowserRouter});
     });
 
     it('should hit the status 400 for LoadUsers', async () => {
@@ -151,7 +152,7 @@ describe('Testing the user list', () => {
             json: async () => users,
             status: 417
         });
-        const {getByTestId, getAllByTestId} = render(<UserList />);
+        const {getByTestId, getAllByTestId} = render(<UserList />,{wrapper: BrowserRouter});
     });
 
     it('Click on add button', async () => {
@@ -163,7 +164,7 @@ describe('Testing the user list', () => {
             json: async () => users,
             status: 200
         });
-        const {getByTestId, getAllByTestId} = render(<UserList />);
+        const {getByTestId, getAllByTestId} = render(<UserList />,{wrapper: BrowserRouter});
         const addButton = getByTestId("add-button");
         await act(() => {
             fireEvent.click(addButton)
@@ -207,7 +208,7 @@ describe('Testing the user list', () => {
             json: async () => users,
             status: 200
         });
-        const {getByTestId, getAllByTestId} = render(<UserList />);
+        const {getByTestId, getAllByTestId} = render(<UserList />,{wrapper: BrowserRouter});
         const addButton = getByTestId("add-button");
         await act(() => {
             fireEvent.click(addButton)
@@ -237,7 +238,7 @@ describe('Testing the user list', () => {
             json: async () => users,
             status: 200
         });
-        const {getByTestId, getAllByTestId} = render(<UserList />);
+        const {getByTestId, getAllByTestId} = render(<UserList />,{wrapper: BrowserRouter});
 
         const addButton = getByTestId("add-button");
         await act(() => {
@@ -283,7 +284,7 @@ describe('Testing the user list', () => {
             json: async () => users,
             status: 200
         });
-        const {getByTestId, getAllByTestId} = render(<UserList />);
+        const {getByTestId, getAllByTestId} = render(<UserList />,{wrapper: BrowserRouter});
         const addButton = getByTestId("add-button");
         await act(() => {
             fireEvent.click(addButton)
@@ -330,7 +331,7 @@ describe('Testing the user list', () => {
             json: async () => users,
             status: 200
         });
-        const {getByTestId, getAllByTestId} = render(<UserList />);
+        const {getByTestId, getAllByTestId} = render(<UserList />,{wrapper: BrowserRouter});
         await new Promise(resolve => setTimeout(resolve, 50));
         const deleteButton = getAllByTestId("delete-hover")[0];
         await act(() => {
@@ -361,7 +362,7 @@ describe('Testing the user list', () => {
             json: async () => users,
             status: 200
         });
-        const {getByTestId, getAllByTestId} = render(<UserList />);
+        const {getByTestId, getAllByTestId} = render(<UserList />,{wrapper: BrowserRouter});
         await new Promise(resolve => setTimeout(resolve, 50));
         const deleteButton = getAllByTestId("delete-hover")[0];
         await act(() => {
@@ -391,7 +392,7 @@ describe('Testing the user list', () => {
             json: async () => users,
             status: 200
         });
-        const {getByTestId, getAllByTestId} = render(<UserList />);
+        const {getByTestId, getAllByTestId} = render(<UserList />,{wrapper: BrowserRouter});
         await new Promise(resolve => setTimeout(resolve, 50));
         const renameButton = getAllByTestId('rename-hover')[0];
         await act(() => {
@@ -425,7 +426,7 @@ describe('Testing the user list', () => {
             json: async () => users,
             status: 200
         });
-        const {getByTestId, getAllByTestId} = render(<UserList />);
+        const {getByTestId, getAllByTestId} = render(<UserList />,{wrapper: BrowserRouter});
         await new Promise(resolve => setTimeout(resolve, 50));
         const renameButton = getAllByTestId('rename-hover')[0];
         await act(() => {
@@ -461,7 +462,7 @@ describe('Testing the user list', () => {
             json: async () => users,
             status: 200
         });
-        const {getByTestId, getAllByTestId} = render(<UserList />);
+        const {getByTestId, getAllByTestId} = render(<UserList />,{wrapper: BrowserRouter});
         await new Promise(resolve => setTimeout(resolve, 50));
         const renameButton = getAllByTestId('rename-hover')[0];
         await act(() => {
@@ -495,7 +496,7 @@ describe('Testing the user list', () => {
             json: async () => users,
             status: 200
         });
-        const {getByTestId, getAllByTestId} = render(<UserList />);
+        const {getByTestId, getAllByTestId} = render(<UserList />,{wrapper: BrowserRouter});
         await new Promise(resolve => setTimeout(resolve, 50));
         const renameButton = getAllByTestId('rename-hover')[0];
         await act(() => {
@@ -533,7 +534,7 @@ describe('Testing the user list', () => {
             json: async () => users,
             status: 200
         });
-        const {getByTestId, getAllByTestId} = render(<UserList />);
+        const {getByTestId, getAllByTestId} = render(<UserList />,{wrapper: BrowserRouter});
         await new Promise(resolve => setTimeout(resolve, 50));
         const renameButton = getAllByTestId('rename-hover')[0];
         await act(() => {
@@ -560,7 +561,7 @@ describe('Testing the user list', () => {
             json: async () => users,
             status: 200
         });
-        const {getByTestId, getAllByTestId} = render(<UserList />);
+        const {getByTestId, getAllByTestId} = render(<UserList />,{wrapper: BrowserRouter});
         await new Promise(resolve => setTimeout(resolve, 50));
         const compareButton = getAllByTestId('compare-hover')[0];
         await act(() => {
@@ -614,7 +615,7 @@ describe('Testing the user list', () => {
             json: async () => users,
             status: 200
         });
-        const {getByTestId, getAllByTestId} = render(<UserList />);
+        const {getByTestId, getAllByTestId} = render(<UserList />,{wrapper: BrowserRouter});
         await new Promise(resolve => setTimeout(resolve, 50));
         const compareButton = getAllByTestId('compare-hover')[0];
         await act(() => {
@@ -667,7 +668,7 @@ describe('Testing the user list', () => {
             json: async () => users,
             status: 200
         });
-        const {getByTestId, getAllByTestId} = render(<UserList />);
+        const {getByTestId, getAllByTestId} = render(<UserList />,{wrapper: BrowserRouter});
         await new Promise(resolve => setTimeout(resolve, 50));
         const compareButton = getAllByTestId('compare-hover')[0];
         await act(() => {
@@ -712,7 +713,7 @@ describe('Testing the user list', () => {
             json: async () => users,
             status: 200
         });
-        const {getByTestId, getAllByTestId} = render(<UserList />);
+        const {getByTestId, getAllByTestId} = render(<UserList />,{wrapper: BrowserRouter});
         await new Promise(resolve => setTimeout(resolve, 50));
         const compareButton = getAllByTestId('compare-hover')[0];
         await act(() => {
@@ -727,4 +728,45 @@ describe('Testing the user list', () => {
 
 
 });
+
+// describe('search component timeout', () => {
+//     beforeEach(() => {
+//         window.fetch.mockClear();
+//     });
+//     jest.useFakeTimers(); // mock setTimeout and clearTimeout
+//     jest.setTimeout(100000);
+//     it('no inactivity for search page', () => {
+//         const setTimeoutSpy = jest.spyOn(window, 'setTimeout');
+//         window.fetch.mockResolvedValueOnce({
+//             json: async () => lists,
+//             status: 200
+//         });
+//         window.fetch.mockResolvedValueOnce({
+//             json: async () => users,
+//             status: 200
+//         });
+//         render(<UserList />,{wrapper: BrowserRouter});
+//
+//         jest.advanceTimersByTime(30000);
+//         window.dispatchEvent(new MouseEvent('mousemove'));
+//
+//         expect(setTimeoutSpy).toHaveBeenCalled();
+//     });
+//     it('should redirect to login page after inactivity timeout', () => {
+//         window.fetch.mockResolvedValueOnce({
+//             json: async () => lists,
+//             status: 200
+//         });
+//         window.fetch.mockResolvedValueOnce({
+//             json: async () => users,
+//             status: 200
+//         });
+//         render(<UserList />,{wrapper: BrowserRouter});
+//
+//         jest.advanceTimersByTime(60000);
+//
+//         // verify that the user is redirected to the login page
+//         expect(window.location.href).toBe('http://localhost/login');
+//     });
+// });
 
