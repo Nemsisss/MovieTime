@@ -77,4 +77,5 @@ public class MovieListStepDefinitions {
     public void after() {
         driver.quit();
     }
+
 }
