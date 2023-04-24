@@ -3,7 +3,7 @@ import "../styles/user.css";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Navbar from '../components/Navbar';
-function UserList() {
+function UserList(userId) {
     // set the inactivity timeout to 60 seconds
     const inactivityTimeout = 60 * 1000; // in milliseconds
 
@@ -20,6 +20,8 @@ function UserList() {
             window.location.href = "/login";
         }, inactivityTimeout);
     }
+
+    resetTimeout();
 
 // listen for user activity events (e.g. mousemove, keypress, etc.)
     window.addEventListener("mousemove", resetTimeout);

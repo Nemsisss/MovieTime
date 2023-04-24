@@ -68,4 +68,18 @@ class UserServiceTest {
         UserEntity te = us.attemptLogin("test@gmail.com", "Password1!");
         assertEquals(te, null);
     }
+
+    @Test
+    void attemptLoginFailTwo() {
+        UserRepository rp = mock(UserRepository.class);
+        UserEntity user = new UserEntity();
+        user.setEmail("test@email.com");
+        user.setPassword("Password1!");
+        PasswordEncoder pe = mock(PasswordEncoder.class);
+        ReflectionTestUtils.setField(us, "passwordEncoder", pe);
+        ReflectionTestUtils.setField(us, "userRepository", rp);
+        when(rp.findByEmail("test@gmail.com")).thenReturn(null);
+        UserEntity te = us.attemptLogin("test@gmail.com", "Password1!");
+        assertEquals(te, null);
+    }
 }

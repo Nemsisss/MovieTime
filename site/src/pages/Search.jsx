@@ -30,6 +30,8 @@ function Search(props) {
         }, inactivityTimeout);
     }
 
+    resetTimeout();
+
 // listen for user activity events (e.g. mousemove, keypress, etc.)
     window.addEventListener("mousemove", resetTimeout);
     window.addEventListener("keypress", resetTimeout);
@@ -396,7 +398,8 @@ const handleAddMovie =  async(e)=>{
 
  const routeChange = (selected) => {
    props.onViewDetails(selected);
-   let path = `/details?userId=${userId}`
+   //let path = `/details?userId=${userId}`
+     let path = `/details`
    props.setHasComeFromValid(true);
    navigate(path);
  };
@@ -422,7 +425,7 @@ const eyeHandler = async(movieID)=>{
    }
  return (
    <div>
-       <Navbar />
+       <Navbar userId={props.userId}/>
      <div id="page-wrapper" className="container">
         <div className="row mt-5">
                     <div className="col-4">

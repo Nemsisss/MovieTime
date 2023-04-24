@@ -1,11 +1,11 @@
 import React from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 
-const Navbar = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const userId = searchParams.get("userId");
+const Navbar = (userId) => {
+     const navigate = useNavigate();
+    // const location = useLocation();
+    // const searchParams = new URLSearchParams(location.search);
+    // const userId = searchParams.get("userId");
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{backgroundColor: "lightblue"}}>

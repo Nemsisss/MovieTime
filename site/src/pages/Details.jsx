@@ -25,6 +25,8 @@ function Details(props){
             window.location.href = "/login";
         }, inactivityTimeout);
     }
+    // start the initial timeout
+    resetTimeout();
 
 // listen for user activity events (e.g. mousemove, keypress, etc.)
     window.addEventListener("mousemove", resetTimeout);
@@ -104,14 +106,15 @@ catch (err) {
 }
 },[])
 
-const location = useLocation();
-const searchParams = new URLSearchParams(location.search);
-const userId = searchParams.get('userId');
+// const location = useLocation();
+// const searchParams = new URLSearchParams(location.search);
+// const userId = searchParams.get('userId');
 
 const genreClickHandler= (genreId)=>{
     props.onLinkClick(genreId);
 //         console.log(genreId);
-    let path = `/search?userId=${userId}`;
+    //let path = `/search?userId=${props.userId}`;
+    let path = `/search`;
     props.setHasComeFromValid(true);
     navigate(path);
 }
@@ -124,7 +127,8 @@ const genreClickHandler= (genreId)=>{
 const actorClickHandler= (actorId)=>{
     props.onActorClick(actorId);
 //     console.log(actorId);
-    let path = `/search?userId=${userId}`;
+    //let path = `/search?userId=${props.userId}`;
+    let path = `/search`;
     props.setHasComeFromValid(true);
     navigate(path);
 }
@@ -230,7 +234,7 @@ try{
 
 return(
     <div>
-        <Navbar />
+        <Navbar userId={props.userId}/>
         <div id="page-wrapper" className="container">
             <div className="row mx-auto mt-5 mb-5 " >
                 <div className="image-container col-6 text-center" >

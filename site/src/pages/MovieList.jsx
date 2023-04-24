@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar"
 import ImageSlider from "../components/ImageSlider.jsx"
 
 
-function MovieList()  {
+function MovieList(userId)  {
     // set the inactivity timeout to 60 seconds
     const inactivityTimeout = 60 * 1000; // in milliseconds
 

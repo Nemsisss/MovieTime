@@ -1,13 +1,17 @@
 import Search from './pages/Search.jsx';
 import { render  } from '@testing-library/react';
 import {BrowserRouter} from 'react-router-dom';
+import React from "react";
 
 describe('search component timeout', () => {
     jest.useFakeTimers(); // mock setTimeout and clearTimeout
     jest.setTimeout(100000);
     it('no inactivity for search page', () => {
         const setTimeoutSpy = jest.spyOn(window, 'setTimeout');
-        render(<Search />,{wrapper: BrowserRouter});
+        const setUserId = jest.fn();
+        const props = { setUid: setUserId };
+        render(<Search {...props}/>, {wrapper: BrowserRouter});
+
 
         jest.advanceTimersByTime(30000);
         window.dispatchEvent(new MouseEvent('mousemove'));
@@ -15,7 +19,9 @@ describe('search component timeout', () => {
         expect(setTimeoutSpy).toHaveBeenCalled();
     });
     it('should redirect to login page after inactivity timeout', () => {
-        render(<Search />,{wrapper: BrowserRouter});
+        const setUserId = jest.fn();
+        const props = { setUid: setUserId };
+        render(<Search {...props}/>, {wrapper: BrowserRouter});
 
         jest.advanceTimersByTime(60000);
 
