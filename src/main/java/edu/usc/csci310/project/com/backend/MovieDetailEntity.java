@@ -29,20 +29,20 @@ public class MovieDetailEntity {
     @Column
     private String title;
 
-    @Column
+    @Column(length=6000)
     private String plot;
 
     @Column
     private String genre;
 
-    @Column
+    @Column(length=6000)
     private String studio;
 
-    @Column
+    @Column(length=8000)
     private String actors;
 
-    @Column
-    private String director;
+    @Column(length=6000)
+    private String directors;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -124,6 +124,15 @@ public class MovieDetailEntity {
     public void setActors(String actors)
     {
         this.actors = actors;
+    }
+    public String getDirectors()
+    {
+        return this.directors;
+    }
+
+    public void setDirectors(String directors)
+    {
+        this.directors = directors;
     }
 
     public long getMovieDbId()
