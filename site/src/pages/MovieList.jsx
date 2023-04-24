@@ -1,12 +1,22 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useNavigate } from "react-router-dom";
 import "../styles/movielist.css"
 import Navbar from "../components/Navbar"
 import ImageSlider from "../components/ImageSlider.jsx"
 
 
-function MovieList(userId)  {
+function MovieList(props)  {
     const navigate = useNavigate();
+    useEffect(() => {
+        if (!props.hasComeFromValid) {
+            console.log(props.hasComeFromValid);
+            console.log("fail");
+            navigate('/login');
+        }
+        else{
+            props.setHasComeFromValid(false);
+        }
+    }, [navigate]);
     // set the inactivity timeout to 60 seconds
     const inactivityTimeout = 60 * 1000; // in milliseconds
 
@@ -73,7 +83,7 @@ function MovieList(userId)  {
     // }
     return(
         <div>
-            <Navbar/>
+            <Navbar userId={props.userId} setHasComeFromValid={props.setHasComeFromValid}/>
             <div className = "header">User X List</div>
             <div style = {containerStyles}>
                 <ImageSlider slides = {slides}/>

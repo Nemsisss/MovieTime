@@ -5,7 +5,6 @@ import httpRequest from "../utils/httpRequest";
 import Popup from '../components/Popup';
 import "regenerator-runtime/runtime";
 import { Eye, PlusCircle } from "react-bootstrap-icons";
-
 import Navbar from '../components/Navbar';
 
 
@@ -63,6 +62,7 @@ function Search(props) {
          family: 10751, fantasy: 14, history:36, horror:27, music: 10402, mystery:9648, romance: 10749, science_fiction: 878, tv_movie:10770,
          thriller: 53, war: 10752, western: 37};
  const userId = searchParams.get('userId'); //access unique userId
+    console.log(userId);
  props.setUid(userId);
 
 
@@ -423,7 +423,7 @@ const eyeHandler = async(movieID)=>{
    }
  return (
    <div>
-       <Navbar userId={props.userId}/>
+       <Navbar userId={userId} setHasComeFromValid={props.setHasComeFromValid}/>
      <div id="page-wrapper" className="container">
         <div className="row mt-5">
                     <div className="col-4">

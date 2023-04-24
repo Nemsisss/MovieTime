@@ -4,8 +4,17 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Navbar from '../components/Navbar';
 import {useNavigate} from "react-router-dom";
-function UserList(userId) {
+function UserList(props) {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!props.hasComeFromValid) {
+            navigate('/login');
+        }
+        else{
+            props.setHasComeFromValid(false);
+        }
+    }, [navigate]);
     // set the inactivity timeout to 60 seconds
     const inactivityTimeout = 60 * 1000; // in milliseconds
 
@@ -244,7 +253,7 @@ function UserList(userId) {
     // }
     return(
         <div>
-            <Navbar />
+            <Navbar userId={props.userId} setHasComeFromValid={props.setHasComeFromValid}/>
             <h1 className = "Title">Your Movie List</h1>
             <Button className = "movie-button" variant="primary" data-testid = "add-button" onClick={handleShow}>
                 Launch demo modal

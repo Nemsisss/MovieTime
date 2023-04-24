@@ -4,7 +4,43 @@ import {FaArrowRight, FaMinus, FaPlus, FaStickyNote} from 'react-icons/fa'
 import Modal from 'react-bootstrap/Modal';
 import Button from "react-bootstrap/Button";
 import {act} from "react-dom/test-utils";
-function Movies() {
+import Navbar from '../components/Navbar';
+import {useNavigate} from "react-router-dom";
+function Movies(props) {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!props.hasComeFromValid) {
+            navigate('/login');
+        }
+        else{
+            props.setHasComeFromValid(false);
+        }
+    }, [navigate]);
+    // set the inactivity timeout to 60 seconds
+    const inactivityTimeout = 60 * 1000; // in milliseconds
+
+    let timeoutId;
+
+    function resetTimeout() {
+        // clear the previous timeout (if any)
+        clearTimeout(timeoutId);
+        console.log("wow");
+
+        // start a new timeout
+        timeoutId = setTimeout(() => {
+            // redirect the user to the login page
+            navigate("/login");
+            //window.location.href = "/login";
+        }, inactivityTimeout);
+    }
+
+    resetTimeout();
+
+// listen for user activity events (e.g. mousemove, keypress, etc.)
+    window.addEventListener("mousemove", resetTimeout);
+    window.addEventListener("keypress", resetTimeout);
+
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -223,6 +259,7 @@ function Movies() {
     }
     return(
         <div>
+            <Navbar userId={props.userId} setHasComeFromValid={props.setHasComeFromValid}/>
             <Button variant="primary" data-testid="launchButton" onClick={handleShow}>
                 Launch demo modal
             </Button>

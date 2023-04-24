@@ -36,11 +36,11 @@ function App() {
         {/* Root pages, located in /pages/ */}
         <Route path="/login" element={<LoginForm switchToSignUp={switchToSignUp} switchToSearch={switchToSearch}/>} />
         <Route path="/signUp" element={<SignUp switchToLogin={switchToLogin} switchToSearch={switchToSearch}/>} />
-          <Route path="/movie" element={<MovieList userId={userID}/>} />
+          <Route path="/movie" element={<MovieList userId={userID} hasComeFromValid={hasComeFromValid} setHasComeFromValid={setHasComeFromValid}/>} />
           <Route path="/search" element={<Search onViewDetails={setMoviesList} gQuery={genreQuery} setGquery={setGenreQuery} aQuery={actorQuery} setAquery={setActorQuery} setUid={setUserID} hasComeFromValid={hasComeFromValid} setHasComeFromValid={setHasComeFromValid}/>} />
         <Route path="/details" element={<Details userId={userID}  details={moviesList} onLinkClick={setGenreQuery} onActorClick={setActorQuery} hasComeFromValid={hasComeFromValid} setHasComeFromValid={setHasComeFromValid}/>} />
-          <Route path="/user" element={<UserList userId={userID}/>} />
-          <Route path="/movies" element={<Movies userId={userID}/>} />
+          <Route path="/user" element={<UserList userId={userID} hasComeFromValid={hasComeFromValid} setHasComeFromValid={setHasComeFromValid}/>} />
+          <Route path="/movies" element={<Movies userId={userID} hasComeFromValid={hasComeFromValid} setHasComeFromValid={setHasComeFromValid}/>} />
         {/* 404 page not found redirect */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>

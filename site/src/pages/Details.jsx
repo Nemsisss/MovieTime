@@ -234,7 +234,7 @@ try{
 
 return(
     <div>
-        <Navbar userId={props.userId}/>
+        <Navbar userId={props.userId} setHasComeFromValid={props.setHasComeFromValid}/>
         <div id="page-wrapper" className="container">
             <div className="row mx-auto mt-5 mb-5 " >
                 <div className="image-container col-6 text-center" >
