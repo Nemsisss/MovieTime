@@ -1399,3 +1399,40 @@ axios.get.mockResolvedValue({
      });
 
 });
+
+it("correctly renders the url and redirects the user to buy tickets ", async () => {
+      const setUserId = jest.fn();
+      const setLists = jest.fn();
+
+            const props = {setUid: setUserId};
+           const { getByTestId } = render(<Search {...props}/>, {wrapper: BrowserRouter});
+           const searchField = getByTestId("searchField");
+           const options = getByTestId("options");
+          axios.get.mockResolvedValue({
+                data:
+                   {
+                       page: 1,
+                       results:
+                           [
+                             {
+                               original_title: "The Park",
+                               release_date: "2023-03-02",
+                               title: "The Park",
+                               video: false,
+                             }
+                           ],
+                           total_pages: 2,
+                           total_results: 25
+                   }
+            })
+
+           fireEvent.change(options, { target: { value: "genre" } });
+           fireEvent.change(searchField, { target: { value: "science fiction" } });
+           fireEvent.submit(searchField);
+                  await waitFor(() => {
+                     const dollarB =  getByTestId("dollar-button");
+                     fireEvent.click(dollarB);
+                     });
+
+                 expect(await screen.findByText("The Park")).toBeInTheDocument();
+});

@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Popup from '../components/Popup';
 import "../styles/search.css";
-import { Eye, PlusCircle} from "react-bootstrap-icons";
+import { Eye, PlusCircle,CurrencyDollar} from "react-bootstrap-icons";
 
 function Details(props){
   const [movie, setMovie] = useState([]);
@@ -100,6 +100,10 @@ const updatePopupList=()=>{
 setButtonPopup(false);
 setButtonPopupList(true);
 }
+const buyTicket=(title)=>{
+window.open(`https://www.fandango.com/search?q=${title}&mode=all`,'_blank');
+}
+
 const handleCreateNewList= async(e)=>{
  e.preventDefault();
 console.log(addListName);
@@ -194,7 +198,10 @@ return(
                  <img data-testid="imgTest" onMouseEnter={handleHover} onMouseLeave={handleMouseLeave} className={`thumbnail ${hovered ? 'hover-effect' : ''}`} src={movie.poster_path? `https://image.tmdb.org/t/p/w500${movie.poster_path}`: "https://www.altavod.com/assets/images/poster-placeholder.png"} alt="Movie image" />
                  <PlusCircle type="button" className="add-button"  onClick={()=>handleAddButton()} data-testid="addButton" aria-expanded={buttonPopup}  size={60}>Add</PlusCircle>
                  <br></br><Eye type="button" onClick={()=>eyeHandler(movie.id)} className="eye-button" data-testid="eyeButton"  size={60} />
-
+                <br></br> <a target="_blank" rel="noopener noreferrer"
+                  href={`https://www.fandango.com/search?q=${movie.title}&mode=all`}
+                   onClick={()=>buyTicket(movie.title)} className="dollar-button-1">
+                 <CurrencyDollar data-testid="dollar-button-1"  size={60}/> </a>
 <Popup trigger={buttonPopupEye} setTrigger={setButtonPopupEye}>
                                       <div>
                                         <h3>Lists that contain this movie</h3>
@@ -241,6 +248,9 @@ return(
                <div style={{ display: 'flex', alignItems: 'center' }}>
                <PlusCircle type="button" className="mobile-add-button"  onClick={()=>setButtonPopup(true)} data-testid="mobileAddButton" aria-expanded={buttonPopup} size={60}>Add</PlusCircle>
                <Eye type="button" onClick={()=>eyeHandler(movie.id)} className="mobile-eye-button"  size={60} />
+                <a data-testid="dollar-button" target="_blank" rel="noopener noreferrer" href={`https://www.fandango.com/search?q=${movie.title}&mode=all`}
+                  onClick={buyTicket} className="dollar-button-2">
+                 <CurrencyDollar   size={60}/> </a>
               </div>
              </div>
              <div className="col-6">
