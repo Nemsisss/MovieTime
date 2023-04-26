@@ -1,4 +1,4 @@
-import Montage from "./pages/montage"
+import Montage from "./pages/Montage"
 import React from 'react';
 import {render} from '@testing-library/react';
 import {act} from "react-dom/test-utils";

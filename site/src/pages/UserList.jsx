@@ -63,9 +63,9 @@ function UserList(props) {
     const [showRecsList, setRecsList] = useState(false);
     const [numberMovies, setNumberMovies] = useState(0);
     const [listArray, setListArray] = useState([]);
-    const genre_ids= {action:28, adventure:12, animation: 16, comedy:35, crime:80, documentary: 99, drama:18,
-        family: 10751, fantasy: 14, history:36, horror:27, music: 10402, mystery:9648, romance: 10749, science_fiction: 878, tv_movie:10770,
-        thriller: 53, war: 10752, western: 37};
+    // const genre_ids= {action:28, adventure:12, animation: 16, comedy:35, crime:80, documentary: 99, drama:18,
+    //     family: 10751, fantasy: 14, history:36, horror:27, music: 10402, mystery:9648, romance: 10749, science_fiction: 878, tv_movie:10770,
+    //     thriller: 53, war: 10752, western: 37};
 
 
     async function loadDataOneTime() {
@@ -323,7 +323,7 @@ function UserList(props) {
         for (let temp = 0; temp < selected.length; temp++) {
             const url_2 = 'http://localhost:8080/daniel/1/' + responsePromise.listId + "/movie";
             console.log(url_2);
-            const actualFinal = await fetch(url_2, {
+            await fetch(url_2, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -628,7 +628,7 @@ function UserList(props) {
                         <select multiple = {true} name="Select Lists" data-testid = "rec-list-select" onChange = {(event) => {
                             const values = Array.from(event.target.selectedOptions, option => option.value); console.log(values); setListArray(values);
                         }}>
-                            {lists.map((list, index) => {
+                            {lists.map((list) => {
                                 return (
                                     <option  key={list.listId} value={list.listId}>{list.listName}</option>
                                 );
