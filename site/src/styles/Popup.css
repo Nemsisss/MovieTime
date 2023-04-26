@@ -23,6 +23,8 @@
 
 .popup-inner .close-btn{
 position: absolute;
+background-color:  #FFF  !important;
+color: #000000  !important;
 top: 16px;
 right: 16px;
 }
