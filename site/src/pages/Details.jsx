@@ -4,9 +4,34 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Popup from '../components/Popup';
 import "../styles/search.css";
+import Navbar from '../components/Navbar';
 import { Eye, PlusCircle,CurrencyDollar} from "react-bootstrap-icons";
 
+
 function Details(props){
+
+    // set the inactivity timeout to 60 seconds
+    const inactivityTimeout = 60 * 1000; // in milliseconds
+
+    let timeoutId;
+
+    function resetTimeout() {
+        // clear the previous timeout (if any)
+        clearTimeout(timeoutId);
+        //console.log("wow");
+
+        // start a new timeout
+        timeoutId = setTimeout(() => {
+            // redirect the user to the login page
+            window.location.href = "/login";
+        }, inactivityTimeout);
+    }
+    // start the initial timeout
+    resetTimeout();
+
+// listen for user activity events (e.g. mousemove, keypress, etc.)
+    window.addEventListener("mousemove", resetTimeout);
+    window.addEventListener("keypress", resetTimeout);
   const [movie, setMovie] = useState([]);
 //   const [listID, setListID]=useState();
   const [addListName, setAddListName]=useState("");
@@ -23,6 +48,19 @@ function Details(props){
      const [listEye, setListEye] = useState([]);
      const [eyeMsg, setEyeMsg] = useState("");
      const [buttonPopupEye, setButtonPopupEye] = useState(false);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!props.hasComeFromValid) {
+            console.log(props.hasComeFromValid);
+            console.log("fail");
+            navigate('/login');
+        }
+        else{
+            props.setHasComeFromValid(false);
+        }
+    }, [navigate]);
 
       const eyeHandler = async(movieID)=>{
           setButtonPopupEye(true);
@@ -68,11 +106,17 @@ catch (err) {
      console.log(err);
 }
 },[])
-const navigate = useNavigate();
+
+// const location = useLocation();
+// const searchParams = new URLSearchParams(location.search);
+// const userId = searchParams.get('userId');
+
 const genreClickHandler= (genreId)=>{
     props.onLinkClick(genreId);
 //         console.log(genreId);
-    let path = `/Search?userId=${props.userId}`;
+    //let path = `/search?userId=${props.userId}`;
+    let path = `/search?userId=${props.userId}`;
+    props.setHasComeFromValid(true);
     navigate(path);
 }
  const handleHover = () => {
@@ -84,7 +128,10 @@ const genreClickHandler= (genreId)=>{
 const actorClickHandler= (actorId)=>{
     props.onActorClick(actorId);
 //     console.log(actorId);
-    let path = `/Search?userId=${props.userId}`;
+    //let path = `/search?userId=${props.userId}`;
+    let path = `/search?userId=${props.userId}`;
+    console.log(path);
+    props.setHasComeFromValid(true);
     navigate(path);
 }
 const handleAddButton =()=>{
@@ -192,32 +239,37 @@ try{
    }
 
 return(
-<div id="page-wrapper" className="container">
-        <div className="row mx-auto mt-5 mb-5 " >
-             <div className="image-container col-6 text-center" >
-                 <img data-testid="imgTest" onMouseEnter={handleHover} onMouseLeave={handleMouseLeave} className={`thumbnail ${hovered ? 'hover-effect' : ''}`} src={movie.poster_path? `https://image.tmdb.org/t/p/w500${movie.poster_path}`: "https://www.altavod.com/assets/images/poster-placeholder.png"} alt="Movie image" />
-                 <PlusCircle type="button" className="add-button"  onClick={()=>handleAddButton()} data-testid="addButton" aria-expanded={buttonPopup}  size={60}>Add</PlusCircle>
-                 <br></br><Eye type="button" onClick={()=>eyeHandler(movie.id)} className="eye-button" data-testid="eyeButton"  size={60} />
-                <br></br> <a target="_blank" rel="noopener noreferrer"
+
+    <div>
+        <Navbar userId={props.userId} setHasComeFromValid={props.setHasComeFromValid}/>
+        <div id="page-wrapper" className="container">
+            <div className="row mx-auto mt-5 mb-5 " >
+                <div className="image-container col-6 text-center" >
+                    <img data-testid="imgTest" onMouseEnter={handleHover} onMouseLeave={handleMouseLeave} className={`thumbnail ${hovered ? 'hover-effect' : ''}`} src={movie.poster_path? `https://image.tmdb.org/t/p/w500${movie.poster_path}`: "https://www.altavod.com/assets/images/poster-placeholder.png"} alt="Movie image" />
+                    <PlusCircle type="button" className="add-button"  onClick={()=>handleAddButton()} data-testid="addButton" aria-expanded={buttonPopup}  size={60}>Add</PlusCircle>
+                    <br></br><Eye type="button" onClick={()=>eyeHandler(movie.id)} className="eye-button" data-testid="eyeButton"  size={60} />
+                  <br></br> <a target="_blank" rel="noopener noreferrer"
                   href={`https://www.fandango.com/search?q=${movie.title}&mode=all`}
                    onClick={()=>buyTicket(movie.title)} className="dollar-button-1">
                  <CurrencyDollar data-testid="dollar-button-1"  size={60}/> </a>
-<Popup trigger={buttonPopupEye} setTrigger={setButtonPopupEye}>
-                                      <div>
-                                        <h3>Lists that contain this movie</h3>
-                                  {!eyeMsg?( <ul>
-                                          {listEye.map((list) => (
-                                           <li key={list.listId}>{list.listName}</li> ))}
-                                        </ul>):(eyeMsg) }
-                                      </div>
-                                    </Popup>
+                    <Popup trigger={buttonPopupEye} setTrigger={setButtonPopupEye}>
+                        <div>
+                            <h3>Lists that contain this movie</h3>
+                            {!eyeMsg?( <ul>
+                                {listEye.map((list) => (
+                                    <li key={list.listId}>{list.listName}</li> ))}
+                            </ul>):(eyeMsg) }
+                        </div>
+                    </Popup>
 
-                 <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                     <h3>Add Movie</h3>
-                     <p>Choose an option:</p>
-                     <button data-testid="createNewList" type="button" className="btn btn-primary" style={{ marginRight: '10px' }}  onClick={()=>updatePopup()}>Create New List</button>
-                     <button data-testid="addToExisting" type="button" className="btn btn-primary" onClick={()=>updatePopupList()}>Add to Existing List</button>
-                 </Popup>
+
+                    <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                        <h3>Add Movie</h3>
+                        <p>Choose an option:</p>
+                        <button data-testid="createNewList" type="button" className="btn btn-primary" style={{ marginRight: '10px' }}  onClick={()=>updatePopup()}>Create New List</button>
+                        <button data-testid="addToExisting" type="button" className="btn btn-primary" onClick={()=>updatePopupList()}>Add to Existing List</button>
+                    </Popup>
+
 
                  <Popup trigger={buttonPopupMovie} setTrigger={setButtonPopupMovie}>
                      <h3>Create New List</h3>
@@ -296,12 +348,13 @@ return(
                          <div className="col-6" style={{ color: 'black', textDecoration: 'none',fontSize:'18px' }}>
                         <button data-testid="actorLink" type="button" className="btn btn-link" onClick={()=> actorClickHandler(item.name)}>{item.name}</button>
                         </div>
-                      </div>
-                 ))}
-                 </div>
-             </div>
- </div>
- </div>
+                    ))}
+             
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 )
 }
 export default Details;

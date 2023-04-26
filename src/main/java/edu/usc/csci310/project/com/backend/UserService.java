@@ -2,43 +2,32 @@ package edu.usc.csci310.project.com.backend;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
 public class UserService
 {
     @Autowired
     UserRepository userRepository;
-    public UserEntity saveOrUpdate(UserEntity s)
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public UserEntity saveOrUpdate(UserEntity user)
     {
-        return userRepository.save(s);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
 
     public UserEntity attemptLogin(String email, String password){
-        return userRepository.findByEmailAndPassword(email, password);
+        UserEntity user = userRepository.findByEmail(email);
+        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+            return user;
+        }
+        return null;
     }
 
     public UserEntity getByEmail(String email){
         return userRepository.findByEmail(email);
     }
 }
-
-//deleting a specific record
-//    public void delete(int id)
-//    {
-//        userRepository.deleteById(id);
-//    }
-//    public UserEntity addUser(UserEntity s) {
-//        return userRepository.save(s);
-//    }
-//getting all student records
-//    public List<UserEntity> getAllStudent()
-//    {
-//        List<UserEntity> users = new ArrayList<UserEntity>();
-//        userRepository.findAll().forEach(student -> users.add(student));
-//        return users;
-//    }
-//    //getting a specific record
-//    public UserEntity getById(int id)
-//    {
-//        return userRepository.findById(id).get();
-//    }

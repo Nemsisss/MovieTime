@@ -5,10 +5,37 @@ import httpRequest from "../utils/httpRequest";
 import Popup from '../components/Popup';
 import "regenerator-runtime/runtime";
 import { Eye, PlusCircle,CurrencyDollar } from "react-bootstrap-icons";
+import Navbar from '../components/Navbar';
+
 
 
 
 function Search(props) {
+    const navigate = useNavigate();
+
+    // set the inactivity timeout to 60 seconds
+    const inactivityTimeout = 60 * 1000; // in milliseconds
+
+    let timeoutId;
+
+    function resetTimeout() {
+        // clear the previous timeout (if any)
+        clearTimeout(timeoutId);
+        //console.log("wow");
+
+        // start a new timeout
+        timeoutId = setTimeout(() => {
+            // redirect the user to the login page
+            window.location.href = "/login";
+        }, inactivityTimeout);
+    }
+
+// listen for user activity events (e.g. mousemove, keypress, etc.)
+    window.addEventListener("mousemove", resetTimeout);
+    window.addEventListener("keypress", resetTimeout);
+
+// start the initial timeout
+    resetTimeout();
  const [message, setMessage] = useState("");
  const [query, setQuery] = useState("");
  const [savedQuery, setSavedQuery]=useState("");
@@ -36,10 +63,18 @@ function Search(props) {
          family: 10751, fantasy: 14, history:36, horror:27, music: 10402, mystery:9648, romance: 10749, science_fiction: 878, tv_movie:10770,
          thriller: 53, war: 10752, western: 37};
  const userId = searchParams.get('userId'); //access unique userId
+    console.log(userId);
  props.setUid(userId);
 
 
-
+    useEffect(() => {
+        if (!props.hasComeFromValid) {
+            navigate('/login');
+        }
+        else{
+            props.setHasComeFromValid(false);
+        }
+    }, [navigate]);
 
  const handleOptionChange = (option) => {
    setSelectedOption(option);
@@ -355,13 +390,17 @@ const handleAddMovie =  async(e)=>{
     }
  }
 
+
 const buyTicket=(title)=>{
 window.open(`https://www.fandango.com/search?q=${title}&mode=all`,'_blank');
 }
  const navigate = useNavigate();
+
  const routeChange = (selected) => {
    props.onViewDetails(selected);
-   let path = `/Details`;
+   //let path = `/details?userId=${userId}`
+     let path = `/details`
+   props.setHasComeFromValid(true);
    navigate(path);
  };
 
@@ -386,6 +425,7 @@ const eyeHandler = async(movieID)=>{
    }
  return (
    <div>
+       <Navbar userId={userId} setHasComeFromValid={props.setHasComeFromValid}/>
      <div id="page-wrapper" className="container">
         <div className="row mt-5">
                     <div className="col-4">

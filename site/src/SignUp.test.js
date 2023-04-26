@@ -157,21 +157,6 @@ const mockFetch = (responseJson, status) =>
     });
 
 describe('SignUp component', () => {
-    // it('shows error message when fetch fails', async () => {
-    //     const mockFetch = jest.fn().mockRejectedValue(new Error('Failed to fetch'));
-    //     global.fetch = mockFetch;
-    //     const { getByTestId, getByLabelText} = render(<SignUp />);
-    //     const emailInput = getByLabelText(/email/i);
-    //     const passwordInput = getByLabelText('Password');
-    //     const passwordCheckInput = getByLabelText('Confirm Password');
-    //     const submitButton = getByTestId('submit-button');
-    //     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    //     fireEvent.change(passwordInput, { target: { value: 'passworD1!' } });
-    //     fireEvent.change(passwordCheckInput, { target: { value: 'passworD1!' } });
-    //     fireEvent.click(submitButton);
-    //     expect(mockFetch).toHaveBeenCalledTimes(1);
-    // });
-
     it('should show an error message when the email already exists', async () => {
         const { getByTestId, getByText, getByLabelText } = render(<SignUp />);
         const emailInput = getByLabelText(/email/i);
@@ -218,5 +203,43 @@ describe('SignUp component', () => {
         // Assertions
         expect(fetch).toHaveBeenCalledTimes(1);
         expect(switchToSearch).toHaveBeenCalled();
+    });
+});
+
+describe('user authentication for signup', () => {
+    beforeEach(() => {
+        jest.resetModules(); // This will reset all modules before each test case.
+    });
+    it('should log error if fetch fails for signup', async () => {
+        // Arrange
+        const errorMessage = 'Network Error';
+        global.fetch = jest.fn().mockRejectedValue(new Error(errorMessage));
+
+        const { getByLabelText, getByTestId } = render(<SignUp />);
+        const emailInput = getByLabelText(/email/i);
+        const passwordInput = getByLabelText('Password');
+        const passwordCheckInput = getByLabelText('Confirm Password');
+        const submitButton = getByTestId('submit-button');
+
+
+        fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+        fireEvent.change(passwordInput, { target: { value: 'Password123!' } });
+        fireEvent.change(passwordCheckInput, { target: { value: 'Password123!' } });
+
+        global.fetch = jest.fn().mockRejectedValue(new Error(errorMessage));
+
+        //fireEvent.click(submitButton);
+
+        await new Promise((resolve) => {
+            fireEvent.click(submitButton);
+            resolve();
+        });
+
+        // Act
+        //await expect(resolve).rejects.toThrow();
+
+        // Assert
+        expect(fetch).toHaveBeenCalledTimes(1);
+        //expect(consoleSpy).toHaveBeenCalledWith(new Error(errorMessage));
     });
 });

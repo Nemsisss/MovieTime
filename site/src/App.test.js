@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, act } from '@testing-library/react';
+import { render, screen, act, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import App from './App';
 
@@ -56,4 +56,40 @@ describe('App', () => {
 
         expect(screen.getByLabelText('Email')).toBeInTheDocument();
     });
+
+    it('logs the user in', async () => {
+        const { getByLabelText, getByTestId } = render(
+            <MemoryRouter initialEntries={['/']}>
+                <App/>
+            </MemoryRouter>
+        );
+
+        const signUpButton = screen.getByTestId('toSignUp');
+
+        act(() => {
+            signUpButton.click();
+        });
+
+        const emailInput = getByLabelText(/email/i);
+        const passwordInput = getByLabelText('Password');
+        const passwordCheckInput = getByLabelText('Confirm Password');
+        const submitButton = getByTestId('submit-button');
+
+        fireEvent.change(emailInput, {target: {value: 'test@test.com'}});
+        fireEvent.change(passwordInput, {target: {value: 'Password123!'}});
+        fireEvent.change(passwordCheckInput, {target: {value: 'Password123!'}});
+
+        // Mocking the fetch function
+        global.fetch = jest.fn().mockImplementation(() =>
+            Promise.resolve({
+                status: 201,
+                json: () => Promise.resolve({userId: 123}),
+            })
+        );
+
+        await act(async () => {
+            fireEvent.click(submitButton);
+        });
+    });
+
 });
