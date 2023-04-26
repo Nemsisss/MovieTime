@@ -7,6 +7,7 @@ import Search from "./pages/Search";
 import Details from "./pages/Details";
 import UserList from "./pages/UserList";
 import Movies from "./pages/Movies"
+import Montage from "./pages/Montage";
 
 function App() {
     const [moviesList, setMoviesList] = useState(null);
@@ -34,6 +35,7 @@ function App() {
     <div>
       <Routes>
         {/* Root pages, located in /pages/ */}
+          <Route path="/montage" element={<Montage userId={userID} listId={listId} hasComeFromValid={hasComeFromValid} setHasComeFromValid={setHasComeFromValid}/>} />;
         <Route path="/login" element={<LoginForm switchToSignUp={switchToSignUp} switchToSearch={switchToSearch}/>} />
         <Route path="/signUp" element={<SignUp switchToLogin={switchToLogin} switchToSearch={switchToSearch}/>} />
           <Route path="/search" element={<Search onViewDetails={setMoviesList} gQuery={genreQuery} setGquery={setGenreQuery} aQuery={actorQuery} setAquery={setActorQuery} setUid={setUserID} hasComeFromValid={hasComeFromValid} setHasComeFromValid={setHasComeFromValid}/>} />

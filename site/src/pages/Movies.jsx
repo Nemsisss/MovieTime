@@ -286,7 +286,7 @@ function Movies(props) {
                     <Button variant="secondary" onClick={handleCreateClose}>
                         Close
                     </Button>
-                    <Button data-testid = "save-changes-test1" variant="primary" onClick={() => {alert(input); alert(isPublic); createListAndAddMovie(); handleCreateClose();}}>
+                    <Button data-testid = "save-changes-test1" variant="primary" onClick={() => { createListAndAddMovie(); handleCreateClose();}}>
                         Create
                     </Button>
                 </Modal.Footer>
@@ -333,7 +333,7 @@ function Movies(props) {
                     <Button data-testid="byeClose" variant="secondary" onClick={() => {setCopy(false)}}>
                         Close
                     </Button>
-                    <Button data-testid = "save-changes-copy" variant="primary" onClick={() => {alert(copyInput); copyMovieToList(); setCopy(false);}}>
+                    <Button data-testid = "save-changes-copy" variant="primary" onClick={() => { copyMovieToList(); setCopy(false);}}>
                         Copy
                     </Button>
                 </Modal.Footer>
@@ -380,7 +380,7 @@ function Movies(props) {
                     <Button data-testid="closeMove" variant="secondary" onClick={() => {setMove(false)}}>
                         Close
                     </Button>
-                    <Button data-testid = "save-changes-copy-move" variant="primary" onClick={() => {alert(listId); moveMovie(); setMove(false);}}>
+                    <Button data-testid = "save-changes-copy-move" variant="primary" onClick={() => { moveMovie(); setMove(false);}}>
                         Copy
                     </Button>
                 </Modal.Footer>

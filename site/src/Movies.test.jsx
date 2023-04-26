@@ -207,12 +207,9 @@ describe('Movies component', () => {
             status: 200
         });
 
-        global.alert = jest.fn();
 
 
         fireEvent.click(getByTestId('save-changes-test1'));
-
-        expect(global.alert).toHaveBeenCalled();
 
     });
 
@@ -239,7 +236,6 @@ describe('Movies component', () => {
 
         fireEvent.click(getByTestId('Createco'));
         fireEvent.change(getByTestId('createInputSec'), { target: { value: 'test' } });
-        global.alert = jest.fn();
 
         const errorMessage = 'Network Error';
         window.fetch.mockRejectedValueOnce(new Error(errorMessage));
@@ -317,12 +313,9 @@ describe('Movies component', () => {
         });
         const errorMessage = 'Network Error';
         window.fetch.mockRejectedValue(new Error(errorMessage));
-        global.alert = jest.fn();
 
 
         fireEvent.click(getByTestId('save-changes-test1'));
-
-        expect(global.alert).toHaveBeenCalled();
 
     });
 
@@ -354,14 +347,10 @@ describe('Movies component', () => {
             status: 200
         });
 
-        global.alert = jest.fn();
-
         const selectDrop = getByTestId('testSelectList');
         fireEvent.change(selectDrop, {target: {value: '2'}});
 
         fireEvent.click(getByTestId('save-changes-copy'));
-
-        expect(global.alert).toHaveBeenCalled();
 
     });
 
@@ -391,11 +380,7 @@ describe('Movies component', () => {
         const errorMessage = 'Network Error';
         window.fetch.mockRejectedValue(new Error(errorMessage));
 
-        global.alert = jest.fn();
-
         fireEvent.click(getByTestId('save-changes-copy'));
-
-        expect(global.alert).toHaveBeenCalled();
 
     });
 
@@ -435,8 +420,6 @@ describe('Movies component', () => {
         fireEvent.change(selectDrop, {target: {value: '2'}});
 
         const another = await getByTestId('save-changes-copy-move');
-
-        global.alert = jest.fn();
 
         window.fetch.mockResolvedValueOnce({
             json: async () => mockMovieDetails,
@@ -491,8 +474,6 @@ describe('Movies component', () => {
         fireEvent.click(actButton);
 
         await new Promise(resolve => setTimeout(resolve, 50));
-        //debug();
-        global.alert = jest.fn();
 
         const moveFromWow = await getByTestId('save-changes-move-wow');
         fireEvent.click(moveFromWow);
@@ -742,7 +723,6 @@ describe('Movies component', () => {
 
         const another = await getByTestId('save-changes-copy-move');
 
-        global.alert = jest.fn();
 
         window.fetch.mockResolvedValueOnce({
             json: async () => mockMovieDetails,
@@ -993,13 +973,8 @@ describe('Movies component', () => {
             status: 400
         });
 
-        global.alert = jest.fn();
-
 
         fireEvent.click(getByTestId('save-changes-test1'));
-
-        expect(global.alert).toHaveBeenCalled();
-
     });
 
     it('should find and click the copy button but 400 error', async () => {
@@ -1029,15 +1004,10 @@ describe('Movies component', () => {
             json: async () => mockMovieList,
             status: 400
         });
-
-        global.alert = jest.fn();
-
         const selectDrop = getByTestId('testSelectList');
         fireEvent.change(selectDrop, {target: {value: '2'}});
 
         fireEvent.click(getByTestId('save-changes-copy'));
-
-        expect(global.alert).toHaveBeenCalled();
 
     });
 
@@ -1072,8 +1042,6 @@ describe('Movies component', () => {
         fireEvent.click(actButton);
 
         await new Promise(resolve => setTimeout(resolve, 50));
-        //debug();
-        global.alert = jest.fn();
 
         const moveFromWow = await getByTestId('save-changes-move-wow');
         fireEvent.click(moveFromWow);
