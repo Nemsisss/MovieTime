@@ -4,8 +4,9 @@ import "../styles/search.css";
 import httpRequest from "../utils/httpRequest";
 import Popup from '../components/Popup';
 import "regenerator-runtime/runtime";
-import { Eye, PlusCircle } from "react-bootstrap-icons";
+import { Eye, PlusCircle,CurrencyDollar } from "react-bootstrap-icons";
 import Navbar from '../components/Navbar';
+
 
 
 
@@ -75,8 +76,6 @@ function Search(props) {
         }
     }, [navigate]);
 
- const apiKey = "00f824df761bd517e281a3753a0a70f1";
-
  const handleOptionChange = (option) => {
    setSelectedOption(option);
    setPage(1); // reset page to 1
@@ -137,7 +136,6 @@ try {
 
       if(props.gQuery)
       {
-
                   let genre_id;
                   if(props.gQuery.toLowerCase() === "science fiction")
                   {
@@ -182,7 +180,7 @@ const searchMovies = async (e) => {
         const data = await response.data;
         setMessage(null);
         const personId = data.results[0].id;
-        url = `https://api.themoviedb.org/3/person/${personId}/movie_credits?api_key=${apiKey}`;
+        url = `https://api.themoviedb.org/3/person/${personId}/movie_credits?api_key=00f824df761bd517e281a3753a0a70f1`;
         const movieResponse = await httpRequest(url);
         const movieData = await movieResponse.data;
         setMessage(null);
@@ -261,7 +259,7 @@ const searchMovies = async (e) => {
             const data = await response.data;
             setMessage(null);
             const keywordId = data.results[0].id;
-            url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_keywords=${keywordId}&page=${page}`;
+            url = `https://api.themoviedb.org/3/discover/movie?api_key=00f824df761bd517e281a3753a0a70f1&with_keywords=${keywordId}&page=${page}`;
             const keywordResponse = await httpRequest(url);
             const keywordData = await keywordResponse.data;
             setMessage(null);
@@ -393,6 +391,10 @@ const handleAddMovie =  async(e)=>{
  }
 
 
+const buyTicket=(title)=>{
+window.open(`https://www.fandango.com/search?q=${title}&mode=all`,'_blank');
+}
+
 
  const routeChange = (selected) => {
    props.onViewDetails(selected);
@@ -494,6 +496,11 @@ const eyeHandler = async(movieID)=>{
                                  <img  className={`thumbnail ${hovered ? 'hover-effect' : ''}`} src={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : "https://www.altavod.com/assets/images/poster-placeholder.png"} alt="Movie image" onMouseEnter={handleHover} onMouseLeave={handleMouseLeave} data-testid="imgTest"/>
                                     <PlusCircle type="button" className="add-button"  onClick={()=>handleAddButton(item)} data-testid="addButton" aria-expanded={buttonPopup}  size={60} style={{ fill: 'black', stroke: 'none' }}>Add</PlusCircle>
                                     <br></br><Eye data-testid="eyeButton" type="button" onClick={()=>eyeHandler(item.id)} className="eye-button"  size={60} />
+                                    <br></br> <a data-testid="dollar-button" target="_blank" rel="noopener noreferrer"
+                                               href={`https://www.fandango.com/search?q=${item.title}&mode=all`}
+                                                     onClick={()=>buyTicket(item.title)} className="dollar-button-1">
+                                               <CurrencyDollar size={60}/> </a>
+
                                     <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                                            <h3>Add Movie</h3>
                                            <p>Choose an option:</p>
@@ -558,6 +565,9 @@ const eyeHandler = async(movieID)=>{
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
                                <PlusCircle type="button" className="mobile-add-button me-2" onClick={() => setButtonPopup(true)} data-testid="mobileAddButton" aria-expanded={buttonPopup} size={30}>Add</PlusCircle>
                                <Eye data-testid="movie-eye-button-1" type="button" onClick={() => eyeHandler(item.id)} className="mobile-eye-button" size={30} />
+                                <a data-testid="dollar-button-1"  target="_blank" rel="noopener noreferrer" href={`https://www.fandango.com/search?q=${item.title}&mode=all`}
+                                  onClick={buyTicket} className="dollar-button-2">
+                            <CurrencyDollar size={30}/> </a>
                               </div>
                              </li>
                            </ul>

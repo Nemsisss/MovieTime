@@ -116,7 +116,7 @@ public class MyStepdefs {
         wait.until(ExpectedConditions.visibilityOfElementLocated(viewDetail));
         driver.findElement(By.id("viewDetails")).click();
     }
-    @Then("I should see {string} {string} {string} {string} {string} {string} in the details page")
+    @Then("I see {string} {string} {string} {string} {string} {string}")
     public void iShouldSeeInTheDetailsPage(String arg0, String arg1, String arg2, String arg3, String arg4, String arg5) {
         assertTrue(driver.getPageSource().contains(arg0));
         assertTrue(driver.getPageSource().contains(arg1));

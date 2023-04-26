@@ -45,7 +45,7 @@ transition: opacity 0.3s ease-in-out;
   position: absolute;
   margin-right: 10px;
   top: 50%;
-  left: 50%;
+  left: 35%;
   transform: translate(-50%, -50%);
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
@@ -61,13 +61,26 @@ transition: opacity 0.3s ease-in-out;
 .eye-button {
   position: absolute;
   top: 50%;
-  left:70%;
+  left:55%;
   transform: translate(-50%, -50%);
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   color: black;
 }
 .image-container:hover .eye-button {
+  opacity: 1;
+}
+
+.dollar-button-1{
+ position: absolute;
+  top: 50%;
+  left:70%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  color: black;
+}
+.image-container:hover .dollar-button-1{
   opacity: 1;
 }
 
@@ -80,7 +93,9 @@ transition: opacity 0.3s ease-in-out;
 .mobile-buttons {
     display: none;
   }
-
+.dollar-button-2{
+display: none;
+}
 
 
 
@@ -93,10 +108,17 @@ transition: opacity 0.3s ease-in-out;
   .eye-button {
       display: none;
     }
+    .dollar-button-1{
+    display: none;
+    }
     .mobile-eye-button {
         display: block;
         color: black;
       }
+       .dollar-button-2 {
+              display: block;
+              color: black;
+            }
 
   .mobile-add-button {
     display: block;
