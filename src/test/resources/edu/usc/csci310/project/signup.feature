@@ -29,3 +29,4 @@ Feature: testing out the various parts of the signup page
     And I enter "bad" in the second field
     And I press the submit button
     Then I should see "Please ensure you enter a valid password" in the page
+    
