@@ -348,6 +348,7 @@ return(
                          <div className="col-6" style={{ color: 'black', textDecoration: 'none',fontSize:'18px' }}>
                         <button data-testid="actorLink" type="button" className="btn btn-link" onClick={()=> actorClickHandler(item.name)}>{item.name}</button>
                         </div>
+                    </div>
                     ))}
              
                 </div>

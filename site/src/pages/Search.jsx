@@ -394,7 +394,7 @@ const handleAddMovie =  async(e)=>{
 const buyTicket=(title)=>{
 window.open(`https://www.fandango.com/search?q=${title}&mode=all`,'_blank');
 }
- const navigate = useNavigate();
+
 
  const routeChange = (selected) => {
    props.onViewDetails(selected);
