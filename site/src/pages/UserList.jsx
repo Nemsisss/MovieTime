@@ -219,7 +219,7 @@ function UserList(props) {
 
 
     const renameList = async() => {
-        document.getElementById('movie-list-row').innerHTML = '';
+        // document.getElementById('movie-list-row').innerHTML = '';
         const url = 'http://localhost:8080/daniel/' + props.userId + '/' + listIdHook + '/name';
         const data = input2;
         const response = await fetch(url, {
@@ -243,7 +243,7 @@ function UserList(props) {
     async function otherRecommendList() {
         var allMovies = [];
         for (let i = 0; i < listArray.length; i++) {
-            const url = "http://localhost:8080/daniel/1/" + listArray[i] + "/movies";
+            const url = "http://localhost:8080/daniel/"  + props.userId + "/" + listArray[i] + "/movies";
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -310,7 +310,7 @@ function UserList(props) {
         console.log(allMovies);
         const shuffled = allMovies.sort(() => 0.5 - Math.random());
         let selected = shuffled.slice(0, numberMovies);
-        let url = 'http://localhost:8080/daniel/1/list';
+        let url = "http://localhost:8080/daniel/" + props.userId + "/list";
         const data = {listName: input, isPublic: isPublic};
         const final_response = await fetch(url, {
             method: 'POST',
@@ -321,7 +321,7 @@ function UserList(props) {
         });
         const responsePromise = await final_response.json();
         for (let temp = 0; temp < selected.length; temp++) {
-            const url_2 = 'http://localhost:8080/daniel/1/' + responsePromise.listId + "/movie";
+            const url_2 = "http://localhost:8080/daniel/" + props.userId + "/" + responsePromise.listId + "/movie";
             console.log(url_2);
             await fetch(url_2, {
                 method: 'POST',
@@ -535,7 +535,7 @@ function UserList(props) {
                             <option value="0">Pick a User To Compare</option>
                             {otherUsers.map((user) => {
                                 console.log(user.lists);
-                                if (user.id === 1) {
+                                if (user.id == props.userId) {
                                     return;
                                 }
                                 return (
