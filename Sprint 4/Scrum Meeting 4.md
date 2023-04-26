@@ -5,6 +5,8 @@ Nemsiss Shahbazian
 Roza Babayan 
 Sohee Yoon 
 Include a Zoom Meeting Recording Link: 
+https://usc.zoom.us/rec/share/n1yVM1bhPyfOshgOogsZ8gxxFBvjB1pkj1mmu4TVSyyDcTZSIu7ZCnurPEOzNN9q.TPdTAWHl5FtrG-IB
+
 Angela: 
 What have you done since the last meeting?
 I helped daniel with doing the montage page, and fixed minor bug issues with linking the pages.
