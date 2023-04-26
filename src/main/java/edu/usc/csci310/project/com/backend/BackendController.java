@@ -6,8 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -230,13 +228,16 @@ public class BackendController {
         }
         MovieListEntity list = movieListRepository.findById(listID).get();
         Set<MovieDetailEntity> movies = list.getMovie();
-//        for (MovieDetailEntity movie: movies) {
-//            if (movie.getMovieDbId() == movieID) {
-//                list.deleteMovie(movie);
-//            }
-//        }
+        Set<MovieDetailEntity> newMovies = new HashSet<>();
+        for (MovieDetailEntity movie: movies) {
+            if (movie.getMovieDbId() != movieID) {
+                newMovies.add(movie);
+            }
+        }
+        list.setMovie(newMovies);
         movieListRepository.save(list);
         return new ResponseEntity<MovieListEntity>(list,HttpStatus.OK);
     }
+
 
 }

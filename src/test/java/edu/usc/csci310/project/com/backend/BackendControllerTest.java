@@ -519,6 +519,7 @@ public class BackendControllerTest {
         ResponseEntity<MovieListEntity> response = controller.removeMovie(1,2, 3);
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
+
 //
 //    @Test
 //    public void DeleteMovie_MovieExists() {

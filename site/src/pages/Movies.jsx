@@ -66,13 +66,14 @@ function Movies(props) {
     const [isPublic, setPublic] = useState(false);
 
     const userId = props.userId;
+    const currentListId = props.listId;
 
     console.log("user id: ", userId);
     console.log("list id: ", listId);
 
     const loadDataOneTime = async() => {
         //console.log("load data");
-        const url = "http://localhost:8080/daniel/" + userId +"/" + listId + "/movies";
+        const url = "http://localhost:8080/daniel/" + userId +"/" + currentListId + "/movies";
         let noError = true;
         const response = await fetch(url, {
             method: 'GET',
@@ -219,7 +220,7 @@ function Movies(props) {
         console.log("move movie");
         console.log(listId);
         console.log(movieId);
-        const url = 'http://localhost:8080/daniel/' + userId + '/' + listId + '/' + movieId + '/movie';
+        const url = 'http://localhost:8080/daniel/' + userId + '/' + currentListId + '/' + movieId + '/movie';
         let noError = true;
         const response = await fetch(url, {
             method: 'DELETE',
@@ -241,8 +242,8 @@ function Movies(props) {
     const deleteMovie = async() => {
         console.log("delete movie");
         console.log(listId);
-        console.log(movieId)
-        const url = 'http://localhost:8080/daniel/' + userId + '/' + listId + '/' + movieId + '/movie';
+        console.log(movieId);
+        const url = 'http://localhost:8080/daniel/' + userId + '/' + currentListId + '/' + movieId + '/movie';
         let noError = true;
         const response = await fetch(url, {
             method: 'DELETE',
@@ -317,7 +318,7 @@ function Movies(props) {
                         <select name="selectList" data-testid="testSelectList" id="selectList" onChange = {(event) => {setCopyInput(event.target.value); setListId(event.target.value);} }>
                             <option value="">Choose an option</option>
                             {lists.map((list) => {
-                                if (list.listId == 1) {
+                                if (list.listId == listId) {
                                     return;
                                 }
                                 else {
@@ -364,7 +365,7 @@ function Movies(props) {
                         <select data-testid="testSelectList2" name="selectList" id="selectList" onChange = {(event) => {setCopyInput(event.target.value); setListId(event.target.value);} }>
                             <option value="">Choose an option</option>
                             {lists.map((list) => {
-                                if (list.listId == 1) {
+                                if (list.listId == listId) {
                                     return;
                                 }
                                 else {
