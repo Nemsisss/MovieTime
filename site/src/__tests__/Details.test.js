@@ -365,4 +365,13 @@ it("correctly executes the actorClickHandler function ", async () => {
 
 });
 
+it("correctly renders the url and redirects the user to buy tickets", async () => {
+                  const props = { details: '87827' , userId: 1};
+                    const { getByTestId } = render(<Details {...props} />,{wrapper: BrowserRouter});
+                await waitFor(() => {
+                const dollarB =  getByTestId("dollar-button");
+                fireEvent.click(dollarB);
+                expect(getByTestId("dollar-button")).toBeTruthy();
+                });
 
+           });
