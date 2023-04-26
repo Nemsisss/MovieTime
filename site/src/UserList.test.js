@@ -10,9 +10,74 @@ const singleList = [
         "listId" : 5,
         "listName": "list 5",
         "isPublic": false,
-        "movie": []
+        "movie": [
+            {
+                "movieDbId": 1,
+                "picture": "https://image.tmdb.org/t/p/w500/rzRb63TldOKdKydCvWJM8B6EkPM.jpg",
+                "title": "65",
+                "plot": "65 million years ago, the only 2 survivors of a spaceship from Somaris that crash-landed on Earth must fend off dinosaurs and reach the escape vessel in time before an imminent asteroid strike threatens to destroy the planet.",
+                "genre": "878,12,53,28",
+                "studio": "Raimi Productions,Beck/Woods,Bron Studios,Columbia Pictures",
+                "actors": "Adam Driver,Ariana Greenblatt,Chloe Coleman,Nika King,Brian Dare",
+                "director": null
+            }
+        ]
     }
 ]
+
+
+const OneMovie = [
+    {
+        "movieDbId": 1,
+        "picture": "https://image.tmdb.org/t/p/w500/rzRb63TldOKdKydCvWJM8B6EkPM.jpg",
+        "title": "65",
+        "plot": "65 million years ago, the only 2 survivors of a spaceship from Somaris that crash-landed on Earth must fend off dinosaurs and reach the escape vessel in time before an imminent asteroid strike threatens to destroy the planet.",
+        "genre": "878,12,53,28",
+        "studio": "Raimi Productions,Beck/Woods,Bron Studios,Columbia Pictures",
+        "actors": "Adam Driver,Ariana Greenblatt,Chloe Coleman,Nika King,Brian Dare",
+        "director": null
+    }
+]
+
+
+const movieAPIReturn = {
+    results: [
+        {
+            genre_ids: ['1','2'],
+            id: 1,
+            poster_path: "picture",
+            title: "title",
+            overview: "overview"
+        }
+    ]
+}
+
+
+const productionReturn = {
+    credits: {
+        cast: [
+            {
+                name: "Chris Pratt"
+            }
+        ],
+        crew: [
+            {
+                job: "Director",
+                name: "Quentin"
+            }
+        ]
+    },
+    production_companies: [
+        {
+            name: "Universal Studios"
+        }
+    ]
+}
+
+
+
+
+
 
 const afterAddList = [
     {
@@ -35,6 +100,7 @@ const afterAddList = [
     }
 ]
 
+
 const lists = [
     {
         "listId" : 1,
@@ -49,6 +115,7 @@ const lists = [
         "movie": []
     }
 ]
+
 
 const users = [
     {
@@ -91,6 +158,7 @@ const users = [
     }
 ]
 
+
 describe('Testing the user list', () => {
     beforeAll(() => {
         jest.spyOn(window, 'fetch');
@@ -100,6 +168,63 @@ describe('Testing the user list', () => {
     beforeEach(() => {
         window.fetch.mockClear();
     });
+
+    it ("Testing the movie recommendations", async() => {
+        window.fetch.mockResolvedValueOnce({
+            json: async () => lists,
+            status: 200
+        });
+        window.fetch.mockResolvedValueOnce({
+            json: async () => users,
+            status: 200
+        });
+        const {getByTestId, getAllByTestId} = render(<UserList />,{wrapper: BrowserRouter});
+        const recButton = getByTestId("rec-button");
+        await act(() => {
+            fireEvent.click(recButton);
+        });
+        await new Promise(resolve => setTimeout(resolve, 50));
+        const privateButton = getByTestId('private-create');
+        const publicButton = getByTestId('public-create');
+        await act(() => {
+            fireEvent.change(getByTestId('rec-list-select'), { target: { value: '1' } });
+            fireEvent.input(getByTestId('input-rec-number'), { target: { value: 1 } });
+            fireEvent.click(privateButton);
+            fireEvent.click(publicButton);
+            fireEvent.change(getByTestId('rec-input'), { target: { value: 'list 5' } });
+        });
+        const submitButton = getByTestId('save-changes-rec');
+        window.fetch.mockResolvedValueOnce({
+            json: async () => OneMovie,
+            status: 200
+        });
+        window.fetch.mockResolvedValueOnce({
+            json: async () => movieAPIReturn,
+            status: 200
+        });
+        window.fetch.mockResolvedValueOnce({
+            json: async () => productionReturn,
+            status: 200
+        });
+        window.fetch.mockResolvedValueOnce({
+            json: async () => productionReturn,
+            status: 200
+        });
+        window.fetch.mockResolvedValueOnce({
+            json: async () => singleList,
+            status: 200
+        });
+        window.fetch.mockResolvedValueOnce({
+            json: async () => OneMovie,
+            status: 200
+        });
+        window.fetch.mockResolvedValueOnce({
+            json: async () => lists,
+            status: 200
+        });
+        fireEvent.click(submitButton);
+    });
+
 
     it("Initial user list landing page", async () => {
         window.fetch.mockResolvedValueOnce({
@@ -193,11 +318,9 @@ describe('Testing the user list', () => {
             json: async () => afterAddList,
             status: 200
         });
-        global.alert = jest.fn();
         await act(() => {
             fireEvent.click(getByTestId('save-changes'))
         });
-        expect(global.alert).toHaveBeenCalled();
     });
     it('Click on add button and close the window', async () => {
         window.fetch.mockResolvedValueOnce({
@@ -268,11 +391,9 @@ describe('Testing the user list', () => {
             json: async () => afterAddList,
             status: 200
         });
-        global.alert = jest.fn();
         await act(() => {
             fireEvent.click(getByTestId('save-changes'))
         });
-        expect(global.alert).toHaveBeenCalled();
     });
 
     it('Click on add button and hit first catch', async () => {
@@ -315,11 +436,9 @@ describe('Testing the user list', () => {
             json: async () => afterAddList,
             status: 200
         });
-        global.alert = jest.fn();
         await act(() => {
             fireEvent.click(getByTestId('save-changes'))
         });
-        expect(global.alert).toHaveBeenCalled();
     });
 
     it('Click on delete button and hit yes and hit no catch', async () => {

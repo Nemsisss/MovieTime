@@ -67,6 +67,15 @@
     margin-bottom: 1rem;
 }
 
+.list-montage {
+    border-radius: 10px;
+    background-color: blue;
+    left: 45%;
+    margin-top: 10px;
+    margin-bottom: 1rem;
+    margin-left: 20px;
+}
+
 img:hover {
     opacity: .1;
 }
