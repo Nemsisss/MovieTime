@@ -114,7 +114,7 @@ const genreClickHandler= (genreId)=>{
     props.onLinkClick(genreId);
 //         console.log(genreId);
     //let path = `/search?userId=${props.userId}`;
-    let path = `/search`;
+    let path = `/search?userId=${props.userId}`;
     props.setHasComeFromValid(true);
     navigate(path);
 }
@@ -128,7 +128,8 @@ const actorClickHandler= (actorId)=>{
     props.onActorClick(actorId);
 //     console.log(actorId);
     //let path = `/search?userId=${props.userId}`;
-    let path = `/search`;
+    let path = `/search?userId=${props.userId}`;
+    console.log(path);
     props.setHasComeFromValid(true);
     navigate(path);
 }
