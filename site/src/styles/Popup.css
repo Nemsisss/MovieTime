@@ -16,13 +16,15 @@
   padding: 60px;
   width: 100%;
   max-width: 800px;
-  height: 70%;
+  height: 90%;
   max-height: 600px;
   background-color: #FFF;
 }
 
 .popup-inner .close-btn{
 position: absolute;
+background-color:  #FFF  !important;
+color: #000000  !important;
 top: 16px;
 right: 16px;
 }

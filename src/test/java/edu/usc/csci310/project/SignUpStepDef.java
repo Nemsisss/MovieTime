@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import io.cucumber.java.Before;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -39,7 +40,6 @@ public class SignUpStepDef {
 
     @Given("I am on the signup page")
     public void iAmOnTheSignupPage() {
-        System.out.println("HELLO");
         driver.get(ROOT_URL+"signUp");
     }
 
@@ -56,7 +56,7 @@ public class SignUpStepDef {
 
     @And("I press the submit button")
     public void iPressTheSubmitButton() {
-        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div/div[3]/form/button")).click();
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div/div/div[3]/form/button")).click();
     }
 
     @Then("I should see {string} in the page")
@@ -91,11 +91,15 @@ public class SignUpStepDef {
 
     @And("I click the submit button")
     public void iClickTheSubmitButton() {
-        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div/div[3]/form/button")).click();
+        driver.findElement(By.xpath("//*[@id=\"submit-button\"]")).click();
     }
     @After
     public void after() {
         driver.quit();
     }
 
+    @Then("I should not see {string} in the page")
+    public void iShouldNotSeeInThePage(String arg0) {
+        assertFalse(driver.getPageSource().contains(arg0));
+    }
 }

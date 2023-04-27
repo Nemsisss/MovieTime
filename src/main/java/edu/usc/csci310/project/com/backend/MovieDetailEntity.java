@@ -29,17 +29,20 @@ public class MovieDetailEntity {
     @Column
     private String title;
 
-    @Column
+    @Column(length=6000)
     private String plot;
 
     @Column
     private String genre;
 
-    @Column
+    @Column(length=6000)
     private String studio;
 
-    @Column
+    @Column(length=8000)
     private String actors;
+
+    @Column(length=6000)
+    private String directors;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -122,6 +125,15 @@ public class MovieDetailEntity {
     {
         this.actors = actors;
     }
+    public String getDirectors()
+    {
+        return this.directors;
+    }
+
+    public void setDirectors(String directors)
+    {
+        this.directors = directors;
+    }
 
     public long getMovieDbId()
     {
@@ -131,6 +143,16 @@ public class MovieDetailEntity {
     public void setMovieDbId(long id)
     {
         this.movieDbId = id;
+    }
+
+    public String getDirector()
+    {
+        return this.directors;
+    }
+
+    public void setDirector(String director)
+    {
+        this.directors = director;
     }
 
     public Set<MovieListEntity> GetMoviesLists() {

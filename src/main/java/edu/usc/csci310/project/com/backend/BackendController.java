@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.HashSet;
 import java.util.Set;
 
 @RestController
@@ -20,19 +20,35 @@ public class BackendController {
     @Autowired
     MovieListRepository movieListRepository;
 
+    @PostMapping("{list_id}/{movie_id}/existingMovie")
+    public ResponseEntity<MovieDetailEntity> addExistingMovie(@PathVariable("list_id") int listId, @PathVariable("movie_id") int movieId) {
+        MovieDetailEntity movie = movieDetailRepository.findByMovieDbId(movieId);
+        MovieListEntity list = movieListRepository.findById(listId).get();
+        list.addMovie(movie);
+        movieListRepository.save(list);
+        return new ResponseEntity<MovieDetailEntity>(movie, HttpStatus.OK);
+    }
+
     @PostMapping("/{userID}/list")
     public ResponseEntity<MovieListEntity> addList(@PathVariable("userID") int id, @RequestBody MovieListEntity listRequest) {
-        if (movieListRepository.existsByListName(listRequest.getListName())) {
+        if (!userRepository.existsById(id)) {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
+//        else if (movieListRepository.existsByListName(listRequest.getListName())) {
+//            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+//        }
         else {
-            if (!userRepository.existsById(id)) {
-                return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
-            }
             UserEntity user = userRepository.findById(id);
+            Set<MovieListEntity> lists = user.getLists();
+            for (MovieListEntity list: lists) {
+                if (list.getListName().equals(listRequest.getListName())) {
+                    return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+                }
+            }
             MovieListEntity newList = new MovieListEntity();
             newList.setListName(listRequest.getListName());
             newList.setUser(user);
+            newList.setIsPublic(listRequest.getIsPublic());
             movieListRepository.save(newList);
             user.addMovieList(newList);
             userRepository.save(user);
@@ -58,6 +74,7 @@ public class BackendController {
             movie.setPlot(movieRequest.getPlot());
             movie.setStudio(movieRequest.getStudio());
             movie.setTitle(movieRequest.getTitle());
+            movie.setDirectors(movieRequest.getDirectors());
             movie.addMovies(list);
             movieDetailRepository.save(movie);
             list.addMovie(movie);
@@ -66,6 +83,12 @@ public class BackendController {
         }
         else {
             MovieListEntity list = movieListRepository.findById(listID).get();
+            Set<MovieDetailEntity> currentMovies = list.getMovie();
+            for(MovieDetailEntity i: currentMovies) {
+                if (movieRequest.getMovieDbId() == i.getMovieDbId()) {
+                    return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+                }
+            }
             MovieDetailEntity movie = movieDetailRepository.findByMovieDbId(movieRequest.getMovieDbId());
             movie.addMovies(list);
             movieDetailRepository.save(movie);
@@ -75,6 +98,45 @@ public class BackendController {
         }
     }
 
+    @PostMapping("/compare/{userId}/{firstList}/{secondList}")
+    public ResponseEntity<MovieListEntity> compareLists(@PathVariable("userId") int userId,@PathVariable("firstList") int firstId, @PathVariable("secondList") int secondId, @RequestBody MovieListEntity listRequest) {
+        if (!userRepository.existsById(userId)) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+        if (!movieListRepository.existsById(secondId)) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+        if (!movieListRepository.existsById(firstId)) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+        Set<MovieDetailEntity> set1 = movieListRepository.findById(firstId).get().getMovie();
+        Set<MovieDetailEntity> set2 = movieListRepository.findById(secondId).get().getMovie();
+        Set<MovieDetailEntity> finalSet = new HashSet<>();
+        for (MovieDetailEntity movie: set1) {
+            for (MovieDetailEntity movie1: set2) {
+                if (movie.getMovieDbId() == movie1.getMovieDbId()) {
+                    finalSet.add(movie);
+                }
+            }
+        }
+        MovieListEntity newList = new MovieListEntity();
+        UserEntity user = userRepository.findById(userId);
+        newList.setMovie(finalSet);
+        newList.setListName(listRequest.getListName());
+        newList.setIsPublic(listRequest.getIsPublic());
+        newList.setUser(user);
+        movieListRepository.save(newList);
+        user.addMovieList(newList);
+        userRepository.save(user);
+        return new ResponseEntity<MovieListEntity>(newList, HttpStatus.OK);
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<Set<UserEntity>> getUsers() {
+        Set<UserEntity> users = userRepository.findAll();
+        return new ResponseEntity<Set<UserEntity>>(users, HttpStatus.OK);
+    }
+
     @GetMapping("/{user_ID}/list")
     public ResponseEntity<Set<MovieListEntity>> getLists(@PathVariable ("user_ID") int user_ID){
         if (!userRepository.existsById(user_ID)) {
@@ -82,6 +144,15 @@ public class BackendController {
         }
         UserEntity user = userRepository.findById(user_ID);
         return new ResponseEntity<Set<MovieListEntity>>(user.getLists(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{movie_id}/movie")
+    public ResponseEntity<Set<MovieListEntity>> getSingleMovie(@PathVariable("movie_id") int movieId) {
+        if (!movieDetailRepository.existsByMovieDbId(movieId)) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+        MovieDetailEntity movie = movieDetailRepository.findByMovieDbId(movieId);
+        return new ResponseEntity<Set<MovieListEntity>>(movie.GetMoviesLists(), HttpStatus.OK);
     }
 
     @GetMapping("/{user_ID}/{list_ID}/{movie_id}/movies")
@@ -145,22 +216,28 @@ public class BackendController {
     }
 
     @DeleteMapping("/{user_id}/{list_id}/{movie_id}/movie")
-    public ResponseEntity<HttpStatus>  removeMovie(@PathVariable("user_id") int userID, @PathVariable("list_id") int listID, @PathVariable("movie_id") int movieID) {
+    public ResponseEntity<MovieListEntity> removeMovie(@PathVariable("user_id") int userID, @PathVariable("list_id") int listID, @PathVariable("movie_id") int movieID) {
         if (!userRepository.existsById(userID)) {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
         if (!movieListRepository.existsById(listID)) {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
-        if (!movieDetailRepository.existsById(movieID)) {
+        if (!movieDetailRepository.existsByMovieDbId(movieID)) {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
-//        MovieListEntity list = movieListRepository.findById(listID).get();
-//        if (list.getMovie().contains(movieDetailRepository.findById(movieID))) {
-//            list.getMovie().remove(movieDetailRepository.findById(movieID));
-//        }
-//        movieListRepository.save(list);
-        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+        MovieListEntity list = movieListRepository.findById(listID).get();
+        Set<MovieDetailEntity> movies = list.getMovie();
+        Set<MovieDetailEntity> newMovies = new HashSet<>();
+        for (MovieDetailEntity movie: movies) {
+            if (movie.getMovieDbId() != movieID) {
+                newMovies.add(movie);
+            }
+        }
+        list.setMovie(newMovies);
+        movieListRepository.save(list);
+        return new ResponseEntity<MovieListEntity>(list,HttpStatus.OK);
     }
+
 
 }

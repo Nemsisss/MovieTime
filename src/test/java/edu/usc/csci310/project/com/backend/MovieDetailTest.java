@@ -18,6 +18,7 @@ public class MovieDetailTest {
         movieDetail.setPicture("picture");
         movieDetail.setActors("Actors");
         movieDetail.setGenre("Genre");
+        movieDetail.setDirector("james");
     }
     @Test
     void test_getters() {
@@ -31,6 +32,7 @@ public class MovieDetailTest {
         movieDetail.getStudio();
         movieDetail.getTitle();
         movieDetail.getPlot();
+        movieDetail.getDirector();
         movieDetail.GetTutorialId();
     }
 }
