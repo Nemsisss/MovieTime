@@ -593,8 +593,8 @@ function UserList(props) {
                             })}
                         </select>
                         <div onChange = {event => setPublic(event.target.value)}>
-                            <input data-testid = "private-compare" type="radio" value="false" name="gender"/> False
-                            <input data-testid = "public-compare" type="radio" value="true" name="gender"/> True
+                            <input data-testid = "private-compare" type="radio" value="false" name="gender"/> Private
+                            <input data-testid = "public-compare" type="radio" value="true" name="gender"/> Public
                         </div>
                         <label>
                             List Name:
