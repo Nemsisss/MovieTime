@@ -15,7 +15,7 @@ import io.cucumber.java.Before;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class MoviesStepDefs {
-    private static final String ROOT_URL = "http://localhost:8080/";
+    private static final String ROOT_URL = "https://localhost:8080/";
     private WebDriver driver;
 
     @Before
@@ -27,6 +27,7 @@ public class MoviesStepDefs {
         options.addArguments("--disable-extensions");
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
+        System.setProperty("webdriver.chrome.whitelistedIps", "");
     }
 
     @Given("I am dummy on the movie page")

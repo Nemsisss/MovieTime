@@ -18,7 +18,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class SignUpStepDef {
 
-    private static final String ROOT_URL = "http://localhost:8080/";
+    private static final String ROOT_URL = "https://localhost:8080/";
     private WebDriver driver;
 
 //    @BeforeAll
@@ -36,6 +36,7 @@ public class SignUpStepDef {
         options.addArguments("--disable-extensions");
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
+        System.setProperty("webdriver.chrome.whitelistedIps", "");
     }
 
     @Given("I am on the signup page")
