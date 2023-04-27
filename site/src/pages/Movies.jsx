@@ -264,9 +264,10 @@ function Movies(props) {
     return(
         <div>
             <Navbar userId={props.userId} setHasComeFromValid={props.setHasComeFromValid}/>
-            <Button variant="primary" data-testid="launchButton" onClick={handleShow}>
-                Create or Copy List
-            </Button>
+            <h1 className = "Movie-Title">Movies</h1>
+            <button className = "please-hide" data-testid="launchButton" onClick = {handleShow}>
+                Do Not Click On This Button
+            </button>
             <Modal id = "create" show={showCreate}  onHide={handleCreateClose} animation={true}>
                 <Modal.Header data-testid="showCreateClose" closeButton>
                     <Modal.Title>Create A New List</Modal.Title>
@@ -402,7 +403,7 @@ function Movies(props) {
             </Modal>
             <div className="row mx-auto g-3">
                 {movies.map((movie, index) => (
-                    <div key = {index} id = {movie.movieDbId} className="col-6 col-lg-4 text-center user-movie-list">
+                    <div key = {index} id = {movie.movieDbId} className="col-12 col-lg-4 text-center user-movie-list">
                         <div className = "movie-overlay-movies">
                             <img className="img-style" src = {movie.picture}/>
                             <div className = "move">

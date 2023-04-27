@@ -634,9 +634,8 @@ function UserList(props) {
                                 );
                             })}
                         </select>
-                        <label>
-                            Number of Movies:
-                            <input data-testid = "input-rec-number" type="number" name="List Name" min = "1" max = "10" onInput={event => {
+                        <label className = "hover-label">
+                            <input className = "random-name" data-testid = "input-rec-number" type="number" name="List Name" min = "1" max = "10" onInput={event => {
                                 console.log(event.target.value);
                                 setNumberMovies(event.target.value);
                                 // let numMovie = event.target.value;
@@ -647,11 +646,12 @@ function UserList(props) {
                                 //     setNumberMovies(numMovie);
                                 // }
                             }}/>
+                            <span className="tool-tip-text">Select up to 10 movies</span>
                         </label>
                     </form>
                     <div onChange = {event => setPublic(event.target.value)}>
-                        <input data-testid = "private-create" type="radio" value="false" name="gender"/> False
-                        <input data-testid = "public-create" type="radio" value="true" name="gender"/> True
+                        <input data-testid = "private-create" type="radio" value="false" name="gender"/> Private
+                        <input data-testid = "public-create" type="radio" value="true" name="gender"/> Public
                     </div>
                     <form>
                         <label>
@@ -699,7 +699,7 @@ function UserList(props) {
                         temp = "Public";
                     }
                     return(
-                        <div className="col-6 col-lg-4 text-center user-movie-list" key = {item.listId}>
+                        <div className="col-12 col-lg-4 text-center user-movie-list" key = {item.listId}>
                             <div className = "movie-overlay">
                                 <img className="image" src={source} alt="Movie image"/>
                                 <button className = "list-rename" onClick = {() => {setListId(item.listId); handleShow2();}} data-testid= "rename-hover">Rename</button>
@@ -707,8 +707,8 @@ function UserList(props) {
                                 <button className = "list-compare" onClick = {() => {setListId(item.listId); setCompareUser(true);}} data-testid = "compare-hover">Compare</button>
                                 <p className = "list-public">{temp}</p>
                             </div>
-                            <button className = "list-details" onClick = {() => {props.setHasComeFromValid(true); props.setListId(item.listId); navigate(`/movies`);}}>Movie&apos;s in List {item.listName}</button>
-                            <button className = "list-montage" onClick = {() => {props.setHasComeFromValid(true); props.setListId(item.listId); navigate(`/montage`);}}>Montage For List</button>
+                            <button className = "list-details" onClick = {() => {props.setHasComeFromValid(true); props.setListId(item.listId); navigate(`/movies`);}}>List {item.listName}</button>
+                            <button className = "list-montage" onClick = {() => {props.setHasComeFromValid(true); props.setListId(item.listId); navigate(`/montage`);}}>Montage</button>
                         </div>
                     );
                 })}
