@@ -306,7 +306,7 @@ console.log(addListName);
 
     let json;
     try{
-    const response = await fetch(`http://localhost:8080/daniel/${userId}/list`, requestOptions);
+    const response = await fetch(`https://localhost:8080/daniel/${userId}/list`, requestOptions);
     json = await response.json();
     }
     catch (err) {
@@ -317,7 +317,7 @@ console.log(addListName);
     if(json){
 //     setListID(json.listId);
        setErrorMsg("");
-       fetch(`http://localhost:8080/daniel/${userId}/list`)
+       fetch(`https://localhost:8080/daniel/${userId}/list`)
        .then(response => response.json())
        .then(data => {
         console.log(data);
@@ -330,7 +330,7 @@ console.log(addListName);
 useEffect(()=> {
 try{
 
-    fetch(`http://localhost:8080/daniel/${userId}/list`)
+    fetch(`https://localhost:8080/daniel/${userId}/list`)
         .then(response => response.json())
         .then(data => {
         console.log(data);
@@ -381,7 +381,7 @@ const handleAddMovie =  async(e)=>{
      const uid=parseInt(userId);
      const slist=parseInt(selectedList);
 
-     fetch(`http://localhost:8080/daniel/${uid}/${slist}/movie`, requestOptions)
+     fetch(`https://localhost:8080/daniel/${uid}/${slist}/movie`, requestOptions)
          .then(response => response.json())
          .then(data => console.log(data));
          setButtonPopupList(false);
@@ -411,7 +411,7 @@ const eyeHandler = async(movieID)=>{
      let json="";
      try{
           console.log(movieID)
-           const response = await  fetch(`http://localhost:8080/daniel/${movieID}/movie`);
+           const response = await  fetch(`https://localhost:8080/daniel/${movieID}/movie`);
            json = await response.json();
      }
      catch (err) {
