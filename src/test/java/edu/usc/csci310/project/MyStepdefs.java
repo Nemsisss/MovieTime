@@ -10,6 +10,7 @@ import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -26,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class MyStepdefs {
-    private static final String ROOT_URL = "http://localhost:8080/";
+    private static final String ROOT_URL = "https://localhost:8080/";
 
     private WebDriver driver ;
 
@@ -41,6 +42,7 @@ public class MyStepdefs {
         options.addArguments("--disable-extensions");
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
+        System.setProperty("webdriver.chrome.whitelistedIps", "");
     }
 
     @Given("I am on the user list page with all movies")
@@ -114,7 +116,8 @@ public class MyStepdefs {
         driver.findElement(By.xpath("//*[@id=\"search\"]/form/button")).click();
         By viewDetail = By.id("viewDetails");
         wait.until(ExpectedConditions.visibilityOfElementLocated(viewDetail));
-        driver.findElement(By.id("viewDetails")).click();
+        driver.findElement(By.id("viewDetails")).sendKeys(Keys.RETURN);
+        //driver.findElement(By.id("viewDetails")).click();
     }
     @Then("I see {string} {string} {string} {string} {string} {string}")
     public void iShouldSeeInTheDetailsPage(String arg0, String arg1, String arg2, String arg3, String arg4, String arg5) {

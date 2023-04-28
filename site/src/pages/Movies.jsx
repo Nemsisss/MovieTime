@@ -73,7 +73,7 @@ function Movies(props) {
 
     const loadDataOneTime = async() => {
         //console.log("load data");
-        const url = "http://localhost:8080/daniel/" + userId +"/" + currentListId + "/movies";
+        const url = "https://localhost:8080/daniel/" + userId +"/" + currentListId + "/movies";
         let noError = true;
         const response = await fetch(url, {
             method: 'GET',
@@ -104,7 +104,7 @@ function Movies(props) {
     }
     const loadLists = async() => {
         console.log("load list");
-        const url = "http://localhost:8080/daniel/" + userId +"/list";
+        const url = "https://localhost:8080/daniel/" + userId +"/list";
         let noError = true;
         const response = await fetch(url, {
             method: 'GET',
@@ -141,7 +141,7 @@ function Movies(props) {
 
     async function addMovie(movieId, listId) {
         console.log("add movie");
-        const url = "http://localhost:8080/daniel/" + listId + '/' + movieId + '/existingMovie';
+        const url = "https://localhost:8080/daniel/" + listId + '/' + movieId + '/existingMovie';
         console.log(url);
         const response = await fetch(url, {
             method: 'POST',
@@ -158,7 +158,7 @@ function Movies(props) {
 
     const createListAndAddMovie = async() => {
         console.log("create list and add movie");
-        const url = 'http://localhost:8080/daniel/' + userId + '/list';
+        const url = 'https://localhost:8080/daniel/' + userId + '/list';
         const data = {listName: input, isPublic: isPublic};
         let noError = true;
         const response = await fetch(url, {
@@ -197,7 +197,7 @@ function Movies(props) {
         console.log("copy movie to list");
         console.log(copyInput);
         console.log(movieId);
-        const url = 'http://localhost:8080/daniel/' + copyInput + '/' + movieId + '/existingMovie';
+        const url = 'https://localhost:8080/daniel/' + copyInput + '/' + movieId + '/existingMovie';
         let noError = true;
         const response = await fetch(url, {
             method: 'POST',
@@ -220,7 +220,7 @@ function Movies(props) {
         console.log("move movie");
         console.log(listId);
         console.log(movieId);
-        const url = 'http://localhost:8080/daniel/' + userId + '/' + currentListId + '/' + movieId + '/movie';
+        const url = 'https://localhost:8080/daniel/' + userId + '/' + currentListId + '/' + movieId + '/movie';
         let noError = true;
         const response = await fetch(url, {
             method: 'DELETE',
@@ -243,7 +243,7 @@ function Movies(props) {
         console.log("delete movie");
         console.log(listId);
         console.log(movieId);
-        const url = 'http://localhost:8080/daniel/' + userId + '/' + currentListId + '/' + movieId + '/movie';
+        const url = 'https://localhost:8080/daniel/' + userId + '/' + currentListId + '/' + movieId + '/movie';
         let noError = true;
         const response = await fetch(url, {
             method: 'DELETE',
@@ -319,7 +319,7 @@ function Movies(props) {
                         <select name="selectList" data-testid="testSelectList" id="selectList" onChange = {(event) => {setCopyInput(event.target.value); setListId(event.target.value);} }>
                             <option value="">Choose an option</option>
                             {lists.map((list) => {
-                                if (list.listId == listId) {
+                                if (list.listId == currentListId) {
                                     return;
                                 }
                                 else {
@@ -366,7 +366,7 @@ function Movies(props) {
                         <select data-testid="testSelectList2" name="selectList" id="selectList" onChange = {(event) => {setCopyInput(event.target.value); setListId(event.target.value);} }>
                             <option value="">Choose an option</option>
                             {lists.map((list) => {
-                                if (list.listId == listId) {
+                                if (list.listId == currentListId) {
                                     return;
                                 }
                                 else {

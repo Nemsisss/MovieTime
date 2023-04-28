@@ -45,7 +45,7 @@ function Montage(props) {
 
 
     async function LoadImages() {
-        const url = "http://localhost:8080/daniel/" + props.userId + "/" + props.listId + "/movies";
+        const url = "https://localhost:8080/daniel/" + props.userId + "/" + props.listId + "/movies";
         const response = await fetch(url, {
             method: 'GET',
             headers: {
