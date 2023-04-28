@@ -319,7 +319,7 @@ function Movies(props) {
                         <select name="selectList" data-testid="testSelectList" id="selectList" onChange = {(event) => {setCopyInput(event.target.value); setListId(event.target.value);} }>
                             <option value="">Choose an option</option>
                             {lists.map((list) => {
-                                if (list.listId == listId) {
+                                if (list.listId == currentListId) {
                                     return;
                                 }
                                 else {
@@ -366,7 +366,7 @@ function Movies(props) {
                         <select data-testid="testSelectList2" name="selectList" id="selectList" onChange = {(event) => {setCopyInput(event.target.value); setListId(event.target.value);} }>
                             <option value="">Choose an option</option>
                             {lists.map((list) => {
-                                if (list.listId == listId) {
+                                if (list.listId == currentListId) {
                                     return;
                                 }
                                 else {
