@@ -1,21 +1,21 @@
 			Grading Table - Team Team 5
 
-| Section                  | Grade               | Note                                                                                   |
-|--------------------------|---------------------|----------------------------------------------------------------------------------------|
-| Sprint Planning          | 8.0/8               |                                                                                        |
-| Scrums                   | 22.5/24             | Scrum 1:                                                                               |
-|                          |                     | Scrum 2:-0.5 Chart is chopped off and I cannot see major improvement from task chart 1 |
-|                          |                     | Scrum 3:                                                                               |
-|                          |                     | Scrum 4:-1 Chart is chopped off and I cannot see any improvement from task chart 3     |
-| Retrospective            | TBD                 |                                                                                        |
-| TDD                      | 8.7/12              |                                                                                        |
-| GitFlow                  | 12.0/12             |                                                                                        |
-| Continuous Integration   | 12.0/12             |                                                                                        |
-| Refactor                 | 11.2/12             |                                                                                        |
-| Coverage                 | 12.0/12             |                                                                                        |
-| ------------------------ | ------------------- |                                                                                        |
-| Total                    | 86.4                |                                                                                        |
-| ------------------------ | ------------------- |                                                                                        |
-| Implementation Score     | 163/400             |                                                                                        |
-| Sustainable Pace Penalty | 0.0                 |                                                                                        |
-|                          |                     |                                                                                        |
+| Section                  | Grade               | Note                                                                                                                           |
+|--------------------------|---------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| Sprint Planning          | 8.0/8               |                                                                                                                                |
+| Scrums                   | 22.5/24             | Scrum 1:                                                                                                                       |
+|                          |                     | Scrum 2:-0.5 Chart is chopped off and I cannot see major improvement from task chart 1                                         |
+|                          |                     | Scrum 3:                                                                                                                       |
+|                          |                     | Scrum 4:-1 Chart is chopped off and I cannot see any improvement from task chart 3                                             |
+| Retrospective            | 4.0/8               | This was a good discussion of the product backlog changes, but completely omitted any discussion of process improvements (-4). |
+| TDD                      | 8.7/12              |                                                                                                                                |
+| GitFlow                  | 12.0/12             |                                                                                                                                |
+| Continuous Integration   | 12.0/12             |                                                                                                                                |
+| Refactor                 | 11.2/12             |                                                                                                                                |
+| Coverage                 | 12.0/12             |                                                                                                                                |
+| ------------------------ | ------------------- |                                                                                                                                |
+| Total                    | 90.4                |                                                                                                                                |
+| ------------------------ | ------------------- |                                                                                                                                |
+| Implementation Score     | 163/400             |                                                                                                                                |
+| Sustainable Pace Penalty | 0.0                 |                                                                                                                                |
+|                          |                     |                                                                                                                                |
