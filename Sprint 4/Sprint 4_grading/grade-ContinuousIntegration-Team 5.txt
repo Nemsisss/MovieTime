@@ -1,0 +1,8 @@
+Best Practice ContinuousIntegration Report
+Owner: Team 5
+Grade: 11.5/12
+Comments: 
+Branch check failed: https://github.com/CSCI310/20231-project-team-5/actions/runs/4804888292
+	Found a total of 26 merge checks on branches: {'develop', 'main'}
+		Total successful merges: 25
+		Total failing merges: 1
