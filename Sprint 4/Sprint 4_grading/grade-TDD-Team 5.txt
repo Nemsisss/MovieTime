@@ -1,0 +1,41 @@
+Best Practice TDD Report
+Owner: Team 5
+Grade: 9.3/12
+Comments: 
+	No test found for: movielistentity.deletemovie
+		Commit: https://github.com/CSCI310/20231-project-team-5/commit/79cbd882b9908a40a7b0d15e9af827f0d193eb03
+	Test method was not created before method for: src.pages.Montage.jsx.Montage
+		Method commit on 2023-04-26 02:28:31+00:00 UTC: https://github.com/CSCI310/20231-project-team-5/commit/95a372c050fcdd241c1352e7c3e9b1f0d5b6f1a1
+		Test commit on 2023-04-26 02:36:23+00:00 UTC: https://github.com/CSCI310/20231-project-team-5/commit/be2bfb068803b5fb3238e29ddbd1753287c5b18f
+	Test method was not created before method for: src.pages.Montage.jsx.resetTimeout
+		Method commit on 2023-04-26 02:28:31+00:00 UTC: https://github.com/CSCI310/20231-project-team-5/commit/95a372c050fcdd241c1352e7c3e9b1f0d5b6f1a1
+		Test commit on 2023-04-26 02:36:23+00:00 UTC: https://github.com/CSCI310/20231-project-team-5/commit/be2bfb068803b5fb3238e29ddbd1753287c5b18f
+	Test method was not created before method for: src.pages.Montage.jsx.LoadImages
+		Method commit on 2023-04-26 02:28:31+00:00 UTC: https://github.com/CSCI310/20231-project-team-5/commit/95a372c050fcdd241c1352e7c3e9b1f0d5b6f1a1
+		Test commit on 2023-04-26 02:36:23+00:00 UTC: https://github.com/CSCI310/20231-project-team-5/commit/be2bfb068803b5fb3238e29ddbd1753287c5b18f
+	Test method was not created before method for: src.pages.Montage.jsx.fetchLists
+		Method commit on 2023-04-26 02:28:31+00:00 UTC: https://github.com/CSCI310/20231-project-team-5/commit/95a372c050fcdd241c1352e7c3e9b1f0d5b6f1a1
+		Test commit on 2023-04-26 02:36:23+00:00 UTC: https://github.com/CSCI310/20231-project-team-5/commit/be2bfb068803b5fb3238e29ddbd1753287c5b18f
+	Correct TDD Methods:
+		src.pages.Movies.jsx.addMovie
+		src.pages.MovieList.jsx.resetTimeout
+		src.pages.UserList.jsx.loadDataOneTime
+		src.pages.UserList.jsx.fetchUsers
+		backendcontroller.addexistingmovie
+		src.pages.LogIn.jsx.error60
+		src.pages.UserList.jsx.resetTimeout
+		src.pages.UserList.jsx.loadUsers
+		backendcontroller.comparelists
+		src.pages.Details.jsx.resetTimeout
+		src.pages.Movies.jsx.resetTimeout
+		src.pages.UserList.jsx.otherRecommendList
+		src.pages.UserList.jsx.fetchLists
+		src.pages.UserList.jsx.deleteList
+		src.pages.UserList.jsx.CompareList
+		src.pages.Movies.jsx.Movies
+		src.pages.Search.jsx.resetTimeout
+
+
+Correct TDD methods: 17
+Incorrect TDD methods: 5
+Total methods evaluated for TDD: 22
